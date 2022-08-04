@@ -1,0 +1,15 @@
+@use 'sass:math';
+
+@use './mixins' as *;
+@use './vars' as *;
+@use './reset' as *;
+
+html {
+	font-size: #{$baseFontSize}px;
+}
+
+body {
+	font-family: $defaultFont;
+	font-weight: $defaultFontWeight;
+	font-size: rem($defaultFontSize);
+}

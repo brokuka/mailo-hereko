@@ -1,0 +1,18 @@
+@mixin font($fontName, $fileName, $fontWeight: 400, $fontStyle: normal) {
+	@font-face {
+		font-family: '#{$fontName}';
+		font-display: swap;
+		font-weight: $fontWeight;
+		font-style: $fontStyle;
+		src: url('../../fonts/#{$fileName}.eot');
+		src: url("../../fonts/#{$fileName}.eot?#iefix") format('embedded-opentype'),
+		url("../../fonts/#{$fileName}.woff") format('woff'),
+		url("../../fonts/#{$fileName}.woff2") format('woff2'),
+		url("../../fonts/#{$fileName}.ttf") format('truetype'),
+		url("../../fonts/#{$fileName}.svg##{$fontName}") format('svg');
+	}
+}
+
+@include font(Poppins, poppins-v20-latin-regular);
+@include font(Poppins, poppins-v20-latin-600, 600);
+@include font(Poppins, poppins-v20-latin-700, 700);
