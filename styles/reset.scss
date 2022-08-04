@@ -1,0 +1,120 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol {
+	margin: 0;
+}
+
+ul,
+ol {
+	padding: 0;
+	list-style-type: none;
+}
+
+ul {
+	word-break: break-all;
+}
+
+.img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	object-fit: cover;
+}
+
+.no-scroll {
+	overflow: hidden;
+}
+
+.text {
+	text-align: start;
+
+	&.ac {
+		text-align: center;
+	}
+}
+
+.d-flex {
+	display: flex !important;
+	flex-wrap: wrap;
+
+	&.inline {
+		display: inline-flex !important;
+	}
+
+	&.jcsa {
+		justify-content: space-around;
+	}
+
+	&.jcsb {
+		justify-content: space-between;
+	}
+
+	&.jcc {
+		justify-content: center;
+	}
+
+	&.fdc {
+		flex-direction: column;
+	}
+
+	&.aic {
+		align-items: center;
+	}
+}
+
+.g-0 {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+p {
+	margin: 0 0 1rem;
+
+	&:last-child {
+		margin: 0;
+	}
+}
+
+hr {
+	height: 1px;
+	margin: 35px 0 40px;
+
+	border: none;
+	background-color: #F6F6F6;
+}
+
+.rotate-180 {
+	transform: rotate(180deg);
+}
+
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	border: 0;
+	clip: rect(0 0 0 0);
+}
+
+.stretched {
+	flex: 1 1 auto;
+}

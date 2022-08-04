@@ -1,0 +1,14 @@
+@use 'sass:math';
+@use '../vars' as *;
+
+@function strip-unit($number) {
+	@if type-of($number)=='number' and not unitless($number) {
+		@return math.div($number, $number * 0 + 1);
+	}
+
+	@return $number;
+}
+
+@function rem($pxValue) {
+	@return strip-unit(math.div($pxValue, $baseFontSize)) * 1rem;
+}
