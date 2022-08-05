@@ -1,0 +1,90 @@
+@use "../../styles/mixins.scss" as *;
+@use "../../styles/vars.scss" as *;
+
+.wrapper {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+}
+
+.root {
+	@include text-p2;
+	width: 100%;
+	padding-top: 24px;
+	padding-left: 16px;
+	padding-right: 16px;
+	padding-bottom: 14px;
+
+	position: relative;
+
+	border-radius: 12px;
+	border: 1px solid $grey-700;
+	font-family: inherit;
+	outline: none;
+	transition: all .3s;
+
+	&:focus {
+		border-color: $primary-500;
+	}
+
+	&::placeholder {
+		opacity: 0;
+		color: $grey-400;
+	}
+
+	&:focus::placeholder {
+		opacity: 1;
+	}
+}
+
+.root:focus~.label,
+.root:not(:placeholder-shown)~.label {
+	transform: translateY(-15px);
+}
+
+.label {
+	@include text-caption;
+	height: 100%;
+	padding-top: 24px;
+	padding-left: 16px;
+	padding-right: 16px;
+	padding-bottom: 14px;
+
+	color: $grey-600;
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	cursor: text;
+	pointer-events: none;
+
+	transition: $transform-label;
+}
+
+.icon {
+	width: 24px;
+	height: 24px;
+
+	position: absolute;
+	top: 50%;
+	z-index: 999;
+	transform: translateY(-50%)
+}
+
+.icon_left {
+	left: 16px;
+}
+
+.icon_right {
+	right: 16px;
+}
+
+.icon_left~.root,
+.icon_left~.label {
+	padding-left: 56px;
+}
+
+.icon_left~.root,
+.icon_left~.label {
+	padding-right: 56px;
+}
