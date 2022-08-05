@@ -126,3 +126,6 @@ $container: $container-content + $container-padding;
 
 /* Input */
 $transform-label: transform .3s cubic-bezier(.165, .84, .44, 1);
+
+/* Border */
+$border-radius: 12px;
