@@ -118,9 +118,11 @@ $defaultFont: $font-family, system-ui,
 $defaultFontSize: 10;
 $defaultFontWeight: 400;
 
-
 /* Container */
 $container-max-width: 1440;
 $container-content: 1200;
 $container-padding: 30;
 $container: $container-content + $container-padding;
+
+/* Input */
+$transform-label: transform .3s cubic-bezier(.165, .84, .44, 1);
