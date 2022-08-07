@@ -1,0 +1,98 @@
+@use "../../styles/mixins.scss" as *;
+@use "../../styles/vars.scss" as *;
+
+.wrapper {
+	@include text-link1;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: revert;
+	pointer-events: none;
+	appearance: none;
+}
+
+.root {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+
+	border-width: 2px;
+	border-style: solid;
+	border-radius: 50%;
+	border-right-color: transparent;
+
+	pointer-events: none;
+	appearance: none;
+
+	animation: animation 0.75s linear infinite;
+}
+
+.primary {
+	color: $primary-400;
+	border-top-color: $primary-400;
+	border-left-color: $primary-400;
+	border-bottom-color: $primary-400;
+}
+
+.secondary {
+	color: $secondary-400;
+	border-top-color: $secondary-400;
+	border-left-color: $secondary-400;
+	border-bottom-color: $secondary-400;
+}
+
+.tertary {
+	color: $tertary-400;
+	border-top-color: $tertary-400;
+	border-left-color: $tertary-400;
+	border-bottom-color: $tertary-400;
+}
+
+.grey {
+	color: $grey-400;
+	border-top-color: $grey-400;
+	border-left-color: $grey-400;
+	border-bottom-color: $grey-400;
+}
+
+.success {
+	color: $success-400;
+	border-top-color: $success-400;
+	border-left-color: $success-400;
+	border-bottom-color: $success-400;
+}
+
+.error {
+	color: $error-400;
+	border-top-color: $error-400;
+	border-left-color: $error-400;
+	border-bottom-color: $error-400;
+}
+
+.warning {
+	color: $warning-400;
+	border-top-color: $warning-400;
+	border-left-color: $warning-400;
+	border-bottom-color: $warning-400;
+}
+
+.white {
+	color: $white-100;
+	border-top-color: $white-100;
+	border-left-color: $white-100;
+	border-bottom-color: $white-100;
+}
+
+.black {
+	color: $black-100;
+	border-top-color: $black-100;
+	border-left-color: $black-100;
+	border-bottom-color: $black-100;
+}
+
+
+@keyframes animation {
+	100% {
+		transform: rotate(1turn);
+	}
+}
