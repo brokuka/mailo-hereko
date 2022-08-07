@@ -10,7 +10,7 @@ import styles from "./Card.module.scss";
 import Link from "next/link";
 import Button from "../Button/Button";
 
-const Card = ({ arr, isSuggesting, isWatched }) => {
+const Card = ({ arr, isSuggesting, isWatched, type = "card" }) => {
   //   const { title, img, rating } = arr;
   const [suggest, setSuggested] = React.useState(false);
   const [watched, setWatched] = React.useState(false);
@@ -26,10 +26,6 @@ const Card = ({ arr, isSuggesting, isWatched }) => {
         if (suggest) return;
         setLoading(true);
         asyncDataModeling(5000, [setLoading, setSuggested]);
-        /*         setTimeout(() => {
-          setLoading(false);
-          setSuggested(!suggest);
-        }, 5000); */
         break;
     }
   };
@@ -67,10 +63,10 @@ const Card = ({ arr, isSuggesting, isWatched }) => {
                 })}
                 onClick={() => onClick("nonauth")}
                 icon={suggest ? "add" : "like"}
-                iconPos="left"
                 asyncData={loading}
                 spinner
                 spinnerVariant="white"
+                type={type}
               >
                 {suggest ? "Suggested" : "Suggest this"}
               </Button>
@@ -82,9 +78,9 @@ const Card = ({ arr, isSuggesting, isWatched }) => {
                 })}
                 onClick={() => onClick("auth")}
                 icon={watched ? "watched" : "add"}
-                iconPos="left"
                 asyncData={loading}
                 spinner
+                type={type}
               >
                 {watched ? "Already watched" : "Add to my list"}
               </Button>

@@ -13,10 +13,10 @@ import Spinner from "../Spinner/Spinner";
 const Button = (
   {
     icon,
-    iconPos,
+    iconPos = "left",
     children,
     className,
-    type,
+    type = "default",
     asyncData,
     spinner,
     spinnerVariant,
@@ -57,12 +57,11 @@ const Button = (
       {loading && spinner ? (
         <>
           <Spinner variant={spinnerVariant} placeholder={placeholder} />
-          {/* <span>Loading...</span> */}
         </>
       ) : (
         <button
           className={cn(styles.root, className, {
-            [styles.default]: type === "default",
+            [styles.default]: type === "default" && type !== "card",
           })}
           ref={ref}
           {...props}
@@ -75,26 +74,6 @@ const Button = (
         </button>
       )}
     </>
-    // <button
-    //   className={cn(styles.root, className, {
-    //     [styles.default]: type === "default",
-    //   })}
-    //   ref={ref}
-    //   {...props}
-    // >
-    //   {loading && spinner ? (
-    //     <>
-    //       <Spinner variant={spinnerVariant} placeholder={placeholder} />
-    //       {/* <span>Loading...</span> */}
-    //     </>
-    //   ) : (
-    //     <>
-    //       {leftIcon && choosedIcon(styles.icon, styles.icon_left)}
-    //       {rightIcon && choosedIcon(styles.icon, styles.icon_right)}
-    //       <span>{children}</span>
-    //     </>
-    //   )}
-    // </button>
   );
 };
 

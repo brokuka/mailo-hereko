@@ -29,6 +29,7 @@ export default function Home() {
         <Spinner variant="grey" placeholder={false} />
         <Spinner variant="success" placeholder={false} size="60px" />
       </Row>
+      <Button>Search</Button>
     </Container>
   );
 }
