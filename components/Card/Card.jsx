@@ -47,6 +47,9 @@ const Card = ({ arr, isSuggesting, isWatched, type = "card" }) => {
                 src={CardImage}
                 alt="Image"
                 placeholder="blur"
+                style={{ objectFit: "contain", objectPosition: "center" }}
+                layout="intrinsic"
+                lo
               />
               <span className={styles.name}>Black Widow</span>
             </div>
