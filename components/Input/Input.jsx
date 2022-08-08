@@ -1,22 +1,32 @@
 import React from "react";
-import LogoIcon from "./icons/logo.svg";
+import cn from "classnames";
+import { chooseIcon } from "./../Icon/Icon";
 
 /* Style */
 import styles from "./Input.module.scss";
-import cn from "classnames";
 
 const Input = (
-  { icon = "", type, id, label, placeholder, className, ...props },
+  {
+    icon,
+    iconPos = "left",
+    type = "text",
+    id,
+    label,
+    placeholder,
+    className,
+    ...props
+  },
   ref
 ) => {
-  const iconBoth = icon === "both";
-  const leftIcon = iconBoth || icon === "left";
-  const rightIcon = iconBoth || icon === "right";
+  const iconBoth = iconPos === "both";
+  const leftIcon = iconBoth || iconPos === "left";
+  const rightIcon = iconBoth || iconPos === "right";
 
   return (
     <div className={styles.wrapper}>
-      {leftIcon && <LogoIcon className={cn(styles.icon, styles.icon_left)} />}
-      {rightIcon && <LogoIcon className={cn(styles.icon, styles.icon_right)} />}
+      {leftIcon && chooseIcon(icon, undefined, [styles.icon, styles.icon_left])}
+      {rightIcon &&
+        chooseIcon(icon, undefined, [styles.icon, styles.icon_right])}
 
       <input
         className={cn(styles.root, className)}

@@ -18,7 +18,7 @@ const Icon = ({ icon, size = 24, className }) => {
   return <>{chooseIcon(icon, size, className)}</>;
 };
 
-export const chooseIcon = (icon, size, className, classTerms) => {
+export const chooseIcon = (icon, size = 24, className, classTerms) => {
   const customClassname = classTerms || cn(className);
 
   switch (icon) {
