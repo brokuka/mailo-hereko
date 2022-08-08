@@ -10,7 +10,7 @@ import styles from "./Card.module.scss";
 import Link from "next/link";
 import Button from "../Button/Button";
 
-const Card = ({ arr, isSuggesting, isWatched, type = "card" }) => {
+const Card = ({ arr, isSuggesting, isWatched }) => {
   //   const { title, img, rating } = arr;
   const [suggest, setSuggested] = React.useState(false);
   const [watched, setWatched] = React.useState(false);
@@ -36,6 +36,31 @@ const Card = ({ arr, isSuggesting, isWatched, type = "card" }) => {
     }, ms);
   };
 
+  const renderButtons = (
+    state,
+    spinner = true,
+    spinnerColor,
+    type = "card",
+    icon,
+    status,
+    classTerms,
+    placeholders
+  ) => {
+    return (
+      <Button
+        className={cn(classTerms)}
+        onClick={() => onClick(status)}
+        icon={state ? icon[0] : icon[1]}
+        asyncData={loading}
+        spinner={spinner}
+        spinnerVariant={spinnerColor}
+        type={type}
+      >
+        {state ? placeholders[0] : placeholders[1]}
+      </Button>
+    );
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.root}>
@@ -47,9 +72,7 @@ const Card = ({ arr, isSuggesting, isWatched, type = "card" }) => {
                 src={CardImage}
                 alt="Image"
                 placeholder="blur"
-                style={{ objectFit: "contain", objectPosition: "center" }}
                 layout="intrinsic"
-                lo
               />
               <span className={styles.name}>Black Widow</span>
             </div>
@@ -58,36 +81,33 @@ const Card = ({ arr, isSuggesting, isWatched, type = "card" }) => {
 
         {!isWatched && (
           <div className={styles.body}>
-            {isSuggesting ? (
-              <Button
-                className={cn(styles.option, {
-                  [styles.suggest]: !suggest,
-                  [styles.suggested]: suggest,
-                })}
-                onClick={() => onClick("nonauth")}
-                icon={suggest ? "add" : "like"}
-                asyncData={loading}
-                spinner
-                spinnerVariant="white"
-                type={type}
-              >
-                {suggest ? "Suggested" : "Suggest this"}
-              </Button>
-            ) : (
-              <Button
-                className={cn(styles.option, {
-                  [styles.suggest]: suggest,
-                  [styles.watched]: !suggest,
-                })}
-                onClick={() => onClick("auth")}
-                icon={watched ? "watched" : "add"}
-                asyncData={loading}
-                spinner
-                type={type}
-              >
-                {watched ? "Already watched" : "Add to my list"}
-              </Button>
-            )}
+            {isSuggesting
+              ? renderButtons(
+                  suggest,
+                  undefined,
+                  "white",
+                  undefined,
+                  ["checked", "like"],
+                  "nonauth",
+                  {
+                    [styles.suggest]: !suggest,
+                    [styles.suggested]: suggest,
+                  },
+                  ["Suggested", "Suggest this"]
+                )
+              : renderButtons(
+                  watched,
+                  undefined,
+                  undefined,
+                  undefined,
+                  ["watched", "plus"],
+                  "auth",
+                  {
+                    [styles.suggest]: suggest,
+                    [styles.watched]: !suggest,
+                  },
+                  ["Already watched", "Add to my list"]
+                )}
           </div>
         )}
       </div>
