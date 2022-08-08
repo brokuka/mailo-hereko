@@ -1,10 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import cn from "classnames";
-
-import LogoIcon from "./icons/logo.svg";
-import ArrowIcon from "./icons/arrow-right.svg";
-import LogoutIcon from "./icons/logout.svg";
+import { chooseIcon } from "../Icon/Icon";
 
 /* Style */
 import styles from "./Header.module.scss";
@@ -12,14 +9,14 @@ import styles from "./Header.module.scss";
 const nonAuthLinks = [
   { title: "Movies", href: "/" },
   { title: "TV Shows", href: "/" },
-  { title: "Suggest me", href: "/", icon: "arrow", iconPos: "right" },
+  { title: "Suggest me", href: "/", icon: "arrow", iconPos: "right", size: 16 },
 ];
 
 const authLinks = [
   { title: "Dashboard", href: "/" },
   { title: "Suggestions", href: "/" },
   { title: "Add", href: "/" },
-  { title: "Logout", href: "/", icon: "logout", iconPos: "left" },
+  { title: "Logout", href: "/", icon: "logout", iconPos: "left", size: 24 },
 ];
 
 const Header = ({ variant = "nonAuth" }) => {
@@ -30,17 +27,8 @@ const Header = ({ variant = "nonAuth" }) => {
       "Invalid parameter of variant for component <Header/>"
     );
 
-  const chooseIcon = (icon, className) => {
-    switch (icon) {
-      case "arrow":
-        return <ArrowIcon className={className} />;
-      case "logout":
-        return <LogoutIcon className={className} />;
-    }
-  };
-
   const renderList = (arr) => {
-    return arr.map(({ title, href, icon, iconPos = "left" }, id) => {
+    return arr.map(({ title, href, icon, iconPos = "left", size }, id) => {
       const checkIcon = icon === "arrow" || icon === "logout";
 
       if (!checkIcon && icon)
@@ -57,7 +45,7 @@ const Header = ({ variant = "nonAuth" }) => {
         <li key={id}>
           <Link href={href}>
             <a className={styles.link}>
-              {chooseIcon(icon, iconClassnames)}
+              {chooseIcon(icon, size, undefined, iconClassnames)}
               <span>{title}</span>
             </a>
           </Link>
@@ -69,9 +57,7 @@ const Header = ({ variant = "nonAuth" }) => {
   return (
     <div className={styles.wrapper}>
       <Link href="/">
-        <a className={styles.logo}>
-          <LogoIcon />
-        </a>
+        <a className={styles.logo}>{chooseIcon("logoColored", 40)}</a>
       </Link>
       <nav>
         <ul className={styles.root}>
