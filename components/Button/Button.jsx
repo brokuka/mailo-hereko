@@ -5,6 +5,8 @@ import LogoIcon from "./icons/logo.svg";
 import LikeIcon from "./icons/like.svg";
 import WatchedIcon from "./icons/already-watched.svg";
 import AddIcon from "./icons/add.svg";
+import BurgerIcon from "./icons/burger.svg";
+import CloseIcon from "./icons/close.svg";
 
 /* Style */
 import styles from "./Button.module.scss";
@@ -49,6 +51,10 @@ const Button = (
         return <WatchedIcon className={cn(...classes)} />;
       case "add":
         return <AddIcon className={cn(...classes)} />;
+      case "burger":
+        return <BurgerIcon className={cn(...classes)} />;
+      case "close":
+        return <CloseIcon className={cn(...classes)} />;
     }
   };
 
@@ -61,7 +67,8 @@ const Button = (
       ) : (
         <button
           className={cn(styles.root, className, {
-            [styles.default]: type === "default" && type !== "card",
+            [styles.default]:
+              type === "default" && type !== "card" && type !== "burger",
           })}
           ref={ref}
           {...props}
@@ -69,7 +76,7 @@ const Button = (
           <>
             {leftIcon && choosedIcon(styles.icon, styles.icon_left)}
             {rightIcon && choosedIcon(styles.icon, styles.icon_right)}
-            <span>{children}</span>
+            {children && <span>{children}</span>}
           </>
         </button>
       )}

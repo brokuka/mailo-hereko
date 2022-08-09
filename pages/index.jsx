@@ -12,10 +12,9 @@ export default function Home() {
 
   return (
     <Container>
-      <h2>Auth</h2>
       <Header variant="auth" />
-      <h2>Non auth</h2>
-      <Header variant="nonAuth" />
+      {/* <h2>Non auth</h2>
+      <Header variant="nonAuth" /> */}
     </Container>
   );
 }
