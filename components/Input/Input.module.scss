@@ -39,18 +39,20 @@
 
 .root:focus~.label,
 .root:not(:placeholder-shown)~.label {
+	@include text-caption;
 	transform: translateY(-15px);
+	color: $grey-600;
 }
 
 .label {
-	@include text-caption;
+	@include text-p2;
 	height: 100%;
 	padding-top: 24px;
 	padding-left: 16px;
 	padding-right: 16px;
 	padding-bottom: 14px;
 
-	color: $grey-600;
+	color: $grey-700;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -58,7 +60,7 @@
 	cursor: text;
 	pointer-events: none;
 
-	transition: $transform-label;
+	transition: all $transform-label;
 }
 
 .icon {

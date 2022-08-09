@@ -3,7 +3,7 @@ import Link from "next/link";
 import cn from "classnames";
 import { useMedia } from "react-use";
 import Button from "../Button/Button";
-import useMountTransition from "./../../hooks/useMountTransition";
+import { chooseIcon } from "../Icon/Icon";
 
 import LogoIcon from "./icons/logo.svg";
 import ArrowIcon from "./icons/arrow-right.svg";
@@ -30,8 +30,6 @@ const Header = ({ variant = "nonAuth" }) => {
   const [menu, setMenu] = React.useState(false);
   const isTablet = useMedia("(max-width: 767.99px)", tablet);
   const checkVariant = variant === "auth" || variant === "nonAuth";
-  const nodeRef = React.useRef(null);
-  const isTransitioning = useMountTransition(menu, 300);
 
   React.useEffect(() => {
     const body = document.body;
@@ -45,15 +43,6 @@ const Header = ({ variant = "nonAuth" }) => {
     return console.error(
       "Invalid parameter of variant for component <Header/>"
     );
-
-  const chooseIcon = (icon, className) => {
-    switch (icon) {
-      case "arrow":
-        return <ArrowIcon className={className} />;
-      case "logout":
-        return <LogoutIcon className={className} />;
-    }
-  };
 
   const renderList = (arr) => {
     return arr.map(({ title, href, icon, iconPos = "left" }, id) => {
@@ -73,7 +62,7 @@ const Header = ({ variant = "nonAuth" }) => {
         <li key={id}>
           <Link href={href}>
             <a className={styles.link}>
-              {chooseIcon(icon, iconClassnames)}
+              {chooseIcon(icon, undefined, undefined, iconClassnames)}
               <span>{title}</span>
             </a>
           </Link>
@@ -109,7 +98,7 @@ const Header = ({ variant = "nonAuth" }) => {
         <div
           className={cn(styles.menu, {
             [styles.close]: !menu,
-            [styles.open]: menu && isTransitioning,
+            [styles.open]: menu,
           })}
         >
           <div className={styles.wrapper}>

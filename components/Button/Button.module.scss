@@ -31,7 +31,7 @@
 	color: $white-100;
 
 	&:hover,
-	&:focus {
+	&:focus-visible {
 		background-color: darken($primary-500, 5%);
 	}
 }

@@ -1,4 +1,3 @@
-import { useRef, useEffect, useCallback } from "react";
 import Button from "../components/Button/Button";
 import Card from "../components/Card/Card";
 import Header from "../components/Header/Header";
@@ -8,8 +7,6 @@ import Spinner from "../components/Spinner/Spinner";
 import Container from "./../components/Container/Container";
 
 export default function Home() {
-  const ref = useRef();
-
   return (
     <Container>
       <Header variant="auth" />
