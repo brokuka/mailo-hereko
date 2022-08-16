@@ -25,7 +25,7 @@
 	z-index: 1000;
 
 	overflow: auto;
-	transition: all .3s cubic-bezier(.165, .84, .44, 1);
+	background-color: $grey-800;
 }
 
 .root {
@@ -114,21 +114,4 @@
 
 	width: 4rem;
 	height: 4rem;
-}
-
-.my-node-enter {
-	opacity: 0;
-}
-
-.my-node-enter-active {
-	opacity: 1;
-
-}
-
-.my-node-exit {
-	opacity: 1;
-}
-
-.my-node-exit-active {
-	opacity: 0;
 }

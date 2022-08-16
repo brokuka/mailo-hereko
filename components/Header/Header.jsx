@@ -3,11 +3,8 @@ import Link from "next/link";
 import cn from "classnames";
 import { useMedia } from "react-use";
 import Button from "../Button/Button";
-import { chooseIcon } from "../Icon/Icon";
-
-import LogoIcon from "./icons/logo.svg";
-import ArrowIcon from "./icons/arrow-right.svg";
-import LogoutIcon from "./icons/logout.svg";
+import Icon, { chooseIcon } from "../Icon/Icon";
+import Drawer from "../Drawer/Drawer";
 
 /* Style */
 import styles from "./Header.module.scss";
@@ -80,7 +77,7 @@ const Header = ({ variant = "nonAuth" }) => {
       <div className={styles.wrapper}>
         <Link href="/">
           <a className={styles.logo}>
-            <LogoIcon />
+            <Icon icon="logoColored" size={40} />
           </a>
         </Link>
         {!isTablet && (
@@ -95,22 +92,7 @@ const Header = ({ variant = "nonAuth" }) => {
         {isTablet && <Button icon="burger" onClick={onClick} />}
       </div>
       {isTablet && (
-        <div
-          className={cn(styles.menu, {
-            [styles.close]: !menu,
-            [styles.open]: menu,
-          })}
-        >
-          <div className={styles.wrapper}>
-            <Link href="/">
-              <a className={styles.logo}>
-                <LogoIcon />
-              </a>
-            </Link>
-
-            <Button icon="close" onClick={onClick} />
-          </div>
-
+        <Drawer state={menu} onClose={onClick}>
           <nav>
             <ul className={cn(styles.root)}>
               {variant === "nonAuth"
@@ -118,7 +100,7 @@ const Header = ({ variant = "nonAuth" }) => {
                 : renderList(authLinks)}
             </ul>
           </nav>
-        </div>
+        </Drawer>
       )}
     </>
   );
