@@ -1,0 +1,46 @@
+@use '../../styles/vars.scss' as *;
+
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+	height: 100vh;
+	padding: 0 #{$container-padding / 2}px;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1000;
+
+	overflow: auto;
+	background-color: $grey-800;
+}
+
+.head {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	min-height: 80px;
+	outline-offset: 20px;
+}
+
+.enter {
+	transform: translateX(-100%);
+}
+
+.enter_active {
+	transform: translateX(0);
+	transition: all .3s cubic-bezier(.165, .84, .44, 1);
+}
+
+.exit {
+	transform: translateX(0);
+}
+
+.exit_active {
+	transform: translateX(-100%);
+	transition: all .3s cubic-bezier(.165, .84, .44, 1);
+}

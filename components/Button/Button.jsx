@@ -54,7 +54,7 @@ const Button = (
               chooseIcon(icon, undefined, [styles.icon, styles.icon_left])}
             {rightIcon &&
               chooseIcon(icon, undefined, [styles.icon, styles.icon_right])}
-            <span>{children}</span>
+            {children && <span>{children}</span>}
           </>
         </button>
       )}

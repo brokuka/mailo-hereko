@@ -1,7 +1,10 @@
 import React from "react";
 import Link from "next/link";
 import cn from "classnames";
-import { chooseIcon } from "../Icon/Icon";
+import { useMedia } from "react-use";
+import Button from "../Button/Button";
+import Icon, { chooseIcon } from "../Icon/Icon";
+import Drawer from "../Drawer/Drawer";
 
 /* Style */
 import styles from "./Header.module.scss";
@@ -9,18 +12,29 @@ import styles from "./Header.module.scss";
 const nonAuthLinks = [
   { title: "Movies", href: "/" },
   { title: "TV Shows", href: "/" },
-  { title: "Suggest me", href: "/", icon: "arrow", iconPos: "right", size: 16 },
+  { title: "Suggest me", href: "/", icon: "arrow", iconPos: "right" },
 ];
 
 const authLinks = [
   { title: "Dashboard", href: "/" },
   { title: "Suggestions", href: "/" },
   { title: "Add", href: "/" },
-  { title: "Logout", href: "/", icon: "logout", iconPos: "left", size: 24 },
+  { title: "Logout", href: "/", icon: "logout", iconPos: "left" },
 ];
 
 const Header = ({ variant = "nonAuth" }) => {
+  const [tablet, setTablet] = React.useState(false);
+  const [menu, setMenu] = React.useState(false);
+  const isTablet = useMedia("(max-width: 767.99px)", tablet);
   const checkVariant = variant === "auth" || variant === "nonAuth";
+
+  React.useEffect(() => {
+    const body = document.body;
+
+    if (!menu) return body.classList.remove("no-scroll");
+
+    body.classList.add("no-scroll");
+  }, [menu]);
 
   if (!checkVariant)
     return console.error(
@@ -28,7 +42,7 @@ const Header = ({ variant = "nonAuth" }) => {
     );
 
   const renderList = (arr) => {
-    return arr.map(({ title, href, icon, iconPos = "left", size }, id) => {
+    return arr.map(({ title, href, icon, iconPos = "left" }, id) => {
       const checkIcon = icon === "arrow" || icon === "logout";
 
       if (!checkIcon && icon)
@@ -45,7 +59,7 @@ const Header = ({ variant = "nonAuth" }) => {
         <li key={id}>
           <Link href={href}>
             <a className={styles.link}>
-              {chooseIcon(icon, size, undefined, iconClassnames)}
+              {chooseIcon(icon, undefined, undefined, iconClassnames)}
               <span>{title}</span>
             </a>
           </Link>
@@ -54,19 +68,41 @@ const Header = ({ variant = "nonAuth" }) => {
     });
   };
 
+  const onClick = () => {
+    setMenu(!menu);
+  };
+
   return (
-    <div className={styles.wrapper}>
-      <Link href="/">
-        <a className={styles.logo}>{chooseIcon("logoColored", 40)}</a>
-      </Link>
-      <nav>
-        <ul className={styles.root}>
-          {variant === "nonAuth"
-            ? renderList(nonAuthLinks)
-            : renderList(authLinks)}
-        </ul>
-      </nav>
-    </div>
+    <>
+      <div className={styles.wrapper}>
+        <Link href="/">
+          <a className={styles.logo}>
+            <Icon icon="logoColored" size={40} />
+          </a>
+        </Link>
+        {!isTablet && (
+          <nav>
+            <ul className={styles.root}>
+              {variant === "nonAuth"
+                ? renderList(nonAuthLinks)
+                : renderList(authLinks)}
+            </ul>
+          </nav>
+        )}
+        {isTablet && <Button icon="burger" onClick={onClick} />}
+      </div>
+      {isTablet && (
+        <Drawer state={menu} onClose={onClick}>
+          <nav>
+            <ul className={cn(styles.root)}>
+              {variant === "nonAuth"
+                ? renderList(nonAuthLinks)
+                : renderList(authLinks)}
+            </ul>
+          </nav>
+        </Drawer>
+      )}
+    </>
   );
 };
 

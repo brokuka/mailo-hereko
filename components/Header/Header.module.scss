@@ -10,13 +10,46 @@
 	outline-offset: 20px;
 }
 
+.menu {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+	height: 100vh;
+	padding: 0 15px;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1000;
+
+	overflow: auto;
+	background-color: $grey-800;
+}
+
 .root {
 	@include text-link1;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
 	gap: 16px;
+
+	@include media(tablet) {
+		flex-direction: column;
+	}
 }
+
+.close {
+	transform: translateX(-100%);
+}
+
+.open {
+	transform: translateX(0);
+
+	background-color: $grey-800;
+}
+
 
 .link,
 .logo {
@@ -42,6 +75,11 @@
 	&:hover,
 	&:focus-visible {
 		color: $primary-400;
+	}
+
+	@include media(tablet) {
+		padding-left: 0;
+		padding-right: 0;
 	}
 }
 
