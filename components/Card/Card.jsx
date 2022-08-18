@@ -9,6 +9,7 @@ import cn from "classnames";
 import styles from "./Card.module.scss";
 import Link from "next/link";
 import Button from "../Button/Button";
+import Rating from "../Rating/Rating";
 
 const Card = ({ arr, isSuggesting, isWatched }) => {
   //   const { title, img, rating } = arr;
@@ -67,6 +68,7 @@ const Card = ({ arr, isSuggesting, isWatched }) => {
         <Link href="/">
           <a>
             <div className={styles.head}>
+              <Rating position x={8} y={10} index={100} value={8} />
               <Image
                 className={styles.img}
                 src={CardImage}

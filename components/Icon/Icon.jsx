@@ -68,7 +68,12 @@ export const chooseIcon = (icon, size = 24, className, classTerms) => {
       );
     case "star":
       return (
-        <StarIcon width={size} height={size} className={customClassname} />
+        <StarIcon
+          width={size}
+          height={size}
+          viewBox={`0 0 24 24`}
+          className={customClassname}
+        />
       );
     case "watched":
       return (
