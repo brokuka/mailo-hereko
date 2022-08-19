@@ -1,9 +1,0 @@
-@use 'sass:math';
-@use '../../styles/vars' as *;
-
-.root {
-	max-width: 100%;
-	width: #{$container}px;
-	margin: 0 auto;
-	padding: 0 #{math.div($container-padding, 2)}px;
-}
