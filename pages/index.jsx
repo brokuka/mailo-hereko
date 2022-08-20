@@ -1,7 +1,5 @@
 import Title from "../components/Title/Title";
 import Layout from "../layout/Layout/Layout";
-import Input from "../components/Inputs/Input/Input";
-import Header from "../components/Header/Header";
 import Catalog from "../components/Catalog/Catalog";
 
 import axios from "axios";
@@ -10,8 +8,12 @@ export default function Home({ data }) {
   return (
     <Layout>
       <Title name="MaileHereko" input main>
-        List of movies and TV Shows, I, Pramod Poudel have watched till date.
-        Explore what I have watched and also feel free to make a suggestion. 😉
+        List of movies and TV shows 😉
+        {/*         <br />
+        Developed with ❤ by
+        <br />- Front-end: <a href="https://github.com/brokuka">@brokuka</a>
+        <br />- Back-end:{" "}
+        <a href="https://github.com/v-zdorovcev">@v-zdorovcev</a> */}
       </Title>
       <Catalog data={data} />
     </Layout>

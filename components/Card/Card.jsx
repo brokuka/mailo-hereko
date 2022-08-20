@@ -15,6 +15,11 @@ const Card = ({ isSuggesting, isWatched, rating, poster, title }) => {
   const [suggest, setSuggested] = React.useState(false);
   const [watched, setWatched] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const imgSpanRef = React.useRef(null);
+
+  /*   React.useEffect(() => {
+    imgSpanRef.current.childNodes[1].style.borderRadius = "8px";
+  }, [imgSpanRef]); */
 
   const onClick = (type) => {
     switch (type) {
@@ -65,17 +70,20 @@ const Card = ({ isSuggesting, isWatched, rating, poster, title }) => {
     <div className={styles.root}>
       <Link href="/">
         <a className={styles.link}>
-          <div className={styles.head}>
+          <div className={styles.head} ref={imgSpanRef}>
             <Rating position x={8} y={10} index={100} value={rating} />
             <Image
               className={styles.img}
               src={poster ? poster : CardImage}
+              //   src={CardImage}
               alt="Image"
               placeholder="blur"
-              blurDataURL={poster ? poster : CardImage}
-              width={266}
-              height={400}
-              layout="intrinsic"
+              blurDataURL={poster && poster}
+              //   blurDataURL={CardImage}
+              width="266px"
+              height="400px"
+              objectFit="cover"
+              //   layout="intrinsic"
             />
             <span className={styles.name}>{title ? title : "Untitled"}</span>
           </div>

@@ -6,6 +6,7 @@ import Card from "./../Card/Card";
 import styles from "./Catalog.module.scss";
 
 const Catalog = ({ data }) => {
+  console.log(data);
   const [active, setActive] = React.useState("all");
   const [width, setWidth] = React.useState(null);
   const [height, setHeight] = React.useState(null);
@@ -53,10 +54,15 @@ const Catalog = ({ data }) => {
       </div>
 
       <div className={styles.root}>
-        {data &&
-          data.map(({ id, ...props }) => (
-            <Card isWatched key={id} {...props} />
-          ))}
+        {data.map(({ id, rating, poster, title }) => (
+          <Card
+            isWatched
+            key={id}
+            rating={rating}
+            poster={poster}
+            title={title}
+          />
+        ))}
       </div>
     </>
   );
