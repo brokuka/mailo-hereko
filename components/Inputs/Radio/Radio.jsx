@@ -4,7 +4,7 @@ import cn from "classnames";
 /* Style */
 import styles from "./Radio.module.scss";
 
-const Radio = ({ Ref, value, label, state, onChange, style }) => {
+const Radio = ({ Ref, value, label, state, onChange }) => {
   const onClick = (e) => {
     if (
       e.type === "mousedown" ||
@@ -29,7 +29,6 @@ const Radio = ({ Ref, value, label, state, onChange, style }) => {
         value={value}
         onChange={(e) => onChange(e.target)}
         checked={state === value}
-        style={style}
         ref={Ref}
         tabIndex={-1}
       />
