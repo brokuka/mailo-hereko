@@ -13,17 +13,16 @@
 	transition: all .12s cubic-bezier(.75, .25, .25, .75);
 	position: relative;
 	z-index: 2;
-}
 
-.input {
-	width: 100%;
-	height: 100%;
+	outline-offset: 10px;
+	transition: all .2s ease;
 
-	top: 0;
-	left: 0;
-
-	cursor: pointer;
-	pointer-events: all;
+	&:focus-visible {
+		outline-style: solid;
+		outline-color: $primary-500;
+		outline-offset: 0;
+		outline-width: 3px;
+	}
 }
 
 .active {

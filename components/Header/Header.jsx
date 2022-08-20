@@ -23,7 +23,7 @@ const authLinks = [
 ];
 
 const Header = ({ variant = "nonAuth" }) => {
-  const [tablet, setTablet] = React.useState(false);
+  const [tablet] = React.useState(false);
   const [menu, setMenu] = React.useState(false);
   const isTablet = useMedia("(max-width: 767.99px)", tablet);
   const checkVariant = variant === "auth" || variant === "nonAuth";

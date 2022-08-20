@@ -4,24 +4,37 @@ import cn from "classnames";
 /* Style */
 import styles from "./Radio.module.scss";
 
-const Radio = ({ Ref, id, value, label, state, onChange, style }) => {
+const Radio = ({ Ref, value, label, state, onChange, style }) => {
+  const onClick = (e) => {
+    if (
+      e.type === "mousedown" ||
+      (e.type === "keydown" &&
+        (e.key === " " || e.key === "Space" || e.key === "Enter"))
+    ) {
+      e.preventDefault();
+      onChange(e.target.firstElementChild);
+    }
+  };
+
   return (
-    <div className={cn(styles.root, { [styles.active]: value === state })}>
+    <label
+      className={cn(styles.root, { [styles.active]: value === state })}
+      onKeyDown={(e) => onClick(e)}
+      onClick={(e) => onClick(e)}
+      tabIndex={0}
+    >
       <input
         className={cn(styles.input, "visually-hidden")}
         type="radio"
         value={value}
         onChange={(e) => onChange(e.target)}
-        checked={value === state}
-        id={id}
+        checked={state === value}
         style={style}
         ref={Ref}
+        tabIndex={-1}
       />
-
-      <label className={styles.label} htmlFor={id}>
-        {label}
-      </label>
-    </div>
+      {label}
+    </label>
   );
 };
 

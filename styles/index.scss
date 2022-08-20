@@ -6,6 +6,7 @@
 
 html {
 	font-size: #{$baseFontSize}px;
+	scroll-behavior: smooth;
 }
 
 body {
@@ -21,4 +22,5 @@ body {
 	background-repeat: repeat-y;
 	background-color: $grey-900;
 	background-position-y: -350px;
+	// scroll-behavior: smooth;
 }

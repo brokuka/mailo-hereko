@@ -1,8 +1,6 @@
 @use "../../styles/mixins.scss" as *;
 @use "../../styles/vars.scss" as *;
 
-
-
 .root {
 	@include text-link1;
 	height: 100%;
@@ -11,6 +9,17 @@
 	background-color: rgba(32, 40, 62, 0.8);
 	backdrop-filter: blur(80px);
 	border-radius: $border-radius;
+}
+
+.link {
+	display: block;
+	transition: all .3s;
+}
+
+.link:hover .img,
+.link:focus-visible .img {
+	transition: all .3s;
+	transform: scale(1.05);
 }
 
 .head {
@@ -23,6 +32,8 @@
 
 .img {
 	border-radius: 8px;
+	transition: all .3s;
+	border-radius: $border-radius;
 }
 
 .name {

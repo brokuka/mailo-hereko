@@ -64,7 +64,7 @@ const Card = ({ isSuggesting, isWatched, rating, poster, title }) => {
   return (
     <div className={styles.root}>
       <Link href="/">
-        <a>
+        <a className={styles.link}>
           <div className={styles.head}>
             <Rating position x={8} y={10} index={100} value={rating} />
             <Image
@@ -77,7 +77,7 @@ const Card = ({ isSuggesting, isWatched, rating, poster, title }) => {
               height={400}
               layout="intrinsic"
             />
-            <span className={styles.name}>{title ? title : "Нету "}</span>
+            <span className={styles.name}>{title ? title : "Untitled"}</span>
           </div>
         </a>
       </Link>

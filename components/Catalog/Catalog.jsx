@@ -18,7 +18,7 @@ const Catalog = ({ data }) => {
   }, []);
 
   const onClick = (e) => {
-    const style = getComputedStyle(e);
+    const style = getComputedStyle(e.offsetParent);
 
     setActive(e.value);
     setWidth(style.width);
