@@ -6,10 +6,21 @@
 
 html {
 	font-size: #{$baseFontSize}px;
+	scroll-behavior: smooth;
 }
 
 body {
 	font-family: $defaultFont;
 	font-weight: $defaultFontWeight;
 	font-size: rem($defaultFontSize);
+}
+
+.page {
+	min-height: 100vh;
+	background: url('../public/bg.png');
+	background-size: cover;
+	background-repeat: repeat-y;
+	background-color: $grey-900;
+	background-position-y: -350px;
+	// scroll-behavior: smooth;
 }

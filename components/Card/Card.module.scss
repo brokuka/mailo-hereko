@@ -1,22 +1,6 @@
 @use "../../styles/mixins.scss" as *;
 @use "../../styles/vars.scss" as *;
 
-.wrapper {
-	display: grid;
-	// grid-template-columns: repeat(auto-fill, 282px);
-	grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
-	gap: 2.4rem;
-
-	/* 	@include media(tablet) {
-		grid-template-columns: repeat(2, minmax(282px, 1fr));
-	}
-
-	@include media(mobile) {
-		justify-content: center;
-		grid-template-columns: 282px;
-	} */
-}
-
 .root {
 	@include text-link1;
 	height: 100%;
@@ -27,11 +11,16 @@
 	border-radius: $border-radius;
 }
 
+.link {
+	display: block;
+	border-radius: 8px;
+}
+
 .head {
 	display: flex;
 	flex-direction: column;
 	gap: 1.6rem;
-	border-radius: $border-radius;
+	border-radius: 8px;
 	position: relative;
 }
 

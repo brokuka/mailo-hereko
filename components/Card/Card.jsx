@@ -11,11 +11,15 @@ import Link from "next/link";
 import Button from "../Button/Button";
 import Rating from "../Rating/Rating";
 
-const Card = ({ arr, isSuggesting, isWatched }) => {
-  //   const { title, img, rating } = arr;
+const Card = ({ isSuggesting, isWatched, rating, poster, title }) => {
   const [suggest, setSuggested] = React.useState(false);
   const [watched, setWatched] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const imgSpanRef = React.useRef(null);
+
+  /*   React.useEffect(() => {
+    imgSpanRef.current.childNodes[1].style.borderRadius = "8px";
+  }, [imgSpanRef]); */
 
   const onClick = (type) => {
     switch (type) {
@@ -63,56 +67,60 @@ const Card = ({ arr, isSuggesting, isWatched }) => {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.root}>
-        <Link href="/">
-          <a>
-            <div className={styles.head}>
-              <Rating position x={8} y={10} index={100} value={8} />
-              <Image
-                className={styles.img}
-                src={CardImage}
-                alt="Image"
-                placeholder="blur"
-                layout="intrinsic"
-              />
-              <span className={styles.name}>Black Widow</span>
-            </div>
-          </a>
-        </Link>
-
-        {!isWatched && (
-          <div className={styles.body}>
-            {isSuggesting
-              ? renderButtons(
-                  suggest,
-                  undefined,
-                  "white",
-                  undefined,
-                  ["checked", "like"],
-                  "nonauth",
-                  {
-                    [styles.suggest]: !suggest,
-                    [styles.suggested]: suggest,
-                  },
-                  ["Suggested", "Suggest this"]
-                )
-              : renderButtons(
-                  watched,
-                  undefined,
-                  undefined,
-                  undefined,
-                  ["watched", "plus"],
-                  "auth",
-                  {
-                    [styles.suggest]: suggest,
-                    [styles.watched]: !suggest,
-                  },
-                  ["Already watched", "Add to my list"]
-                )}
+    <div className={styles.root}>
+      <Link href="/">
+        <a className={styles.link}>
+          <div className={styles.head} ref={imgSpanRef}>
+            <Rating position x={8} y={10} index={100} value={rating} />
+            <Image
+              className={styles.img}
+              src={poster ? poster : CardImage}
+              //   src={CardImage}
+              alt="Image"
+              placeholder="blur"
+              blurDataURL={poster && poster}
+              //   blurDataURL={CardImage}
+              width="266px"
+              height="400px"
+              objectFit="cover"
+              //   layout="intrinsic"
+            />
+            <span className={styles.name}>{title ? title : "Untitled"}</span>
           </div>
-        )}
-      </div>
+        </a>
+      </Link>
+
+      {!isWatched && (
+        <div className={styles.body}>
+          {isSuggesting
+            ? renderButtons(
+                suggest,
+                undefined,
+                "white",
+                undefined,
+                ["checked", "like"],
+                "nonauth",
+                {
+                  [styles.suggest]: !suggest,
+                  [styles.suggested]: suggest,
+                },
+                ["Suggested", "Suggest this"]
+              )
+            : renderButtons(
+                watched,
+                undefined,
+                undefined,
+                undefined,
+                ["watched", "plus"],
+                "auth",
+                {
+                  [styles.suggest]: suggest,
+                  [styles.watched]: !suggest,
+                },
+                ["Already watched", "Add to my list"]
+              )}
+        </div>
+      )}
     </div>
   );
 };

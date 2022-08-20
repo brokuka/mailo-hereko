@@ -23,7 +23,7 @@ const authLinks = [
 ];
 
 const Header = ({ variant = "nonAuth" }) => {
-  const [tablet, setTablet] = React.useState(false);
+  const [tablet] = React.useState(false);
   const [menu, setMenu] = React.useState(false);
   const isTablet = useMedia("(max-width: 767.99px)", tablet);
   const checkVariant = variant === "auth" || variant === "nonAuth";
@@ -59,7 +59,7 @@ const Header = ({ variant = "nonAuth" }) => {
         <li key={id}>
           <Link href={href}>
             <a className={styles.link}>
-              {chooseIcon(icon, undefined, undefined, iconClassnames)}
+              {chooseIcon(icon, 16, undefined, iconClassnames)}
               <span>{title}</span>
             </a>
           </Link>
@@ -74,12 +74,13 @@ const Header = ({ variant = "nonAuth" }) => {
 
   return (
     <>
-      <div className={styles.wrapper}>
+      <header className={styles.wrapper}>
         <Link href="/">
           <a className={styles.logo}>
             <Icon icon="logoColored" size={40} />
           </a>
         </Link>
+
         {!isTablet && (
           <nav>
             <ul className={styles.root}>
@@ -89,8 +90,10 @@ const Header = ({ variant = "nonAuth" }) => {
             </ul>
           </nav>
         )}
+
         {isTablet && <Button icon="burger" onClick={onClick} />}
-      </div>
+      </header>
+
       {isTablet && (
         <Drawer state={menu} onClose={onClick}>
           <nav>
