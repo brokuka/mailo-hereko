@@ -54,14 +54,8 @@ const Catalog = ({ data }) => {
       </div>
 
       <div className={styles.root}>
-        {data.map(({ id, rating, poster, title }) => (
-          <Card
-            isWatched
-            key={id}
-            rating={rating}
-            poster={poster}
-            title={title}
-          />
+        {data.map(({ id, ...props }) => (
+          <Card isWatched key={id} id={id} {...props} />
         ))}
       </div>
     </>

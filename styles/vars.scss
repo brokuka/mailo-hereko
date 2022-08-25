@@ -125,5 +125,13 @@ $container: $container-content + $container-padding;
 /* Input */
 $transform-label: .3s cubic-bezier(.165, .84, .44, 1);
 
+
+/* Transitions */
+$transition-outline: outline-color .2s ease,
+	outline-offset .2s ease,
+	outline-width .2s ease;
+
+$transition-link: color .2s ease;
+
 /* Border */
 $border-radius: 12px;
