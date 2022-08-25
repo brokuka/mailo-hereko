@@ -1,0 +1,56 @@
+@use '../../styles/mixins.scss' as *;
+@use '../../styles/vars.scss' as *;
+
+.wrapper {
+	display: inline-block;
+	position: relative;
+}
+
+.root {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 0;
+
+	border-radius: $border-radius;
+	background: none;
+	border: none;
+
+	cursor: pointer;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+
+	transition: all .3s ease;
+}
+
+.default {
+	@include text-p2;
+	padding: 16px 32px;
+	background-color: $primary-500;
+	color: $white-100;
+
+	&:hover,
+	&:focus-visible {
+		background-color: darken($primary-500, 5%);
+	}
+}
+
+.root span {
+	order: 2;
+}
+
+.icon {
+	width: 24px;
+	height: 24px;
+	pointer-events: none;
+	stroke: $white-100;
+}
+
+.icon_left {
+	order: 1;
+}
+
+.icon_right {
+	order: 3;
+}

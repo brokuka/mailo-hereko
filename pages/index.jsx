@@ -60,3 +60,13 @@ export default function Home() {
     </Container>
   );
 }
+
+export const getStaticProps = async () => {
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/watched`);
+
+  return {
+    props: {
+      data: data.results,
+    },
+  };
+};

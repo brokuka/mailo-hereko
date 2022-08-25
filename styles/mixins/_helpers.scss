@@ -12,3 +12,46 @@
 @function rem($pxValue) {
 	@return strip-unit(math.div($pxValue, $baseFontSize)) * 1rem;
 }
+
+@function strip-unit($number) {
+	@if type-of($number)=='number' and not unitless($number) {
+		@return math.div($number, $number * 0 + 1);
+	}
+
+	@return $number;
+}
+
+@function remToPx($value, $type: 1) {
+	@if $type ==1 {
+		@return (strip-unit($value) * $baseFontSize)+px
+	}
+
+	@else {
+		@return strip-unit($value) * $baseFontSize;
+	}
+}
+
+@mixin adaptiveValue($property, $startSize, $minSize, $rem: 1, $type: 1) {
+
+	@if $rem ==1 {
+		$addSize: remToPx($startSize - $minSize, 0);
+
+		/* Если меньше контейнера */
+		#{$property}: remToPx($startSize);
+
+		@media (max-width: #{$container-max-width + px}) {
+			#{$property}: calc(#{remToPx($minSize)} + #{$addSize} *((100vw - 320px) / #{$container-max-width - 320}));
+		}
+	}
+
+	@else {
+		$addSize: $startSize - $minSize;
+
+		/* Если меньше контейнера */
+		#{$property}: $startSize + px;
+
+		@media (max-width: #{$container-max-width + px}) {
+			#{$property}: calc(#{$minSize + px} + #{$addSize} *((100vw - 320px) / #{$container-max-width - 320}));
+		}
+	}
+}

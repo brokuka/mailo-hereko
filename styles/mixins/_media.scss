@@ -9,7 +9,7 @@ $breakpoints: (
 	@if map-has-key($breakpoints, $breakpoint) {
 		$breakpoint-value: map-get($breakpoints, $breakpoint);
 
-		@media (min-width: #{$breakpoint-value}px) {
+		@media (max-width: #{$breakpoint-value}px) {
 			@content;
 		}
 	}

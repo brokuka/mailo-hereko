@@ -1,0 +1,76 @@
+@use '../../styles/mixins.scss' as *;
+@use '../../styles/vars.scss' as *;
+
+.wrapper {
+	display: inline-flex;
+	flex-direction: column;
+	gap: 2.4rem;
+	max-width: 588px;
+	width: 100%;
+	padding-top: 8rem;
+	word-break: break-all;
+
+	&:not(&.main) {
+		&:not(:last-child) {
+			margin-bottom: 4.8rem;
+		}
+	}
+}
+
+.main {
+	&:not(:last-child) {
+		margin-bottom: 8rem;
+	}
+}
+
+.information {
+	display: flex;
+	flex-direction: column;
+	gap: 1.6rem;
+}
+
+.root {
+	color: $grey-50;
+}
+
+.subtitle {
+	@include text-p4;
+	color: $primary-200;
+}
+
+.h1 {
+	@include text-h1;
+
+	@include media(tablet) {
+		@include text-h2;
+	}
+
+	@include media(mobile) {
+		@include text-h3;
+	}
+}
+
+.h2 {
+	@include text-h2;
+}
+
+.h3 {
+	@include text-h3;
+}
+
+.h4 {
+	@include text-h4;
+}
+
+.h5 {
+	@include text-h5;
+}
+
+.h6 {
+	@include text-h6;
+}
+
+.description {
+	@include text-p2;
+	color: $grey-300;
+}

@@ -1,0 +1,67 @@
+@use "../../styles/mixins.scss" as *;
+@use "../../styles/vars.scss" as *;
+
+.root {
+	@include text-link1;
+	height: 100%;
+	padding: 8px;
+
+	background-color: rgba(32, 40, 62, 0.8);
+	backdrop-filter: blur(80px);
+	border-radius: $border-radius;
+}
+
+.link {
+	display: block;
+	border-radius: 8px;
+}
+
+.head {
+	display: flex;
+	flex-direction: column;
+	gap: 1.6rem;
+	border-radius: 8px;
+	position: relative;
+}
+
+.img {
+	border-radius: 8px;
+}
+
+.name {
+	color: $grey-50;
+	padding: 8px;
+}
+
+.body {
+	@include text-link1;
+	display: flex;
+	flex-direction: column;
+	row-gap: 1.6rem;
+	padding: 8px;
+}
+
+.suggest {
+	color: $primary-400;
+}
+
+.suggest svg {
+	stroke: $primary-400;
+}
+
+.suggested {
+	color: $success-400;
+	pointer-events: none;
+}
+
+.suggested svg {
+	stroke: $success-400
+}
+
+.watched {
+	color: $success-400;
+}
+
+.watched svg {
+	stroke: $success-400;
+}
