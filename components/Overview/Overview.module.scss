@@ -7,11 +7,12 @@
 
 .full {
 	position: relative;
+	@include adaptiveValue(height, 48, 20);
 }
 
 .gradient {
 	width: 100%;
-	height: calc(100% - 5px);
+	height: 100%;
 	font-size: 0;
 	color: transparent;
 
@@ -25,12 +26,13 @@
 }
 
 .full_img {
+
 	border-radius: 40px;
 	z-index: 0;
 }
 
 .title {
-	max-width: 560px;
+	@include adaptiveValue(max-width, 56, 27);
 	width: 100%;
 	padding: 4rem;
 
@@ -46,17 +48,13 @@
 	@include media(smDesktop) {
 		left: 50%;
 		transform: translateX(-50%);
-		padding: 4rem 3rem;
-	}
-
-	@include media(tablet) {
-		max-width: 460px;
-		padding: 3rem 2rem;
+		@include adaptiveValue(padding-top, 4, 2);
+		@include adaptiveValue(padding-bottom, 4, 2);
+		@include adaptiveValue(padding-left, 4, 2);
+		@include adaptiveValue(padding-right, 4, 2);
 	}
 
 	@include media(mobile) {
-		max-width: 320px;
-		padding: 2rem;
 		bottom: -44px;
 	}
 }
@@ -71,31 +69,47 @@
 }
 
 .card {
+	@include adaptiveValue(margin-top, 15.2, 8.2);
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 2rem 8rem;
-	margin-top: 15.2rem;
+	// margin-top: 15.2rem;
 
 	@include media(tablet) {
 		justify-content: center;
 		grid-template-columns: 1fr;
+		align-items: center;
 	}
 }
 
 .image {
 	border-radius: 24px;
-	max-width: 480px;
+	width: 100%;
+	@include adaptiveValue(height, 72, 15);
+	position: relative;
+}
+
+.image img {
+	border-radius: 24px;
 }
 
 .description {
 	display: flex;
 	flex-direction: column;
 	gap: 2.4rem;
+
+	@include media(tablet) {
+		align-items: center
+	}
 }
 
 .text {
 	@include text-p1;
 	color: $grey-300;
+
+	@include media(tablet) {
+		@include text-p3;
+	}
 }
 
 .info_title {
@@ -103,6 +117,10 @@
 	display: block;
 	margin-bottom: 8px;
 	color: $grey-400;
+
+	@include media(tablet) {
+		@include text-p3;
+	}
 }
 
 .info span:not(:first-of-type),
@@ -110,6 +128,11 @@
 	@include text-p1;
 	text-transform: capitalize;
 	color: $grey-100;
+	// word-break: break-all;
+
+	@include media(tablet) {
+		@include text-p2;
+	}
 }
 
 .runtime::after {
@@ -121,4 +144,29 @@
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 2.4rem;
+
+	@include media(tablet) {
+		width: 100%;
+		justify-items: center;
+		text-align: center;
+	}
+
+	:nth-child(7),
+	:nth-child(8) {
+		grid-column: 1 / -1;
+
+		@include media(tablet) {
+			grid-column: auto;
+		}
+	}
+}
+
+.movie {
+	display: flex;
+	flex-direction: column;
+	gap: inherit;
+
+	@include media(tablet) {
+		text-align: center;
+	}
 }
