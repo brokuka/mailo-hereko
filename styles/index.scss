@@ -16,20 +16,12 @@ body {
 }
 
 .page {
-<<<<<<< HEAD
-	min-height: 100vh;
-=======
 	@include adaptiveValue(padding-bottom, 5, 3);
 	min-height: 100vh;
 
->>>>>>> main
 	background: url('../public/bg.png');
 	background-size: cover;
 	background-repeat: repeat-y;
 	background-color: $grey-900;
 	background-position-y: -350px;
-<<<<<<< HEAD
-	// scroll-behavior: smooth;
-=======
->>>>>>> main
 }

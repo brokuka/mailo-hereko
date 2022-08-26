@@ -7,11 +7,7 @@ import axios from "axios";
 export default function Home({ data }) {
   return (
     <Layout>
-<<<<<<< HEAD
-      <Title name="MaileHereko" input main>
-=======
       <Title name={process.env.NEXT_PUBLIC_APPLICATION_NAME} input main>
->>>>>>> main
         List of movies and TV shows 😉
         {/*         <br />
         Developed with ❤ by

@@ -60,10 +60,7 @@ const Title = ({ type = "h1", name, children, input, sub, main = false }) => {
           icon="search"
           placeholder="eg. Capitan Marvel"
           label="Search Movies or TV Shows"
-<<<<<<< HEAD
-=======
           maxWidth={344}
->>>>>>> main
         />
       )}
     </div>
