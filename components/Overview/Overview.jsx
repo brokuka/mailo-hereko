@@ -2,12 +2,10 @@ import Image from "next/image";
 import React from "react";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import Rating from "../Rating/Rating";
+import Placeholder from "../Placeholder/Placeholder";
 
 /* Style */
 import styles from "./Overview.module.scss";
-
-import placeholder from "./images/placeholder.jpg";
-import Placeholder from "../Placeholder/Placeholder";
 
 const Overview = ({
   genres,
