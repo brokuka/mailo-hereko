@@ -13,6 +13,7 @@ const Input = (
     label,
     placeholder,
     className,
+    maxWidth,
     ...props
   },
   ref
@@ -39,7 +40,7 @@ const Input = (
   }, []);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} style={{ maxWidth }}>
       {leftIcon && chooseIcon(icon, undefined, [styles.icon, styles.icon_left])}
       {rightIcon &&
         chooseIcon(icon, undefined, [styles.icon, styles.icon_right])}
