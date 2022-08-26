@@ -1,6 +1,7 @@
 import { useRef, useEffect, useCallback } from "react";
 import Input from "../components/Input/Input";
-import Container from "./../components/Container/Container";
+import Container from "./../layout/Container/Container";
+import axios from "axios";
 
 export default function Home() {
   const ref = useRef();
@@ -25,37 +26,43 @@ export default function Home() {
     <Container>
       <div style={customStyles}>
         <h2>Variant #1</h2>
-        <Input
-          type="text"
-          id="test"
-          label="Variant #1"
-          placeholder="eg. Avenger"
-          ref={ref}
-        />
+        <Input label="Search Movies or TV Shows" placeholder="eg. Films" />
         <h2>Variant #2</h2>
         <Input
-          type="email"
-          id="test"
-          label="Variant #2"
+          label="Search Movies or TV Shows"
           placeholder="eg. Films"
-          icon="left"
+          icon="search"
         />
         <h2>Variant #3</h2>
         <Input
-          type="email"
-          id="test"
-          label="Variant #2"
+          label="Search Movies or TV Shows"
           placeholder="eg. Films"
-          icon="right"
+          icon="search"
+          iconPos="right"
         />
         <h2>Variant #4</h2>
         <Input
+          label="Search Movies or TV Shows"
+          placeholder="eg. Films"
+          icon="search"
+          iconPos="both"
+        />
+        {/*         <h2>Search Movies or TV Shows</h2>
+        <Input
           type="email"
           id="test"
-          label="Variant #2"
+          label="Search Movies or TV Shows"
+          placeholder="eg. Films"
+          icon="right"
+        />
+        <h2>Search Movies or TV Shows</h2>
+        <Input
+          type="email"
+          id="test"
+          label="Search Movies or TV Shows"
           placeholder="eg. Films"
           icon="both"
-        />
+        /> */}
       </div>
     </Container>
   );

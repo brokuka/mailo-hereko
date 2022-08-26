@@ -64,10 +64,16 @@
 	line-height: 16px;
 }
 
-@mixin text-caption {
+@mixin text-caption1 {
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 16px;
+}
+
+@mixin text-caption2 {
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 14px;
 }
 
 @mixin text-overline1 {
