@@ -1,0 +1,35 @@
+@use '../../styles/mixins.scss' as *;
+@use '../../styles/vars.scss' as *;
+
+.root {
+	@include text-p4;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 30px;
+	margin-bottom: 8px;
+
+	color: $primary-200;
+}
+
+.link {
+	position: relative;
+	border-radius: $border-radius;
+
+	&:hover,
+	&:focus-visible {
+		color: $primary-400;
+	}
+
+	&:not(:last-child)::after {
+		content: "\2044";
+		pointer-events: none;
+		cursor: auto;
+
+		color: $primary-200;
+
+		position: absolute;
+		top: 0;
+		right: -18px;
+		z-index: 2;
+	}
+}

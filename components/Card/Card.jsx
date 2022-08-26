@@ -11,15 +11,19 @@ import Link from "next/link";
 import Button from "../Button/Button";
 import Rating from "../Rating/Rating";
 
-const Card = ({ isSuggesting, isWatched, rating, poster, title }) => {
+const Card = ({
+  isSuggesting,
+  isWatched,
+  id,
+  rating,
+  poster,
+  title,
+  media_type,
+}) => {
   const [suggest, setSuggested] = React.useState(false);
   const [watched, setWatched] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const imgSpanRef = React.useRef(null);
-
-  /*   React.useEffect(() => {
-    imgSpanRef.current.childNodes[1].style.borderRadius = "8px";
-  }, [imgSpanRef]); */
 
   const onClick = (type) => {
     switch (type) {
@@ -66,24 +70,30 @@ const Card = ({ isSuggesting, isWatched, rating, poster, title }) => {
     );
   };
 
+  const checkMediaType = () => {
+    switch (media_type) {
+      case "movie":
+        return `/movie/${id}`;
+      case "tv":
+        return `tv/${id}`;
+    }
+  };
+
   return (
     <div className={styles.root}>
-      <Link href="/">
+      <Link href={checkMediaType()}>
         <a className={styles.link}>
           <div className={styles.head} ref={imgSpanRef}>
             <Rating position x={8} y={10} index={100} value={rating} />
             <Image
               className={styles.img}
               src={poster ? poster : CardImage}
-              //   src={CardImage}
               alt="Image"
               placeholder="blur"
               blurDataURL={poster && poster}
-              //   blurDataURL={CardImage}
               width="266px"
               height="400px"
               objectFit="cover"
-              //   layout="intrinsic"
             />
             <span className={styles.name}>{title ? title : "Untitled"}</span>
           </div>

@@ -7,6 +7,7 @@ import CloseIcon from "./icons/close.svg";
 import LikeIcon from "./icons/like.svg";
 import LogoIcon from "./icons/logo.svg";
 import LogoColoredIcon from "./icons/logo-colored.svg";
+import LogoPlaceholder from "./icons/logo-placeholder.svg";
 import LogoutIcon from "./icons/logout.svg";
 import ArrowIcon from "./icons/arrow.svg";
 import PlusIcon from "./icons/plus.svg";
@@ -45,6 +46,14 @@ export const chooseIcon = (icon, size = 24, className, classTerms) => {
     case "logoColored":
       return (
         <LogoColoredIcon
+          width={size}
+          height={size}
+          className={customClassname}
+        />
+      );
+    case "logoPlaceholder":
+      return (
+        <LogoPlaceholder
           width={size}
           height={size}
           className={customClassname}

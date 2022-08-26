@@ -40,6 +40,17 @@
 
 .h1 {
 	@include text-h1;
+<<<<<<< HEAD
+=======
+
+	@include media(tablet) {
+		@include text-h2;
+	}
+
+	@include media(mobile) {
+		@include text-h3;
+	}
+>>>>>>> main
 }
 
 .h2 {

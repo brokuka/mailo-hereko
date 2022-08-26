@@ -7,13 +7,22 @@
 }
 
 * {
+<<<<<<< HEAD
 	outline-offset: 10px;
 	transition: outline-color .2s ease, outline-offset .2s ease, outline-width .2s ease;
+=======
+	outline-offset: 20px;
+	transition: $transition-outline;
+>>>>>>> main
 
 	&:focus-visible {
 		outline-style: solid;
 		outline-color: $primary-500;
+<<<<<<< HEAD
 		outline-offset: 0;
+=======
+		outline-offset: .35em;
+>>>>>>> main
 		outline-width: 3px;
 	}
 }
@@ -96,12 +105,13 @@ ul {
 a {
 	text-decoration: none;
 	color: inherit;
+	transition: $transition-outline, $transition-link;
 }
 
 p {
 	margin: 0 0 1rem;
 
-	&:last-child {
+	&:last-of-type {
 		margin: 0;
 	}
 }

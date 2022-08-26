@@ -76,7 +76,7 @@ const Header = ({ variant = "nonAuth" }) => {
     <>
       <header className={styles.wrapper}>
         <Link href="/">
-          <a className={styles.logo}>
+          <a className={styles.logo} tabIndex="0">
             <Icon icon="logoColored" size={40} />
           </a>
         </Link>
