@@ -4,16 +4,12 @@
 .wrapper {
 	display: inline-block;
 	position: relative;
-	width: 100%;
 }
 
 .root {
 	@include text-p2;
+	padding: 24px 16px 12px;
 	width: 100%;
-	padding-top: 24px;
-	padding-left: 16px;
-	padding-right: 16px;
-	padding-bottom: 14px;
 
 	position: relative;
 
@@ -40,8 +36,8 @@
 	}
 }
 
-.root:focus~.label,
-.root:not(:placeholder-shown)~.label {
+.root:focus~.label_text,
+.root:not(:placeholder-shown)~.label_text {
 	@include text-caption;
 	transform: translateY(-15px);
 	color: $grey-600;
@@ -49,19 +45,23 @@
 
 .label {
 	@include text-p2;
-	height: 100%;
-	padding-top: 24px;
-	padding-left: 16px;
-	padding-right: 16px;
-	padding-bottom: 14px;
+
 
 	color: $grey-700;
+	position: relative;
+
+	cursor: text;
+
+}
+
+.label_text {
 	position: absolute;
 	top: 0;
 	left: 0;
 
-	cursor: text;
-	pointer-events: none;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 
 	transition: all $transform-label;
 }
@@ -84,12 +84,10 @@
 	right: 16px;
 }
 
-.icon_left~.root,
-.icon_left~.label {
+.icon_left~.root {
 	padding-left: 56px;
 }
 
-.icon_left~.root,
-.icon_left~.label {
+.icon_right~.root {
 	padding-right: 56px;
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { chooseIcon } from "../Icon/Icon";
+import { chooseIcon } from "./../../Icon/Icon";
 import cn from "classnames";
 
 /* Style */
