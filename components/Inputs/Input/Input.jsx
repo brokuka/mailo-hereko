@@ -40,12 +40,11 @@ const Input = (
 
   return (
     <div className={styles.wrapper}>
-      <label className={styles.label}>
-        {leftIcon &&
-          chooseIcon(icon, undefined, [styles.icon, styles.icon_left])}
-        {rightIcon &&
-          chooseIcon(icon, undefined, [styles.icon, styles.icon_right])}
+      {leftIcon && chooseIcon(icon, undefined, [styles.icon, styles.icon_left])}
+      {rightIcon &&
+        chooseIcon(icon, undefined, [styles.icon, styles.icon_right])}
 
+      <label className={styles.label}>
         <input
           className={cn(styles.root, className)}
           placeholder={placeholder}

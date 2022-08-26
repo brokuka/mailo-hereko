@@ -8,7 +8,7 @@
 
 .root {
 	@include text-p2;
-	padding: 24px 16px 12px;
+	padding: 24px 16px 14px;
 	width: 100%;
 
 	position: relative;
@@ -46,12 +46,10 @@
 .label {
 	@include text-p2;
 
-
 	color: $grey-700;
 	position: relative;
 
 	cursor: text;
-
 }
 
 .label_text {
@@ -84,10 +82,10 @@
 	right: 16px;
 }
 
-.icon_left~.root {
+.icon_left~.label>.root {
 	padding-left: 56px;
 }
 
-.icon_right~.root {
+.icon_right~.label>.root {
 	padding-right: 56px;
 }
