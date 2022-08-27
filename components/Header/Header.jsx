@@ -73,7 +73,7 @@ const Header = ({ variant = "nonAuth" }) => {
         </Link>
 
         {!isTablet && (
-          <nav>
+          <nav className={styles.nav}>
             <ul className={styles.root}>
               {variant === "nonAuth"
                 ? renderList(nonAuthLinks)

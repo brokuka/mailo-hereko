@@ -7,13 +7,18 @@
 	gap: 2.4rem;
 	padding-bottom: 2rem;
 
+	@include media(smDesktop) {
+		grid-template-columns: repeat(3, minmax(auto, 282px));
+		justify-content: space-between;
+		gap: 5rem 2.4rem;
+	}
+
 	@include media(tablet) {
 		grid-template-columns: repeat(2, minmax(auto, 282px));
-		align-items: center;
 	}
 
 	@include media(mobile) {
-		grid-template-columns: 282px;
+		grid-template-columns: repeat(auto-fill, minmax(auto, 282px));
 		justify-content: center;
 	}
 }
