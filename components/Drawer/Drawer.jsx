@@ -10,6 +10,14 @@ import styles from "./Drawer.module.scss";
 const Drawer = ({ state, children, onClose }) => {
   const nodeRef = React.useRef();
 
+  React.useEffect(() => {
+    const body = document.body;
+
+    if (!state) return body.removeAttribute("class");
+
+    body.classList.add("no-scroll");
+  }, [state]);
+
   return (
     <CSSTransition
       in={state}

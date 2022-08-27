@@ -1,12 +1,11 @@
 import Title from "../components/Title/Title";
-import Layout from "../layout/Layout/Layout";
 import Catalog from "../components/Catalog/Catalog";
 
 import axios from "axios";
 
 export default function Home({ data }) {
   return (
-    <Layout>
+    <>
       <Title name={process.env.NEXT_PUBLIC_APPLICATION_NAME} input main>
         List of movies and TV shows 😉
         {/*         <br />
@@ -16,7 +15,7 @@ export default function Home({ data }) {
         <a href="https://github.com/v-zdorovcev">@v-zdorovcev</a> */}
       </Title>
       <Catalog data={data} />
-    </Layout>
+    </>
   );
 }
 

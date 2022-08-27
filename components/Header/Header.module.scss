@@ -27,6 +27,12 @@
 	background-color: $grey-800;
 }
 
+.nav {
+	@include media(tablet) {
+		display: none;
+	}
+}
+
 .root {
 	@include text-link1;
 	display: flex;

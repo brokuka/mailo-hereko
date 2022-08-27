@@ -1,24 +1,31 @@
 import React from "react";
 import Radio from "../Inputs/Radio/Radio";
 import Card from "./../Card/Card";
+import { useMeasure } from "react-use";
 
 /* Style */
 import styles from "./Catalog.module.scss";
 
 const Catalog = ({ data }) => {
-  console.log(data);
   const [active, setActive] = React.useState("all");
   const [width, setWidth] = React.useState(null);
-  const [height, setHeight] = React.useState(null);
+  const [height, setHeight] = React.useState("auto");
   const [top, setTop] = React.useState(null);
   const [left, setLeft] = React.useState(null);
   const firstInput = React.useRef();
+  const [activeElement, setActiveElement] = React.useState(firstInput.current);
+  const [blockRef, blockRefStyles] = useMeasure();
+
+  const getRefPropValue = (el, prop) => {
+    return getComputedStyle(el).getPropertyValue(prop);
+  };
 
   React.useEffect(() => {
-    onClick(firstInput.current);
-  }, []);
+    onClick();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [blockRefStyles.width]);
 
-  const onClick = (e) => {
+  const onClick = (e = activeElement || firstInput.current) => {
     const style = getComputedStyle(e.offsetParent);
 
     setActive(e.value);
@@ -26,7 +33,10 @@ const Catalog = ({ data }) => {
     setHeight(style.height);
     setTop(e.offsetParent.offsetTop);
     setLeft(e.offsetParent.offsetLeft);
+    setActiveElement(e);
   };
+
+  console.log(height);
 
   const customStyles = {
     width,
@@ -35,9 +45,11 @@ const Catalog = ({ data }) => {
     left,
   };
 
+  console.log(blockRefStyles);
+
   return (
     <>
-      <div className={styles.filter}>
+      <div className={styles.filter} ref={blockRef}>
         <Radio
           Ref={firstInput}
           value="all"

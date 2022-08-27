@@ -1,11 +1,14 @@
 import React from "react";
 import cn from "classnames";
+import { useMedia } from "react-use";
 
 /* Style */
 import styles from "./Title.module.scss";
 import Input from "../Inputs/Input/Input";
 
 const Title = ({ type = "h1", name, children, input, sub, main = false }) => {
+  const isTablet = useMedia("(max-width: 768px)", null);
+
   const checkType =
     type === "h1" ||
     type === "h2" ||
@@ -50,7 +53,11 @@ const Title = ({ type = "h1", name, children, input, sub, main = false }) => {
     >
       <div className={styles.information}>
         <div className={styles.root}>
-          {sub && <span className={styles.subtitle}>MaileHereko</span>}
+          {sub && (
+            <span className={styles.subtitle}>
+              {process.env.NEXT_PUBLIC_APPLICATION_NAME}
+            </span>
+          )}
           {renderTitle()}
         </div>
         <div className={styles.description}>{children}</div>
@@ -60,7 +67,7 @@ const Title = ({ type = "h1", name, children, input, sub, main = false }) => {
           icon="search"
           placeholder="eg. Capitan Marvel"
           label="Search Movies or TV Shows"
-          maxWidth={344}
+          maxWidth={!isTablet && 344}
         />
       )}
     </div>
