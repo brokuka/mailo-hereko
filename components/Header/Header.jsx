@@ -23,18 +23,9 @@ const authLinks = [
 ];
 
 const Header = ({ variant = "nonAuth" }) => {
-  const [tablet] = React.useState(false);
   const [menu, setMenu] = React.useState(false);
-  const isTablet = useMedia("(max-width: 767.99px)", tablet);
+  const isTablet = useMedia("(max-width: 767.99px)", null);
   const checkVariant = variant === "auth" || variant === "nonAuth";
-
-  React.useEffect(() => {
-    const body = document.body;
-
-    if (!menu) return body.classList.remove("no-scroll");
-
-    body.classList.add("no-scroll");
-  }, [menu]);
 
   if (!checkVariant)
     return console.error(

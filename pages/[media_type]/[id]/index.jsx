@@ -1,17 +1,24 @@
 import React from "react";
-import { useRouter } from "next/router";
 import axios from "axios";
-import Layout from "../../../layout/Layout/Layout";
+import Head from "next/head";
 import Overview from "../../../components/Overview/Overview";
 
 const Index = ({ data }) => {
-  const router = useRouter().query;
-  console.log(data);
-
   return (
-    <Layout>
+    <>
+      <Head>
+        <title>{`${data.title} - ${process.env.NEXT_PUBLIC_APPLICATION_NAME}`}</title>
+        {data.description && (
+          <meta name="description" content={data.description} />
+        )}
+        <meta
+          property="og:title"
+          content={`${data.title} - ${process.env.NEXT_PUBLIC_APPLICATION_NAME}`}
+          key="title"
+        />
+      </Head>
       <Overview {...data} />
-    </Layout>
+    </>
   );
 };
 

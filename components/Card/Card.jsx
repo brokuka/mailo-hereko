@@ -85,16 +85,18 @@ const Card = ({
         <a className={styles.link}>
           <div className={styles.head} ref={imgSpanRef}>
             <Rating position x={8} y={10} index={100} value={rating} />
-            <Image
-              className={styles.img}
-              src={poster ? poster : CardImage}
-              alt="Image"
-              placeholder="blur"
-              blurDataURL={poster && poster}
-              width="266px"
-              height="400px"
-              objectFit="cover"
-            />
+            <div className={styles.image}>
+              <Image
+                className={styles.img}
+                src={poster ? poster : CardImage}
+                alt="Image"
+                placeholder="blur"
+                blurDataURL={poster && poster}
+                width="266px"
+                height="400px"
+                objectFit="cover"
+              />
+            </div>
             <span className={styles.name}>{title ? title : "Untitled"}</span>
           </div>
         </a>

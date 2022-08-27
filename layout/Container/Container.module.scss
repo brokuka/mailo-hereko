@@ -2,8 +2,30 @@
 @use '../../styles/vars' as *;
 
 .root {
-	max-width: 100%;
-	width: #{$container}px;
+	width: 100%;
 	margin: 0 auto;
 	padding: 0 #{math.div($container-padding, 2)}px;
+}
+
+.mobile {
+	max-width: 576px;
+}
+
+.tablet {
+	max-width: 768px;
+}
+
+.smDesktop {
+	max-width: 991.98px;
+}
+
+.desktop {
+	max-width: #{$container}px;
+}
+
+:export {
+	mobileW: 576;
+	tabletW: 767.98;
+	smDesktopW: 992;
+	containerW: 1230;
 }

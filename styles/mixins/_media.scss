@@ -1,17 +1,29 @@
+@use '../vars.scss' as *;
+
 $breakpoints: (
 	'mobile': 576,
-	'tablet': 767.99,
-	'smDesktop': 991.99,
+	'tablet': 767.98,
+	'smDesktop': 991.98,
+	'container': $container - 0.02
 );
 
-@mixin media($breakpoint) {
+@mixin media($breakpoint, $type: 1) {
 
 	@if map-has-key($breakpoints, $breakpoint) {
 		$breakpoint-value: map-get($breakpoints, $breakpoint);
 
-		@media (max-width: #{$breakpoint-value}px) {
-			@content;
+		@if $type ==1 {
+			@media (max-width: #{$breakpoint-value}px) {
+				@content;
+			}
 		}
+
+		@else {
+			@media (min-width: #{$breakpoint-value}px) {
+				@content;
+			}
+		}
+
 	}
 
 	@else {
