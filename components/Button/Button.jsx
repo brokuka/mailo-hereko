@@ -5,7 +5,6 @@ import { chooseIcon } from "../Icon/Icon";
 
 /* Style */
 import styles from "./Button.module.scss";
-import Spinner from "../Spinner/Spinner";
 
 const Button = (
   {
