@@ -1,18 +1,19 @@
 @use '../vars.scss' as *;
 
 $breakpoints: (
+	'xsMobile': 320,
 	'mobile': 576,
 	'tablet': 768,
 	'smDesktop': 991.98,
-	'container': $container - 0.02
+	'desktop': $container - 0.02
 );
 
-@mixin media($breakpoint, $type: 1) {
+@mixin media($breakpoint, $type: 0) {
 
 	@if map-has-key($breakpoints, $breakpoint) {
 		$breakpoint-value: map-get($breakpoints, $breakpoint);
 
-		@if $type ==1 {
+		@if $type ==0 {
 			@media (max-width: #{$breakpoint-value}px) {
 				@content;
 			}

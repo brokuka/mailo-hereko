@@ -1,7 +1,7 @@
 import React from "react";
 import Radio from "../Inputs/Radio/Radio";
 import Card from "./../Card/Card";
-import { useWindowSize } from "react-use";
+import { useMeasure } from "react-use";
 
 /* Style */
 import styles from "./Catalog.module.scss";
@@ -14,7 +14,7 @@ const Catalog = ({ data }) => {
   const [left, setLeft] = React.useState(null);
   const firstInput = React.useRef();
   const [activeElement, setActiveElement] = React.useState(firstInput.current);
-  const windSize = useWindowSize();
+  const [blockRef, blockRefStyles] = useMeasure();
 
   const getRefPropValue = (el, prop) => {
     return getComputedStyle(el).getPropertyValue(prop);
@@ -23,7 +23,7 @@ const Catalog = ({ data }) => {
   React.useEffect(() => {
     onClick();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [windSize.width]);
+  }, [blockRefStyles.width]);
 
   const onClick = (e = activeElement || firstInput.current) => {
     const style = getComputedStyle(e.offsetParent);
@@ -43,9 +43,11 @@ const Catalog = ({ data }) => {
     left,
   };
 
+  console.log(blockRefStyles);
+
   return (
     <>
-      <div className={styles.filter}>
+      <div className={styles.filter} ref={blockRef}>
         <Radio
           Ref={firstInput}
           value="all"

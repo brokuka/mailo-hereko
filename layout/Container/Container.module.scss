@@ -1,11 +1,28 @@
 @use 'sass:math';
+@use '../../styles/mixins' as *;
 @use '../../styles/vars' as *;
 
 .root {
-	max-width: #{$container}px;
 	width: 100%;
 	margin: 0 auto;
 	padding: 0 #{math.div($container-padding, 2)}px;
+
+	@include media(xsMobile, 1) {
+		max-width: 576px;
+	}
+
+	@include media(tablet, 1) {
+		max-width: 768px;
+	}
+
+	@include media(smDesktop, 1) {
+		max-width: 991.98px;
+	}
+
+	@include media(desktop, 1) {
+		max-width: #{$container}px;
+	}
+
 }
 
 .mobile {

@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Layout from "./../layout/Layout/Layout";
+import "resize-observer-polyfill";
 
 /* Style */
 import "../styles/index.scss";

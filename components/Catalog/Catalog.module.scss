@@ -38,6 +38,8 @@
 	background-color: $black-20;
 	border-radius: 12px;
 
+	overflow: hidden;
+
 	@include media(tablet) {
 		max-width: 100%;
 	}
