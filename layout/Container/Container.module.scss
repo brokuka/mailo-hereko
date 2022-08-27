@@ -2,6 +2,7 @@
 @use '../../styles/vars' as *;
 
 .root {
+	max-width: #{$container}px;
 	width: 100%;
 	margin: 0 auto;
 	padding: 0 #{math.div($container-padding, 2)}px;

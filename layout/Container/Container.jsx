@@ -14,9 +14,9 @@ const Container = ({ children, className }) => {
   return (
     <div
       className={cn(styles.root, {
-        [styles.mobile]: isMobile,
-        [styles.tablet]: isTablet,
-        [styles.smDesktop]: isSmDesktop,
+        [styles.mobile]: !isTablet && isMobile,
+        [styles.tablet]: !isSmDesktop && isTablet,
+        [styles.smDesktop]: !isDesktop && isSmDesktop,
         [styles.desktop]: isDesktop,
       })}
     >
