@@ -9,12 +9,21 @@ import cn from "classnames";
 import styles from "./Card.module.scss";
 import Link from "next/link";
 import Button from "../Button/Button";
+import Rating from "../Rating/Rating";
 
-const Card = ({ arr, isSuggesting, isWatched, type = "card" }) => {
-  //   const { title, img, rating } = arr;
+const Card = ({
+  isSuggesting,
+  isWatched,
+  id,
+  rating,
+  poster,
+  title,
+  media_type,
+}) => {
   const [suggest, setSuggested] = React.useState(false);
   const [watched, setWatched] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const imgSpanRef = React.useRef(null);
 
   const onClick = (type) => {
     switch (type) {
@@ -36,61 +45,94 @@ const Card = ({ arr, isSuggesting, isWatched, type = "card" }) => {
     }, ms);
   };
 
+  const renderButtons = (
+    state,
+    spinner = true,
+    spinnerColor,
+    type = "card",
+    icon,
+    status,
+    classTerms,
+    placeholders
+  ) => {
+    return (
+      <Button
+        className={cn(classTerms)}
+        onClick={() => onClick(status)}
+        icon={state ? icon[0] : icon[1]}
+        asyncData={loading}
+        spinner={spinner}
+        spinnerVariant={spinnerColor}
+        type={type}
+      >
+        {state ? placeholders[0] : placeholders[1]}
+      </Button>
+    );
+  };
+
+  const checkMediaType = () => {
+    switch (media_type) {
+      case "movie":
+        return `/movie/${id}`;
+      case "tv":
+        return `tv/${id}`;
+    }
+  };
+
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.root}>
-        <Link href="/">
-          <a>
-            <div className={styles.head}>
+    <div className={styles.root}>
+      <Link href={checkMediaType()}>
+        <a className={styles.link}>
+          <div className={styles.head} ref={imgSpanRef}>
+            <Rating position x={8} y={10} index={100} value={rating} />
+            <div className={styles.image}>
               <Image
                 className={styles.img}
-                src={CardImage}
+                src={poster ? poster : CardImage}
                 alt="Image"
                 placeholder="blur"
-                style={{ objectFit: "contain", objectPosition: "center" }}
-                layout="intrinsic"
-                lo
+                blurDataURL={poster && poster}
+                width="266px"
+                height="400px"
+                objectFit="cover"
               />
-              <span className={styles.name}>Black Widow</span>
             </div>
-          </a>
-        </Link>
+            <span className={styles.name}>{title ? title : "Untitled"}</span>
+          </div>
+        </a>
+      </Link>
 
-        {!isWatched && (
-          <div className={styles.body}>
-            {isSuggesting ? (
-              <Button
-                className={cn(styles.option, {
+      {!isWatched && (
+        <div className={styles.body}>
+          {isSuggesting
+            ? renderButtons(
+                suggest,
+                undefined,
+                "white",
+                undefined,
+                ["checked", "like"],
+                "nonauth",
+                {
                   [styles.suggest]: !suggest,
                   [styles.suggested]: suggest,
-                })}
-                onClick={() => onClick("nonauth")}
-                icon={suggest ? "add" : "like"}
-                asyncData={loading}
-                spinner
-                spinnerVariant="white"
-                type={type}
-              >
-                {suggest ? "Suggested" : "Suggest this"}
-              </Button>
-            ) : (
-              <Button
-                className={cn(styles.option, {
+                },
+                ["Suggested", "Suggest this"]
+              )
+            : renderButtons(
+                watched,
+                undefined,
+                undefined,
+                undefined,
+                ["watched", "plus"],
+                "auth",
+                {
                   [styles.suggest]: suggest,
                   [styles.watched]: !suggest,
-                })}
-                onClick={() => onClick("auth")}
-                icon={watched ? "watched" : "add"}
-                asyncData={loading}
-                spinner
-                type={type}
-              >
-                {watched ? "Already watched" : "Add to my list"}
-              </Button>
-            )}
-          </div>
-        )}
-      </div>
+                },
+                ["Already watched", "Add to my list"]
+              )}
+        </div>
+      )}
     </div>
   );
 };

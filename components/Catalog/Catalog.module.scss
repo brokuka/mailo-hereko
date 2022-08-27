@@ -1,0 +1,74 @@
+@use '../../styles/mixins.scss' as *;
+@use '../../styles/vars.scss' as *;
+
+.root {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
+	gap: 2.4rem;
+	padding-bottom: 2rem;
+
+	@include media(smDesktop) {
+		grid-template-columns: repeat(3, minmax(auto, 282px));
+		justify-content: space-between;
+		gap: 5rem 2.4rem;
+	}
+
+	@include media(tablet) {
+		grid-template-columns: repeat(2, minmax(auto, 282px));
+	}
+
+	@include media(mobile) {
+		grid-template-columns: repeat(auto-fill, minmax(auto, 282px));
+		justify-content: center;
+	}
+}
+
+.filter {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	max-width: 368px;
+	width: 100%;
+	padding: 8px;
+	margin-bottom: 2.4rem;
+
+	position: relative;
+
+	background-color: $black-20;
+	border-radius: 12px;
+
+	overflow: hidden;
+
+	@include media(tablet) {
+		max-width: 100%;
+	}
+}
+
+.filter>* {
+	@include media(tablet) {
+		text-align: center;
+
+		&:is(label:first-of-type) {
+			width: 100%;
+		}
+
+		&:is(label:not(:first-of-type)) {
+			width: 50%;
+		}
+	}
+}
+
+.indicator {
+	display: inline-block;
+	height: 100%;
+	background-color: $primary-400;
+	border-radius: 8px;
+
+	position: absolute;
+	left: 8px;
+	top: 8px;
+	z-index: 1;
+
+	transition: all $transform-label;
+}

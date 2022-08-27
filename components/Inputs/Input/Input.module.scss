@@ -1,0 +1,92 @@
+@use "../../../styles/mixins.scss" as *;
+@use "../../../styles/vars.scss" as *;
+
+.wrapper {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+}
+
+.root {
+	@include text-p2;
+	padding: 24px 16px 14px;
+	width: 100%;
+
+	position: relative;
+
+	border-radius: 12px;
+	border: 2px solid $grey-700;
+	font-family: inherit;
+	outline: none;
+	transition: all .3s;
+
+	background-color: $black-10;
+	color: $grey-400;
+
+	&:focus {
+		border-color: $primary-500;
+	}
+
+	&::placeholder {
+		opacity: 0;
+		color: $grey-400;
+	}
+
+	&:focus::placeholder {
+		opacity: 1;
+	}
+}
+
+.root:focus~.label_text,
+.root:not(:placeholder-shown)~.label_text {
+	@include text-caption;
+	transform: translateY(-15px);
+	color: $grey-600;
+}
+
+.label {
+	@include text-p2;
+
+	color: $grey-700;
+	position: relative;
+
+	cursor: text;
+}
+
+.label_text {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+
+	transition: all $transform-label;
+}
+
+.icon {
+	width: 24px;
+	height: 24px;
+
+	position: absolute;
+	top: 50%;
+	z-index: 999;
+	transform: translateY(-50%)
+}
+
+.icon_left {
+	left: 16px;
+}
+
+.icon_right {
+	right: 16px;
+}
+
+.icon_left~.label>.root {
+	padding-left: 56px;
+}
+
+.icon_right~.label>.root {
+	padding-right: 56px;
+}

@@ -1,0 +1,28 @@
+@use '../../styles/vars.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+.root {
+	@include text-p2;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	align-items: center;
+	justify-content: center;
+	padding: .8rem;
+	min-height: 40px;
+	word-break: break-all;
+	max-width: 60px;
+
+	background-color: $black-65;
+	backdrop-filter: blur(8px);
+
+
+	border-radius: 8px;
+	color: $warning-500;
+
+	pointer-events: none;
+}
+
+.root svg {
+	stroke: $warning-500;
+}

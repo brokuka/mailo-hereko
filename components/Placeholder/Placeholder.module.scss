@@ -1,0 +1,24 @@
+@use '../../styles/mixins.scss' as *;
+@use '../../styles/vars.scss' as *;
+
+.root {
+	display: grid;
+	place-content: center;
+	width: 100%;
+
+	background-color: $grey-800;
+}
+
+.backdrop {
+	@include adaptiveValue(height, 48, 20);
+	border-radius: 40px;
+}
+
+.poster {
+	border-radius: 24px;
+	height: 100%;
+
+	@include media(tablet) {
+		@include adaptiveValue(height, 72, 15);
+	}
+}

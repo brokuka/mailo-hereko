@@ -1,7 +1,21 @@
+@use '../styles/vars.scss' as *;
+
 *,
 *::before,
 *::after {
 	box-sizing: border-box;
+}
+
+* {
+	outline-offset: 20px;
+	transition: $transition-outline;
+
+	&:focus-visible {
+		outline-style: solid;
+		outline-color: $primary-500;
+		outline-offset: .35em;
+		outline-width: 3px;
+	}
 }
 
 body,
@@ -82,12 +96,13 @@ ul {
 a {
 	text-decoration: none;
 	color: inherit;
+	transition: $transition-outline, $transition-link;
 }
 
 p {
 	margin: 0 0 1rem;
 
-	&:last-child {
+	&:last-of-type {
 		margin: 0;
 	}
 }
@@ -113,6 +128,7 @@ hr {
 	overflow: hidden;
 	border: 0;
 	clip: rect(0 0 0 0);
+
 }
 
 .stretched {
