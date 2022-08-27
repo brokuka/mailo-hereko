@@ -9,7 +9,7 @@ import styles from "./Catalog.module.scss";
 const Catalog = ({ data }) => {
   const [active, setActive] = React.useState("all");
   const [width, setWidth] = React.useState(null);
-  const [height, setHeight] = React.useState(null);
+  const [height, setHeight] = React.useState("auto");
   const [top, setTop] = React.useState(null);
   const [left, setLeft] = React.useState(null);
   const firstInput = React.useRef();
@@ -35,6 +35,8 @@ const Catalog = ({ data }) => {
     setLeft(e.offsetParent.offsetLeft);
     setActiveElement(e);
   };
+
+  console.log(height);
 
   const customStyles = {
     width,
