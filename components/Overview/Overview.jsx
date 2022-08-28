@@ -127,7 +127,6 @@ const Overview = ({
         <div className={styles.gradient}>Gradient</div>
         {backdrop_path ? (
           <Image
-            className={styles.full_img}
             src={backdrop_path}
             placeholder="blur"
             blurDataURL={backdrop_path}

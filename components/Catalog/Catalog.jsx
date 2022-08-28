@@ -66,7 +66,7 @@ const Catalog = ({ data }) => {
           ? data.map(({ id, ...props }) => (
               <Card isWatched key={id} id={id} {...props} />
             ))
-          : Array.from(Array(12), (_, i) => <Card key={i} />)}
+          : Array.from(Array(12), (_, i) => <Card noData key={i} />)}
       </div>
     </>
   );

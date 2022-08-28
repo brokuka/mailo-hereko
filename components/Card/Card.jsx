@@ -17,11 +17,21 @@ const Card = ({
   poster,
   title,
   media_type,
+  noData,
 }) => {
   const [suggest, setSuggested] = React.useState(false);
   const [watched, setWatched] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [loadedData, setLoadedData] = React.useState(false);
   const imgSpanRef = React.useRef(null);
+
+  const isFetched = media_type ? true : false;
+
+  React.useEffect(() => {
+    if (isFetched) {
+      setLoadedData(true);
+    }
+  }, [isFetched]);
 
   const onClick = (type) => {
     switch (type) {
@@ -81,31 +91,26 @@ const Card = ({
     }
   };
 
-  const isFetched = media_type ? true : false;
-
   const checkFetching = () => {
-    return isFetched ? (
+    return isFetched && loadedData ? (
       <Link href={checkMediaType()}>
         <a className={styles.link}>
           <div className={styles.head} ref={imgSpanRef}>
-            {isFetched && (
-              <Rating position x={8} y={10} index={100} value={rating} />
-            )}
+            <Rating position x={8} y={10} index={100} value={rating} />
+
             <div className={styles.image}>
-              {isFetched &&
-                (poster ? (
-                  <Image
-                    className={styles.img}
-                    src={poster}
-                    alt="Image"
-                    placeholder="blur"
-                    blurDataURL={poster}
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                ) : (
-                  <Placeholder type="posterCard" />
-                ))}
+              {poster ? (
+                <Image
+                  src={poster}
+                  alt="Image"
+                  placeholder="blur"
+                  blurDataURL={poster}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              ) : (
+                <Placeholder type="posterCard" />
+              )}
             </div>
             {isFetched && (
               <span className={styles.name}>{title ? title : "Untitled"}</span>

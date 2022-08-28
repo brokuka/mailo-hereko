@@ -8,11 +8,6 @@ export default function Home({ data }) {
     <>
       <Title name={process.env.NEXT_PUBLIC_APPLICATION_NAME} input main>
         List of movies and TV shows 😉
-        {/*         <br />
-        Developed with ❤ by
-        <br />- Front-end: <a href="https://github.com/brokuka">@brokuka</a>
-        <br />- Back-end:{" "}
-        <a href="https://github.com/v-zdorovcev">@v-zdorovcev</a> */}
       </Title>
       <Catalog data={data} />
     </>
