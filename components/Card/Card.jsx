@@ -10,6 +10,8 @@ import styles from "./Card.module.scss";
 import Link from "next/link";
 import Button from "../Button/Button";
 import Rating from "../Rating/Rating";
+// import Placeholder from "../Placeholder/Placeholder";
+import Placeholder from "../Placeholder/Placeholder";
 
 const Card = ({
   isSuggesting,
@@ -86,16 +88,19 @@ const Card = ({
           <div className={styles.head} ref={imgSpanRef}>
             <Rating position x={8} y={10} index={100} value={rating} />
             <div className={styles.image}>
-              <Image
-                className={styles.img}
-                src={poster ? poster : CardImage}
-                alt="Image"
-                placeholder="blur"
-                blurDataURL={poster && poster}
-                width="266px"
-                height="400px"
-                objectFit="cover"
-              />
+              {poster ? (
+                <Image
+                  className={styles.img}
+                  src={poster}
+                  alt="Image"
+                  placeholder="blur"
+                  blurDataURL={poster}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              ) : (
+                <Placeholder type="posterCard" />
+              )}
             </div>
             <span className={styles.name}>{title ? title : "Untitled"}</span>
           </div>

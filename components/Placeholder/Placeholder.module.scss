@@ -22,3 +22,13 @@
 		@include adaptiveValue(height, 72, 15);
 	}
 }
+
+.poster_card {
+	background-color: $grey-400;
+	height: 100%;
+	border-radius: inherit;
+}
+
+.poster_card span {
+	text-align: center;
+}
