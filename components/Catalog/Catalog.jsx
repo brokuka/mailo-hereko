@@ -36,16 +36,12 @@ const Catalog = ({ data }) => {
     setActiveElement(e);
   };
 
-  console.log(height);
-
   const customStyles = {
     width,
     height,
     top,
     left,
   };
-
-  console.log(blockRefStyles);
 
   return (
     <>
@@ -66,9 +62,11 @@ const Catalog = ({ data }) => {
       </div>
 
       <div className={styles.root}>
-        {data.map(({ id, ...props }) => (
-          <Card isWatched key={id} id={id} {...props} />
-        ))}
+        {data
+          ? data.map(({ id, ...props }) => (
+              <Card isWatched key={id} id={id} {...props} />
+            ))
+          : Array.from(Array(12), (_, i) => <Card key={i} />)}
       </div>
     </>
   );
