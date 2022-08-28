@@ -16,6 +16,7 @@
 .link {
 	display: block;
 	border-radius: 8px;
+	height: 100%;
 }
 
 .head {
@@ -27,6 +28,8 @@
 
 .image {
 	border-radius: 8px;
+	height: 400px;
+	position: relative;
 }
 
 .img {
@@ -34,6 +37,7 @@
 }
 
 .name {
+	// display: block;
 	color: $grey-50;
 	padding: 8px;
 }

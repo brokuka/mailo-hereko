@@ -11,9 +11,11 @@ const Placeholder = ({ type, iconSize = 160 }) => {
       className={cn(styles.root, {
         [styles.backdrop]: type === "backdrop",
         [styles.poster]: type === "poster",
+        [styles.poster_card]: type === "posterCard",
       })}
     >
       <Icon icon="logoPlaceholder" size={iconSize} />
+      {type === "posterCard" && <span>Image not found</span>}
     </div>
   );
 };

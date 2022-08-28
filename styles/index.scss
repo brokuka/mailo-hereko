@@ -18,10 +18,32 @@ body {
 .page {
 	@include adaptiveValue(padding-bottom, 5, 3);
 	min-height: 100vh;
+	position: relative;
 
-	background: url('../public/bg.png');
+	background: url('../public/bg.webp');
 	background-size: cover;
 	background-repeat: repeat-y;
 	background-color: $grey-900;
 	background-position-y: -350px;
+}
+
+.background-image {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+
+	position: absolute;
+
+	background-color: $grey-900;
+	z-index: -1;
+	/* 	width: 100%;
+	min-height: 100vh;
+
+	background-color: $grey-900;
+
+	position: absolute;
+	top: -350px;
+	left: 0;
+	bottom: 0;
+	z-index: -1; */
 }
