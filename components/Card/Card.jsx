@@ -1,17 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
-
-import CardImage from "./images/CardImage.webp";
-
 import cn from "classnames";
+import Button from "../Button/Button";
+import Rating from "../Rating/Rating";
+import Placeholder from "../Placeholder/Placeholder";
 
 /* Style */
 import styles from "./Card.module.scss";
-import Link from "next/link";
-import Button from "../Button/Button";
-import Rating from "../Rating/Rating";
-// import Placeholder from "../Placeholder/Placeholder";
-import Placeholder from "../Placeholder/Placeholder";
 
 const Card = ({
   isSuggesting,
@@ -21,11 +17,21 @@ const Card = ({
   poster,
   title,
   media_type,
+  noData,
 }) => {
   const [suggest, setSuggested] = React.useState(false);
   const [watched, setWatched] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [loadedData, setLoadedData] = React.useState(false);
   const imgSpanRef = React.useRef(null);
+
+  const isFetched = media_type ? true : false;
+
+  React.useEffect(() => {
+    if (isFetched) {
+      setLoadedData(true);
+    }
+  }, [isFetched]);
 
   const onClick = (type) => {
     switch (type) {
@@ -58,17 +64,19 @@ const Card = ({
     placeholders
   ) => {
     return (
-      <Button
-        className={cn(classTerms)}
-        onClick={() => onClick(status)}
-        icon={state ? icon[0] : icon[1]}
-        asyncData={loading}
-        spinner={spinner}
-        spinnerVariant={spinnerColor}
-        type={type}
-      >
-        {state ? placeholders[0] : placeholders[1]}
-      </Button>
+      isFetched && (
+        <Button
+          className={cn(classTerms)}
+          onClick={() => onClick(status)}
+          icon={state ? icon[0] : icon[1]}
+          asyncData={loading}
+          spinner={spinner}
+          spinnerVariant={spinnerColor}
+          type={type}
+        >
+          {state ? placeholders[0] : placeholders[1]}
+        </Button>
+      )
     );
   };
 
@@ -78,19 +86,21 @@ const Card = ({
         return `/movie/${id}`;
       case "tv":
         return `tv/${id}`;
+      default:
+        return "/";
     }
   };
 
-  return (
-    <div className={styles.root}>
+  const checkFetching = () => {
+    return isFetched && loadedData ? (
       <Link href={checkMediaType()}>
         <a className={styles.link}>
           <div className={styles.head} ref={imgSpanRef}>
             <Rating position x={8} y={10} index={100} value={rating} />
+
             <div className={styles.image}>
               {poster ? (
                 <Image
-                  className={styles.img}
                   src={poster}
                   alt="Image"
                   placeholder="blur"
@@ -102,12 +112,22 @@ const Card = ({
                 <Placeholder type="posterCard" />
               )}
             </div>
-            <span className={styles.name}>{title ? title : "Untitled"}</span>
+            {isFetched && (
+              <span className={styles.name}>{title ? title : "Untitled"}</span>
+            )}
           </div>
         </a>
       </Link>
+    ) : (
+      <Placeholder type="fetching" />
+    );
+  };
 
-      {!isWatched && (
+  return (
+    <div className={styles.root}>
+      {checkFetching()}
+
+      {isFetched && !isWatched && (
         <div className={styles.body}>
           {isSuggesting
             ? renderButtons(

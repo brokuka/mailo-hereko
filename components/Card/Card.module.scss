@@ -24,6 +24,7 @@
 	flex-direction: column;
 	gap: 1.6rem;
 	position: relative;
+	border-radius: 8px;
 }
 
 .image {
@@ -32,12 +33,11 @@
 	position: relative;
 }
 
-.img {
-	border-radius: 8px;
+.image span {
+	border-radius: inherit;
 }
 
 .name {
-	// display: block;
 	color: $grey-50;
 	padding: 8px;
 }

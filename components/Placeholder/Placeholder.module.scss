@@ -32,3 +32,66 @@
 .poster_card span {
 	text-align: center;
 }
+
+.fetching {
+	height: 100%;
+	border-radius: inherit;
+	pointer-events: none;
+	cursor: auto;
+}
+
+.header {
+	margin-bottom: 16px;
+	height: 400px;
+
+	background-color: $grey-700;
+	border-radius: inherit;
+	position: relative;
+}
+
+.rating {
+	width: 60px;
+	height: 32px;
+
+	background-color: $black-20;
+	border-radius: 8px;
+
+	position: absolute;
+	top: 8px;
+	left: 8px;
+}
+
+.title {
+	width: 150px;
+	height: 20px;
+	margin-left: 8px;
+	padding: 8px;
+
+	background-color: $grey-700;
+	border-radius: 8px;
+}
+
+.button {
+	display: flex;
+	gap: 8px;
+	margin-top: 24px;
+	margin-bottom: 1rem;
+	height: 20px;
+	margin-left: 8px;
+}
+
+.button .circle {
+	width: 16px;
+	height: inherit;
+
+	border-radius: 50%;
+	background-color: $grey-700;
+}
+
+.button .line {
+	width: 150px;
+	height: inherit;
+
+	background-color: $grey-700;
+	border-radius: 8px;
+}
