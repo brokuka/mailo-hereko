@@ -73,3 +73,21 @@
 
 	transition: all $transform-label;
 }
+
+.enter {
+	opacity: 0;
+}
+
+.enter_active {
+	opacity: 1;
+	transition: opacity 300ms ease-in;
+}
+
+.exit {
+	opacity: 1;
+}
+
+.exit_active {
+	opacity: 0;
+	transition: opacity 300ms ease-in;
+}
