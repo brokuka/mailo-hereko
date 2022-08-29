@@ -2,11 +2,13 @@ import React from "react";
 import Radio from "../Inputs/Radio/Radio";
 import Card from "./../Card/Card";
 import { useMeasure } from "react-use";
+import { useSelector } from "react-redux";
+import { watchedData } from "../../store/watched/watchedSlice";
 
 /* Style */
 import styles from "./Catalog.module.scss";
 
-const Catalog = ({ data }) => {
+const Catalog = () => {
   const [active, setActive] = React.useState("all");
   const [width, setWidth] = React.useState(null);
   const [height, setHeight] = React.useState("auto");
@@ -16,6 +18,9 @@ const Catalog = ({ data }) => {
   const [activeElement, setActiveElement] = React.useState(firstInput.current);
   const [blockRef, blockRefStyles] = useMeasure();
 
+  const data = useSelector(watchedData);
+  const [filter, setFilter] = React.useState(active);
+
   const getRefPropValue = (el, prop) => {
     return getComputedStyle(el).getPropertyValue(prop);
   };
@@ -24,6 +29,12 @@ const Catalog = ({ data }) => {
     onClick();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blockRefStyles.width]);
+
+  React.useEffect(() => {
+    // if (active === "all") return active;
+    if (active !== "all")
+      data.filter(({ movie_type }) => movie_type === active);
+  }, [active]);
 
   const onClick = (e = activeElement || firstInput.current) => {
     const style = getComputedStyle(e.offsetParent);
