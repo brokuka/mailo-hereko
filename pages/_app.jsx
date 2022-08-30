@@ -1,12 +1,13 @@
 import Head from "next/head";
 import Layout from "./../layout/Layout/Layout";
 import "resize-observer-polyfill";
-import { wrapper } from "../store";
+import { store } from "../store";
 
 /* Style */
 import "../styles/index.scss";
+import { Provider } from "react-redux";
 
-function MyApp({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return (
     <>
       <Head>
@@ -21,11 +22,13 @@ function MyApp({ Component, pageProps }) {
           key="title"
         />
       </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
     </>
   );
 }
 
-export default wrapper.withRedux(MyApp);
+export default App;

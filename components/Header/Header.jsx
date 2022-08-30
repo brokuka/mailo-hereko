@@ -10,8 +10,8 @@ import Drawer from "../Drawer/Drawer";
 import styles from "./Header.module.scss";
 
 const nonAuthLinks = [
-  { title: "Movies", href: "/" },
-  { title: "TV Shows", href: "/" },
+  { title: "Movies", href: "/movies" },
+  { title: "TV Shows", href: "/tvs" },
   { title: "Suggest me", href: "/", icon: "arrow", iconPos: "right" },
 ];
 
