@@ -76,6 +76,10 @@
 	}
 }
 
+.active {
+	color: $primary-400;
+}
+
 .icon {
 	transition: all .2s ease;
 }

@@ -1,29 +1,30 @@
 import React from "react";
 import Card from "./../Card/Card";
 import { useSelector } from "react-redux";
-import { watchedData } from "../../store/watched/watchedSlice";
 import { selectFilterdData } from "../../store/filter/filter.selector";
 import Filter from "../Filter/Filter";
+import { watchedData } from "../../store/watched/watchedSlice";
 
 /* Style */
 import styles from "./Catalog.module.scss";
 
-const Catalog = ({ isWatched }) => {
+const Catalog = ({ isWatched, filter }) => {
   const filtered = useSelector(selectFilterdData);
+  const data = useSelector(watchedData);
 
   const renderCards = () => {
-    if (!watchedData.length) {
-      return Array.from(Array(12), (_, i) => <Card noData key={i} />);
+    if (data.length) {
+      return filtered.map(({ id, ...props }) => (
+        <Card isWatched={isWatched} key={id} id={id} {...props} />
+      ));
     }
 
-    return filtered.map(({ id, ...props }) => (
-      <Card isWatched={isWatched} key={id} id={id} {...props} />
-    ));
+    return Array.from(Array(12), (_, i) => <Card key={i} />);
   };
 
   return (
     <>
-      <Filter />
+      {filter && <Filter />}
 
       <div className={styles.root}>{renderCards()}</div>
     </>

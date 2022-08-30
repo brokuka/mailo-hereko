@@ -47,6 +47,12 @@
 	color: $primary-200;
 }
 
+.subtitle+[class*="h"] {
+	&::first-letter {
+		text-transform: capitalize
+	}
+}
+
 .h1 {
 	@include text-h1;
 

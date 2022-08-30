@@ -5,13 +5,14 @@ import { useMedia } from "react-use";
 import Button from "../Button/Button";
 import Icon, { chooseIcon } from "../Icon/Icon";
 import Drawer from "../Drawer/Drawer";
+import { useRouter } from "next/router";
 
 /* Style */
 import styles from "./Header.module.scss";
 
 const nonAuthLinks = [
-  { title: "Movies", href: "/" },
-  { title: "TV Shows", href: "/" },
+  { title: "Movies", href: "/movies" },
+  { title: "TV Shows", href: "/tvs" },
   { title: "Suggest me", href: "/", icon: "arrow", iconPos: "right" },
 ];
 
@@ -26,6 +27,7 @@ const Header = ({ variant = "nonAuth" }) => {
   const [menu, setMenu] = React.useState(false);
   const isTablet = useMedia("(max-width: 767.99px)", null);
   const checkVariant = variant === "auth" || variant === "nonAuth";
+  const router = useRouter();
 
   if (!checkVariant)
     return console.error(
@@ -49,7 +51,11 @@ const Header = ({ variant = "nonAuth" }) => {
       return (
         <li key={id}>
           <Link href={href}>
-            <a className={styles.link}>
+            <a
+              className={cn(styles.link, {
+                [styles.active]: href === router.asPath,
+              })}
+            >
               {chooseIcon(icon, 16, undefined, iconClassnames)}
               <span>{title}</span>
             </a>
