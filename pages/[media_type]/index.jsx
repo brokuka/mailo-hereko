@@ -4,11 +4,13 @@ import Catalog from "../../components/Catalog/Catalog";
 import Title from "../../components/Title/Title";
 import { useDispatch } from "react-redux";
 import { addData } from "../../store/watched/watchedSlice";
+import { setFilterValue } from "../../store/filter/filterSlice";
 
 const Index = ({ data, media_type }) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
+    dispatch(setFilterValue(""));
     dispatch(addData(data));
   }, [data, dispatch]);
 

@@ -4,11 +4,13 @@ import axios from "axios";
 import { addData } from "../store/watched/watchedSlice";
 import { useDispatch } from "react-redux";
 import React from "react";
+import { setFilterValue } from "../store/filter/filterSlice";
 
 export default function Home({ data }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
+    dispatch(setFilterValue(""));
     dispatch(addData(data));
   }, [data, dispatch]);
 
