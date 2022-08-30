@@ -16,10 +16,9 @@
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"react-redux": "^7.2.8",
-		"react-transition-group": "^4.4.5",
+		"react-transition-group": "^4.3.0",
 		"react-use": "^17.4.0",
-		"sass": "^1.54.2",
-		"sharp": "^0.30.7"
+		"sass": "^1.54.2"
 	},
 	"devDependencies": {
 		"@svgr/webpack": "^6.3.1",

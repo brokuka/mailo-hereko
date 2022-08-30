@@ -2,29 +2,6 @@
 @use '../../styles/vars.scss' as *;
 
 .root {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
-	grid-auto-rows: auto;
-	gap: 2.4rem;
-	padding-bottom: 2rem;
-
-	@include media(smDesktop) {
-		grid-template-columns: repeat(3, minmax(auto, 282px));
-		justify-content: space-between;
-		gap: 5rem 2.4rem;
-	}
-
-	@include media(tablet) {
-		grid-template-columns: repeat(2, minmax(auto, 282px));
-	}
-
-	@include media(mobile) {
-		grid-template-columns: repeat(auto-fill, minmax(auto, 282px));
-		justify-content: center;
-	}
-}
-
-.filter {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -46,7 +23,7 @@
 	}
 }
 
-.filter>* {
+.root>* {
 	@include media(tablet) {
 		text-align: center;
 

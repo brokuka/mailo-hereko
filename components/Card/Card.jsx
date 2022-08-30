@@ -10,7 +10,7 @@ import Placeholder from "../Placeholder/Placeholder";
 import styles from "./Card.module.scss";
 
 const Card = (
-  { isSuggesting, isWatched, id, rating, poster, title, media_type },
+  { isSuggesting, isWatched, id, rating, poster, title, media_type, className },
   ref
 ) => {
   const [suggest, setSuggested] = React.useState(false);
@@ -118,7 +118,7 @@ const Card = (
   };
 
   return (
-    <div className={styles.root} ref={ref}>
+    <div className={cn(styles.root, className)} ref={ref}>
       {checkFetching()}
 
       {isFetched && !isWatched && (

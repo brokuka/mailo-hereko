@@ -10,7 +10,7 @@ export default function Home() {
       <Title name={process.env.NEXT_PUBLIC_APPLICATION_NAME} input main>
         List of movies and TV shows 😉
       </Title>
-      <Catalog />
+      <Catalog isWatched />
     </>
   );
 }

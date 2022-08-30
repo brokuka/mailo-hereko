@@ -3,7 +3,6 @@ import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   data: [],
-  filteredData: [],
 };
 
 const watchedSlice = createSlice({
@@ -12,11 +11,6 @@ const watchedSlice = createSlice({
   reducers: {
     addData(state, action) {
       state.data = [...action.payload];
-    },
-    filterData(state, action) {
-      state.filteredData = state.data.filter(
-        (item) => item.media_type === action.payload
-      );
     },
   },
   extraReducers: {
@@ -30,9 +24,8 @@ const watchedSlice = createSlice({
   },
 });
 
-export const { addData, filterData } = watchedSlice.actions;
+export const { addData } = watchedSlice.actions;
 
 export const watchedData = (state) => state.watched.data;
-export const filteredData = (state) => state.watched.filteredData;
 
 export default watchedSlice;
