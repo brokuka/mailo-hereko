@@ -1,6 +1,9 @@
 import React from "react";
 import { chooseIcon } from "./../../Icon/Icon";
 import cn from "classnames";
+import { useDispatch, useSelector } from "react-redux";
+import { setFilterValue } from "../../../store/filter/filterSlice";
+import { filterValue } from "../../../store/filter/filter.selector";
 
 /* Style */
 import styles from "./Input.module.scss";
@@ -18,6 +21,8 @@ const Input = (
   },
   ref
 ) => {
+  const dispatch = useDispatch();
+
   const iconBoth = iconPos === "both";
   const leftIcon = iconBoth || iconPos === "left";
   const rightIcon = iconBoth || iconPos === "right";
@@ -49,6 +54,8 @@ const Input = (
         <input
           className={cn(styles.root, className)}
           placeholder={placeholder}
+          value={useSelector(filterValue)}
+          onChange={(e) => dispatch(setFilterValue(e.target.value))}
           type={type}
           ref={(e) => {
             inputRef.current = e;

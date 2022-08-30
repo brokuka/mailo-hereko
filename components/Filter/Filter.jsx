@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./Filter.module.scss";
 import { useMeasure } from "react-use";
 import { filterType } from "./../../store/filter/filter.selector";
-import { changeType } from "../../store/filter/filterSlice";
+import { setFilterType } from "../../store/filter/filterSlice";
 
 const Filter = () => {
   const [active, setActive] = React.useState("all");
@@ -30,7 +30,7 @@ const Filter = () => {
     setTop(e.offsetParent.offsetTop);
     setLeft(e.offsetParent.offsetLeft);
     setActiveElement(e);
-    dispatch(changeType(e.value));
+    dispatch(setFilterType(e.value));
   };
 
   React.useEffect(() => {
