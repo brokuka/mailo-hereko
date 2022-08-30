@@ -7,18 +7,20 @@ export const filterValue = (state) => state.filter.value;
 export const selectFilterdData = createSelector(
   [watchedData, filterType, filterValue],
   (items, type, value) => {
-    if (type === "all") {
-      return value
-        ? items.filter((item) => item.title.toLowerCase().includes(value))
-        : items;
-    } else {
-      return value
-        ? items.filter(
-            (item) =>
-              item.media_type === type &&
-              item.title.toLowerCase().includes(value)
-          )
-        : items.filter((item) => item.media_type === type);
-    }
+    const getData = (withoutMedia, onlyCategory) => {
+      if (withoutMedia)
+        return items.filter((item) => item.title.toLowerCase().includes(value));
+
+      if (onlyCategory) return items.filter((item) => item.media_type === type);
+
+      return items.filter(
+        (item) =>
+          item.media_type === type && item.title.toLowerCase().includes(value)
+      );
+    };
+
+    if (type === "all") return value ? getData(true) : items;
+
+    return value ? getData() : getData(undefined, true);
   }
 );
