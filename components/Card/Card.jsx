@@ -9,16 +9,10 @@ import Placeholder from "../Placeholder/Placeholder";
 /* Style */
 import styles from "./Card.module.scss";
 
-const Card = ({
-  isSuggesting,
-  isWatched,
-  id,
-  rating,
-  poster,
-  title,
-  media_type,
-  noData,
-}) => {
+const Card = (
+  { isSuggesting, isWatched, id, rating, poster, title, media_type, className },
+  ref
+) => {
   const [suggest, setSuggested] = React.useState(false);
   const [watched, setWatched] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
@@ -124,7 +118,7 @@ const Card = ({
   };
 
   return (
-    <div className={styles.root}>
+    <div className={cn(styles.root, className)} ref={ref}>
       {checkFetching()}
 
       {isFetched && !isWatched && (
@@ -162,4 +156,4 @@ const Card = ({
   );
 };
 
-export default Card;
+export default React.forwardRef(Card);

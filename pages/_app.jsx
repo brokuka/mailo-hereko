@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Layout from "./../layout/Layout/Layout";
 import "resize-observer-polyfill";
+import { wrapper } from "../store";
 
 /* Style */
 import "../styles/index.scss";
@@ -27,4 +28,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

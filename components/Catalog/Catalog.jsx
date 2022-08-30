@@ -1,73 +1,31 @@
 import React from "react";
-import Radio from "../Inputs/Radio/Radio";
 import Card from "./../Card/Card";
-import { useMeasure } from "react-use";
+import { useSelector } from "react-redux";
+import { watchedData } from "../../store/watched/watchedSlice";
+import { selectFilterdData } from "../../store/filter/filter.selector";
+import Filter from "../Filter/Filter";
 
 /* Style */
 import styles from "./Catalog.module.scss";
 
-const Catalog = ({ data }) => {
-  const [active, setActive] = React.useState("all");
-  const [width, setWidth] = React.useState(null);
-  const [height, setHeight] = React.useState("auto");
-  const [top, setTop] = React.useState(null);
-  const [left, setLeft] = React.useState(null);
-  const firstInput = React.useRef();
-  const [activeElement, setActiveElement] = React.useState(firstInput.current);
-  const [blockRef, blockRefStyles] = useMeasure();
+const Catalog = ({ isWatched }) => {
+  const filtered = useSelector(selectFilterdData);
 
-  const getRefPropValue = (el, prop) => {
-    return getComputedStyle(el).getPropertyValue(prop);
-  };
+  const renderCards = () => {
+    if (!watchedData.length) {
+      return Array.from(Array(12), (_, i) => <Card noData key={i} />);
+    }
 
-  React.useEffect(() => {
-    onClick();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [blockRefStyles.width]);
-
-  const onClick = (e = activeElement || firstInput.current) => {
-    const style = getComputedStyle(e.offsetParent);
-
-    setActive(e.value);
-    setWidth(style.width);
-    setHeight(style.height);
-    setTop(e.offsetParent.offsetTop);
-    setLeft(e.offsetParent.offsetLeft);
-    setActiveElement(e);
-  };
-
-  const customStyles = {
-    width,
-    height,
-    top,
-    left,
+    return filtered.map(({ id, ...props }) => (
+      <Card isWatched={isWatched} key={id} id={id} {...props} />
+    ));
   };
 
   return (
     <>
-      <div className={styles.filter} ref={blockRef}>
-        <Radio
-          Ref={firstInput}
-          value="all"
-          onChange={onClick}
-          state={active}
-          label="All"
-        />
-        <Radio value="movie" onChange={onClick} state={active} label="Movies" />
-        <Radio value="tv" onChange={onClick} state={active} label="TV Shows" />
+      <Filter />
 
-        {active && (
-          <span style={active && customStyles} className={styles.indicator} />
-        )}
-      </div>
-
-      <div className={styles.root}>
-        {data
-          ? data.map(({ id, ...props }) => (
-              <Card isWatched key={id} id={id} {...props} />
-            ))
-          : Array.from(Array(12), (_, i) => <Card noData key={i} />)}
-      </div>
+      <div className={styles.root}>{renderCards()}</div>
     </>
   );
 };
