@@ -9,13 +9,16 @@ export const selectFilterdData = createSelector(
   (items, type, value) => {
     const getData = (withoutMedia, onlyCategory) => {
       if (withoutMedia)
-        return items.filter((item) => item.title.toLowerCase().includes(value));
+        return items.filter((item) =>
+          item.title.toLowerCase().includes(value.toLowerCase())
+        );
 
       if (onlyCategory) return items.filter((item) => item.media_type === type);
 
       return items.filter(
         (item) =>
-          item.media_type === type && item.title.toLowerCase().includes(value)
+          item.media_type === type &&
+          item.title.toLowerCase().includes(value.toLowerCase())
       );
     };
 
