@@ -4,19 +4,21 @@ import Catalog from "../../components/Catalog/Catalog";
 import Title from "../../components/Title/Title";
 import { useDispatch } from "react-redux";
 import { addData } from "../../store/watched/watchedSlice";
-import { setFilterValue } from "../../store/filter/filterSlice";
+import { setFilterType, setFilterValue } from "../../store/filter/filterSlice";
 
 const Index = ({ data, media_type }) => {
   const dispatch = useDispatch();
+  const checkMediaType = media_type === "movies" ? media_type : "TV Shows";
 
   React.useEffect(() => {
     dispatch(setFilterValue(""));
     dispatch(addData(data));
-  }, [data, dispatch]);
+    dispatch(setFilterType(media_type.slice(0, -1)));
+  }, [data, dispatch, media_type]);
 
   return (
     <>
-      <Title name={media_type} input sub />
+      <Title name={checkMediaType} input sub />
       <Catalog isWatched />
     </>
   );
@@ -34,8 +36,7 @@ export const getServerSideProps = async ({ params }) => {
   return {
     props: {
       data: data.results,
-      media_type:
-        params.media_type === "movies" ? params.media_type : "TV Shows",
+      media_type: params.media_type,
     },
   };
 };
