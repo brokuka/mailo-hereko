@@ -10,16 +10,7 @@ const watchedSlice = createSlice({
   initialState,
   reducers: {
     addData(state, action) {
-      state.data = [...action.payload];
-    },
-  },
-  extraReducers: {
-    [HYDRATE]: (state, action) => {
-      console.log("HYDRATE", state, action.payload);
-      return {
-        ...state,
-        data: [...action.payload.watched.data],
-      };
+      state.data = action.payload;
     },
   },
 });

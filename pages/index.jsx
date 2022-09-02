@@ -10,7 +10,6 @@ export default function Home({ data }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(setFilterValue(""));
     dispatch(addData(data));
   }, [data, dispatch]);
 

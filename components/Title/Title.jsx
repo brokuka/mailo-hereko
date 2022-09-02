@@ -60,7 +60,7 @@ const Title = ({ type = "h1", name, children, input, sub, main = false }) => {
           )}
           {renderTitle()}
         </div>
-        <div className={styles.description}>{children}</div>
+        <p className={styles.description}>{children}</p>
       </div>
       {input && (
         <Input

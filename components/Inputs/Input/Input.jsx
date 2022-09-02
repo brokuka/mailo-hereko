@@ -4,6 +4,7 @@ import cn from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilterValue } from "../../../store/filter/filterSlice";
 import { filterValue } from "../../../store/filter/filter.selector";
+import { useDebounce } from "react-use";
 
 /* Style */
 import styles from "./Input.module.scss";
@@ -30,6 +31,17 @@ const Input = (
   const inputRef = React.useRef(null);
   const labelRef = React.useRef(null);
 
+  const value = useSelector(filterValue);
+  const [val, setVal] = React.useState(value);
+
+  const [, cancel] = useDebounce(
+    () => {
+      dispatch(setFilterValue(val));
+    },
+    500,
+    [val]
+  );
+
   const getRefPropValue = (el, prop) => {
     return +getComputedStyle(el).getPropertyValue(prop).replace(/\D+/g, "");
   };
@@ -54,8 +66,8 @@ const Input = (
         <input
           className={cn(styles.root, className)}
           placeholder={placeholder}
-          value={useSelector(filterValue)}
-          onChange={(e) => dispatch(setFilterValue(e.target.value))}
+          value={val}
+          onChange={(e) => setVal(e.target.value)}
           type={type}
           ref={(e) => {
             inputRef.current = e;

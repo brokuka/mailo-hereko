@@ -13,7 +13,7 @@ import styles from "./Header.module.scss";
 const nonAuthLinks = [
   { title: "Movies", href: "/movies" },
   { title: "TV Shows", href: "/tvs" },
-  { title: "Suggest me", href: "/", icon: "arrow", iconPos: "right" },
+  { title: "Suggest me", href: "/suggest", icon: "arrow", iconPos: "right" },
 ];
 
 const authLinks = [

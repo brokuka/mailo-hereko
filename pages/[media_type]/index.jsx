@@ -11,8 +11,8 @@ const Index = ({ data, media_type }) => {
   const checkMediaType = media_type === "movies" ? media_type : "TV Shows";
 
   React.useEffect(() => {
-    dispatch(setFilterValue(""));
     dispatch(addData(data));
+    dispatch(setFilterValue(""));
     dispatch(setFilterType(media_type.slice(0, -1)));
   }, [data, dispatch, media_type]);
 

@@ -88,4 +88,5 @@
 .description {
 	@include text-p2;
 	color: $grey-300;
+	word-break: break-word;
 }

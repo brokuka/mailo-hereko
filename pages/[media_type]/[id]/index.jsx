@@ -4,6 +4,8 @@ import Head from "next/head";
 import Overview from "../../../components/Overview/Overview";
 
 const Index = ({ data }) => {
+  console.log(data);
+
   return (
     <>
       <Head>
@@ -29,13 +31,15 @@ export const getStaticProps = async ({ params }) => {
 
   return {
     props: {
-      data,
+      data: data,
     },
   };
 };
 
 export const getStaticPaths = async () => {
-  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/watched`);
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API}/search?limit=1000`
+  );
 
   return {
     paths: data.results.map((obj) => {

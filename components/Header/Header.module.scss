@@ -80,6 +80,10 @@
 	color: $primary-400;
 }
 
+.active .icon {
+	stroke: $primary-400;
+}
+
 .icon {
 	transition: all .2s ease;
 }
@@ -100,8 +104,8 @@
 	order: 1;
 }
 
-.link:hover .icon,
-.link:focus-visible .icon {
+.link:hover:not(.active) .icon,
+.link:focus-visible:not(.active) .icon {
 	transform: translateX(5px);
 	stroke: $primary-400;
 }
