@@ -1,0 +1,23 @@
+@use '../../styles/mixins.scss' as *;
+@use '../../styles/vars.scss' as *;
+
+.root {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	align-items: center;
+}
+
+
+.highlighted {
+	@include text-overline1;
+	padding: .3em;
+	color: $primary-500;
+	text-transform: capitalize;
+
+	background-color: $grey-200;
+	border-radius: 8px;
+	/*
+	&::first-letter {
+	} */
+}

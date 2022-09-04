@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import cn from "classnames";
-import Spinner from "../Spinner/Spinner";
-import { chooseIcon } from "../Icon/Icon";
+import Spinner from "@component/Spinner/Spinner";
+import { chooseIcon } from "@component/Icon/Icon";
 
 /* Style */
 import styles from "./Button.module.scss";
@@ -10,6 +10,7 @@ const Button = (
   {
     icon,
     iconPos = "left",
+    iconClass,
     children,
     className,
     type = "default",
@@ -44,16 +45,23 @@ const Button = (
       ) : (
         <button
           className={cn(styles.root, className, {
-            [styles.default]: type === "default" && type !== "card",
+            [styles.default]: type === "default",
           })}
           ref={ref}
           {...props}
         >
           <>
             {leftIcon &&
-              chooseIcon(icon, undefined, [styles.icon, styles.icon_left])}
+              chooseIcon({
+                icon,
+                size: 24,
+                className: [styles.icon, styles.icon_left],
+              })}
             {rightIcon &&
-              chooseIcon(icon, undefined, [styles.icon, styles.icon_right])}
+              chooseIcon({
+                icon,
+                className: [styles.icon, styles.icon_right],
+              })}
             {children && <span>{children}</span>}
           </>
         </button>

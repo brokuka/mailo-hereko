@@ -77,6 +77,15 @@
 	stroke: $success-400;
 }
 
+.error {
+	color: $error-400;
+	pointer-events: none;
+}
+
+.error svg {
+	stroke: $error-400;
+}
+
 .enter {
 	opacity: 0;
 }

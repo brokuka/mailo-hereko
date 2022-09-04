@@ -8,8 +8,6 @@ import styles from "./Breadcrumbs.module.scss";
 const Breadcrumbs = () => {
   const router = useRouter().query;
 
-  console.log(router);
-
   const checkAndRender = () => {
     switch (router.media_type) {
       case "movie":

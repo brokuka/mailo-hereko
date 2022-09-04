@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
-import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
-import Rating from "../Rating/Rating";
-import Placeholder from "../Placeholder/Placeholder";
+import Breadcrumbs from "@component/Breadcrumbs/Breadcrumbs";
+import Rating from "@component/Rating/Rating";
+import Placeholder from "@component/Placeholder/Placeholder";
 
 /* Style */
 import styles from "./Overview.module.scss";

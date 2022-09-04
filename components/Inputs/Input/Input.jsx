@@ -2,9 +2,9 @@ import React from "react";
 import { chooseIcon } from "./../../Icon/Icon";
 import cn from "classnames";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilterValue } from "../../../store/filter/filterSlice";
-import { filterValue } from "../../../store/filter/filter.selector";
 import { useDebounce } from "react-use";
+import { setFilterValue } from "@store/filter/filterSlice";
+import { filterValue } from "@store/filter/filter.selector";
 
 /* Style */
 import styles from "./Input.module.scss";
@@ -58,9 +58,13 @@ const Input = (
 
   return (
     <div className={styles.wrapper} style={{ maxWidth }}>
-      {leftIcon && chooseIcon(icon, undefined, [styles.icon, styles.icon_left])}
+      {/* {leftIcon && chooseIcon(icon, undefined, [styles.icon, styles.icon_left])} */}
+      {leftIcon &&
+        chooseIcon({ icon, className: [styles.icon, styles.icon_left] })}
+      {/* {rightIcon &&
+        chooseIcon(icon, undefined, [styles.icon, styles.icon_right])} */}
       {rightIcon &&
-        chooseIcon(icon, undefined, [styles.icon, styles.icon_right])}
+        chooseIcon({ icon, className: [styles.icon, styles.icon_right] })}
 
       <label className={styles.label}>
         <input

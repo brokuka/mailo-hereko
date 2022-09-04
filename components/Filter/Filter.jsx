@@ -1,8 +1,8 @@
 import React from "react";
-import Radio from "../Inputs/Radio/Radio";
 import { useSelector } from "react-redux";
 import { useMeasure } from "react-use";
-import { filterType } from "./../../store/filter/filter.selector";
+import { filterType } from "@store/filter/filter.selector";
+import Radio from "@component/Inputs/Radio/Radio";
 
 /* Style */
 import styles from "./Filter.module.scss";

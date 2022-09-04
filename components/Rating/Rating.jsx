@@ -1,11 +1,10 @@
 import React from "react";
-import cn from "classnames";
 
 /* Style */
 import styles from "./Rating.module.scss";
 import Icon from "../Icon/Icon";
 
-const Rating = ({ type, position, x, y, index, value }) => {
+const Rating = ({ position, x, y, index, value }) => {
   let customStyles = {
     position: position && "absolute",
     top: y,

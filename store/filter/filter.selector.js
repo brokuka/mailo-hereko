@@ -27,7 +27,6 @@ export const selectFilterdData = createSelector(
     if (type && type !== "all")
       return value ? getData() : getData(undefined, true);
 
-    // must work
     return value ? getData(true) : items;
   }
 );

@@ -1,18 +1,18 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Title from "@component/Title/Title";
 import Catalog from "@component/Catalog/Catalog";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { setFilterType, setFilterValue } from "store/filter/filterSlice";
-import { addData } from "store/watched/watchedSlice";
-import { useGetResultsByFilterQuery } from "store/search/search.api";
-import { filterValue } from "store/filter/filter.selector";
-import { useDebounce } from "react-use";
+import { useGetResultsByFilterQuery } from "@store/search/search.api";
+import { filterValue } from "@store/filter/filter.selector";
+import useRouterChanged from "@hooks/useRouterChanged";
 
 const Index = () => {
-  const dispatch = useDispatch();
   const value = useSelector(filterValue);
-  const { data } = useGetResultsByFilterQuery(value, { skip: !value.length });
+  const { data } = useGetResultsByFilterQuery(value, {
+    skip: !value.length,
+    refetchOnMountOrArgChange: true,
+  });
+  useRouterChanged({ removeValue: true });
 
   return (
     <>
@@ -21,7 +21,7 @@ const Index = () => {
         good to watch.
       </Title>
 
-      <Catalog data={data && value.length && data.results} search />
+      {data && value.length > 0 && <Catalog data={data.results} search />}
     </>
   );
 };

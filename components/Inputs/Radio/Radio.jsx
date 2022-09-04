@@ -1,8 +1,8 @@
 import React from "react";
 import cn from "classnames";
 import { useSelector, useDispatch } from "react-redux";
-import { filterType } from "store/filter/filter.selector";
-import { setFilterType } from "store/filter/filterSlice";
+import { setFilterValue } from "@store/filter/filterSlice";
+import { filterType } from "@store/filter/filter.selector";
 
 /* Style */
 import styles from "./Radio.module.scss";

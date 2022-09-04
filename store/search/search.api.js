@@ -11,7 +11,7 @@ export const searchApi = createApi({
         url: "search",
         params: {
           s: string,
-          limit: 7000,
+          limit: 12,
         },
       }),
     }),

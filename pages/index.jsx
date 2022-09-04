@@ -1,13 +1,15 @@
-import Title from "../components/Title/Title";
-import Catalog from "../components/Catalog/Catalog";
-import axios from "axios";
-import { addData } from "../store/watched/watchedSlice";
-import { useDispatch } from "react-redux";
 import React from "react";
-import { setFilterValue } from "../store/filter/filterSlice";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addData } from "@store/watched/watchedSlice";
+import Title from "@component/Title/Title";
+import Catalog from "@component/Catalog/Catalog";
+import useRouterChanged from "@hooks/useRouterChanged";
 
 export default function Home({ data }) {
   const dispatch = useDispatch();
+
+  useRouterChanged({ removeValue: true });
 
   React.useEffect(() => {
     dispatch(addData(data));
@@ -24,7 +26,9 @@ export default function Home({ data }) {
 }
 
 export const getServerSideProps = async () => {
-  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/watched`);
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API}/watched?limit=10`
+  );
 
   return {
     props: {
