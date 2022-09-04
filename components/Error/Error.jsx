@@ -3,9 +3,11 @@ import { useMedia } from "react-use";
 import Link from "next/link";
 import React from "react";
 import { filterType } from "@store/filter/filter.selector";
+import { selectFilteredTypeLabels } from "@store/filter/filter.selector";
 import Button from "@component/Button/Button";
 import Title from "@component/Title/Title";
 import Icon from "@component/Icon/Icon";
+import { useRouter } from "next/router";
 
 /* Style */
 import styles from "./Error.module.scss";
@@ -13,6 +15,8 @@ import styles from "./Error.module.scss";
 const Error = ({ type = "notFound" }) => {
   const filter = useSelector(filterType);
   const isTablet = useMedia("(max-width: 767.99px)", null);
+  const labels = useSelector(selectFilteredTypeLabels);
+  const { pathname } = useRouter();
 
   const checkType = () => {
     switch (type) {
@@ -38,21 +42,23 @@ const Error = ({ type = "notFound" }) => {
         return (
           <>
             <Title type="h2" name="Sorry, No results found">
-              {filter !== "all" ? (
+              {!pathname.includes("suggest") &&
+              !pathname.includes("[media_type]") ? (
                 <>
                   There are no{" "}
-                  <span className={styles.highlighted}>
-                    {filter === "movie" ? "movies" : "TV shows"}
-                  </span>{" "}
+                  {filter !== "all" &&
+                    labels.map(
+                      (label, index) =>
+                        label.toLowerCase().includes(filter) && (
+                          <span className={styles.highlighted} key={index}>
+                            {label}
+                          </span>
+                        )
+                    )}{" "}
                   matching your search terms. You can suggest me manually
                 </>
               ) : (
-                <>
-                  There are no{" "}
-                  <span className={styles.highlighted}>Movies</span> or{" "}
-                  <span className={styles.highlighted}>TV shows</span> matching
-                  your search terms. You can suggest me manually
-                </>
+                "There are no matching your search terms. You can suggest me manually"
               )}
             </Title>
 

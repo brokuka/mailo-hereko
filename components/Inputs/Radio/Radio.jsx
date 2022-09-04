@@ -3,6 +3,7 @@ import cn from "classnames";
 import { useSelector, useDispatch } from "react-redux";
 import { setFilterType } from "@store/filter/filterSlice";
 import { filterType } from "@store/filter/filter.selector";
+import { setFilterTypeLabels } from "@store/filter/filterSlice";
 
 /* Style */
 import styles from "./Radio.module.scss";
@@ -10,6 +11,10 @@ import styles from "./Radio.module.scss";
 const Radio = ({ value, label, filter }, ref) => {
   const dispatch = useDispatch();
   const [state, setState] = React.useState(value);
+
+  React.useEffect(() => {
+    dispatch(setFilterTypeLabels([label]));
+  }, [dispatch, label]);
 
   const type = useSelector(filterType);
 

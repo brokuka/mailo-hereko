@@ -34,7 +34,7 @@ const Drawer = ({ state, children, onClose }) => {
       <div className={styles.root} ref={nodeRef}>
         <div className={styles.head}>
           <Link href="/">
-            <a className={styles.logo}>
+            <a className={styles.logo} onClick={onClose}>
               <Icon icon="logoColored" size={40} />
             </a>
           </Link>
