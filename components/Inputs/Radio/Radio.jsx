@@ -1,7 +1,7 @@
 import React from "react";
 import cn from "classnames";
 import { useSelector, useDispatch } from "react-redux";
-import { setFilterValue } from "@store/filter/filterSlice";
+import { setFilterType } from "@store/filter/filterSlice";
 import { filterType } from "@store/filter/filter.selector";
 
 /* Style */
