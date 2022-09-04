@@ -5,10 +5,7 @@ import { addData } from "@store/watched/watchedSlice";
 import Title from "@component/Title/Title";
 import Catalog from "@component/Catalog/Catalog";
 import useRouterChanged from "@hooks/useRouterChanged";
-import {
-  filterType,
-  selectFilteredTypeLabels,
-} from "@store/filter/filter.selector";
+import { filterType } from "@store/filter/filter.selector";
 import { setFilterType } from "@store/filter/filterSlice";
 
 export default function Home({ data }) {
@@ -18,9 +15,9 @@ export default function Home({ data }) {
   useRouterChanged({ removeValue: true });
 
   React.useEffect(() => {
-    if (type !== "all") {
+    /*     if (type !== "all") {
       dispatch(setFilterType("all"));
-    }
+    } */
 
     dispatch(addData(data));
     // eslint-disable-next-line react-hooks/exhaustive-deps

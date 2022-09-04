@@ -63,4 +63,4 @@ const Radio = ({ value, label, filter }, ref) => {
   );
 };
 
-export default React.forwardRef(React.forwardRef(Radio));
+export default React.forwardRef(Radio);
