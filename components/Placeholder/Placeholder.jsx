@@ -1,6 +1,6 @@
 import React from "react";
-import Icon from "../Icon/Icon";
 import cn from "classnames";
+import Icon from "@component/Icon/Icon";
 
 /* Style */
 import styles from "./Placeholder.module.scss";

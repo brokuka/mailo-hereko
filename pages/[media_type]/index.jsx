@@ -1,20 +1,20 @@
 import React from "react";
 import axios from "axios";
-import Catalog from "../../components/Catalog/Catalog";
-import Title from "../../components/Title/Title";
 import { useDispatch } from "react-redux";
-import { addData } from "../../store/watched/watchedSlice";
-import { setFilterType, setFilterValue } from "../../store/filter/filterSlice";
+import { addData } from "@store/watched/watchedSlice";
+import Catalog from "@component/Catalog/Catalog";
+import Title from "@component/Title/Title";
+import useRouterChanged from "@hooks/useRouterChanged";
 
 const Index = ({ data, media_type }) => {
   const dispatch = useDispatch();
   const checkMediaType = media_type === "movies" ? media_type : "TV Shows";
 
+  useRouterChanged({ removeValue: true });
+
   React.useEffect(() => {
-    dispatch(setFilterValue(""));
     dispatch(addData(data));
-    dispatch(setFilterType(media_type.slice(0, -1)));
-  }, [data, dispatch, media_type]);
+  }, [data, dispatch]);
 
   return (
     <>

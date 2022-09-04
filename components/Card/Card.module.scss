@@ -3,6 +3,9 @@
 
 .root {
 	@include text-link1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	max-width: 282px;
 	width: 100%;
 	height: 100%;
@@ -16,7 +19,6 @@
 .link {
 	display: block;
 	border-radius: 8px;
-	height: 100%;
 }
 
 .head {
@@ -73,6 +75,15 @@
 
 .watched svg {
 	stroke: $success-400;
+}
+
+.error {
+	color: $error-400;
+	pointer-events: none;
+}
+
+.error svg {
+	stroke: $error-400;
 }
 
 .enter {

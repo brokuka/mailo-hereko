@@ -1,9 +1,11 @@
 import React from "react";
 import axios from "axios";
 import Head from "next/head";
-import Overview from "../../../components/Overview/Overview";
+import Overview from "@component/Overview/Overview";
 
 const Index = ({ data }) => {
+  console.log(data);
+
   return (
     <>
       <Head>
@@ -22,6 +24,20 @@ const Index = ({ data }) => {
   );
 };
 
+/* export const getServerSideProps = async ({ params }) => {
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API}/${params.media_type}/${params.id}`
+  );
+
+  console.log(data);
+
+  return {
+    props: {
+      data: data,
+    },
+  };
+}; */
+
 export const getStaticProps = async ({ params }) => {
   const { data } = await axios.get(
     `${process.env.NEXT_PUBLIC_API}/${params.media_type}/${params.id}`
@@ -29,24 +45,29 @@ export const getStaticProps = async ({ params }) => {
 
   return {
     props: {
-      data,
+      data: data,
     },
+    revalidate: 60,
   };
 };
 
 export const getStaticPaths = async () => {
-  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/watched`);
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API}/search?limit=${
+      process.env.PREVIEW_ENV ? 10 : 1000
+    }`
+  );
 
   return {
     paths: data.results.map((obj) => {
       return {
         params: {
           media_type: obj.media_type,
-          id: obj.id.toString(),
+          id: obj.id,
         },
       };
     }),
-    fallback: false,
+    fallback: "blocking",
   };
 };
 

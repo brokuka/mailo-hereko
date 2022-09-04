@@ -1,10 +1,10 @@
 import React from "react";
 import cn from "classnames";
 import { useMedia } from "react-use";
+import Input from "@component/Inputs/Input/Input";
 
 /* Style */
 import styles from "./Title.module.scss";
-import Input from "../Inputs/Input/Input";
 
 const Title = ({ type = "h1", name, children, input, sub, main = false }) => {
   const isTablet = useMedia("(max-width: 768px)", null);
@@ -60,7 +60,7 @@ const Title = ({ type = "h1", name, children, input, sub, main = false }) => {
           )}
           {renderTitle()}
         </div>
-        <div className={styles.description}>{children}</div>
+        {children && <p className={styles.description}>{children}</p>}
       </div>
       {input && (
         <Input

@@ -1,7 +1,7 @@
 import Head from "next/head";
-import Layout from "./../layout/Layout/Layout";
 import "resize-observer-polyfill";
-import { store } from "../store";
+import { store } from "@store/index";
+import Layout from "@layout/Layout/Layout";
 
 /* Style */
 import "../styles/index.scss";

@@ -1,11 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import cn from "classnames";
-import { useMedia } from "react-use";
-import Button from "../Button/Button";
-import Icon, { chooseIcon } from "../Icon/Icon";
-import Drawer from "../Drawer/Drawer";
 import { useRouter } from "next/router";
+import { useMedia } from "react-use";
+import Button from "@component/Button/Button";
+import Icon, { chooseIcon } from "@component/Icon/Icon";
+import Drawer from "@component/Drawer/Drawer";
 
 /* Style */
 import styles from "./Header.module.scss";
@@ -13,7 +13,7 @@ import styles from "./Header.module.scss";
 const nonAuthLinks = [
   { title: "Movies", href: "/movies" },
   { title: "TV Shows", href: "/tvs" },
-  { title: "Suggest me", href: "/", icon: "arrow", iconPos: "right" },
+  { title: "Suggest me", href: "/suggest", icon: "arrow", iconPos: "right" },
 ];
 
 const authLinks = [
@@ -56,7 +56,7 @@ const Header = ({ variant = "nonAuth" }) => {
                 [styles.active]: href === router.asPath,
               })}
             >
-              {chooseIcon(icon, 16, undefined, iconClassnames)}
+              {chooseIcon({ icon, size: 16, classTerms: iconClassnames })}
               <span>{title}</span>
             </a>
           </Link>

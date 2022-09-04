@@ -2,8 +2,9 @@ import React from "react";
 import { chooseIcon } from "./../../Icon/Icon";
 import cn from "classnames";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilterValue } from "../../../store/filter/filterSlice";
-import { filterValue } from "../../../store/filter/filter.selector";
+import { useDebounce } from "react-use";
+import { setFilterValue } from "@store/filter/filterSlice";
+import { filterValue } from "@store/filter/filter.selector";
 
 /* Style */
 import styles from "./Input.module.scss";
@@ -30,6 +31,17 @@ const Input = (
   const inputRef = React.useRef(null);
   const labelRef = React.useRef(null);
 
+  const value = useSelector(filterValue);
+  const [val, setVal] = React.useState(value);
+
+  const [, cancel] = useDebounce(
+    () => {
+      dispatch(setFilterValue(val));
+    },
+    500,
+    [val]
+  );
+
   const getRefPropValue = (el, prop) => {
     return +getComputedStyle(el).getPropertyValue(prop).replace(/\D+/g, "");
   };
@@ -46,16 +58,20 @@ const Input = (
 
   return (
     <div className={styles.wrapper} style={{ maxWidth }}>
-      {leftIcon && chooseIcon(icon, undefined, [styles.icon, styles.icon_left])}
+      {/* {leftIcon && chooseIcon(icon, undefined, [styles.icon, styles.icon_left])} */}
+      {leftIcon &&
+        chooseIcon({ icon, className: [styles.icon, styles.icon_left] })}
+      {/* {rightIcon &&
+        chooseIcon(icon, undefined, [styles.icon, styles.icon_right])} */}
       {rightIcon &&
-        chooseIcon(icon, undefined, [styles.icon, styles.icon_right])}
+        chooseIcon({ icon, className: [styles.icon, styles.icon_right] })}
 
       <label className={styles.label}>
         <input
           className={cn(styles.root, className)}
           placeholder={placeholder}
-          value={useSelector(filterValue)}
-          onChange={(e) => dispatch(setFilterValue(e.target.value))}
+          value={val}
+          onChange={(e) => setVal(e.target.value)}
           type={type}
           ref={(e) => {
             inputRef.current = e;

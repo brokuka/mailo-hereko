@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import Icon from "../Icon/Icon";
-import Button from "../Button/Button";
 import { CSSTransition } from "react-transition-group";
+import Icon from "@component/Icon/Icon";
+import Button from "@component/Button/Button";
 
 /* Style */
 import styles from "./Drawer.module.scss";
