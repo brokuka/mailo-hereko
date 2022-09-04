@@ -15,9 +15,9 @@ export default function Home({ data }) {
   useRouterChanged({ removeValue: true });
 
   React.useEffect(() => {
-    /*     if (type !== "all") {
+    if (type !== "all") {
       dispatch(setFilterType("all"));
-    } */
+    }
 
     dispatch(addData(data));
     // eslint-disable-next-line react-hooks/exhaustive-deps
