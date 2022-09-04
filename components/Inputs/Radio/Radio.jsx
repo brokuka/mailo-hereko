@@ -10,7 +10,6 @@ import styles from "./Radio.module.scss";
 
 const Radio = ({ value, label, filter }, ref) => {
   const dispatch = useDispatch();
-  const [state, setState] = React.useState(value);
 
   React.useEffect(() => {
     dispatch(setFilterTypeLabels([label]));
@@ -26,10 +25,6 @@ const Radio = ({ value, label, filter }, ref) => {
       e.key !== "Enter" &&
       e.type !== "click"
     ) {
-      return;
-    }
-
-    if (e.key === " " || e.key === "Enter" || e.type === "click") {
       return;
     }
 
@@ -53,8 +48,7 @@ const Radio = ({ value, label, filter }, ref) => {
         className={cn(styles.input, "visually-hidden")}
         type="radio"
         value={value}
-        onChange={(e) => onClick(e)}
-        checked={type === value || state === value}
+        checked={type === value}
         ref={ref}
         disabled
       />
