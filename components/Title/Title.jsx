@@ -2,12 +2,15 @@ import React from "react";
 import cn from "classnames";
 import { useMedia } from "react-use";
 import Input from "@component/Inputs/Input/Input";
+import useRouterChanged from "@hooks/useRouterChanged";
 
 /* Style */
 import styles from "./Title.module.scss";
 
 const Title = ({ type = "h1", name, children, input, sub, main = false }) => {
   const isTablet = useMedia("(max-width: 768px)", null);
+
+  useRouterChanged({ removeValue: true });
 
   const checkType =
     type === "h1" ||

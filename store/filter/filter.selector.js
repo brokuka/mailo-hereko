@@ -3,6 +3,16 @@ import { watchedData } from "../watched/watchedSlice";
 
 export const filterType = (state) => state.filter.type;
 export const filterValue = (state) => state.filter.value;
+export const filterTypeLabels = (state) => state.filter.labels;
+
+export const selectFilteredTypeLabels = createSelector(
+  [filterTypeLabels],
+  (labels) => {
+    return labels.filter(
+      (label, index, array) => index === array.indexOf(label)
+    );
+  }
+);
 
 export const selectFilterdData = createSelector(
   [watchedData, filterType, filterValue],

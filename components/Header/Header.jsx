@@ -55,6 +55,7 @@ const Header = ({ variant = "nonAuth" }) => {
               className={cn(styles.link, {
                 [styles.active]: href === router.asPath,
               })}
+              onClick={onClick}
             >
               {chooseIcon({ icon, size: 16, classTerms: iconClassnames })}
               <span>{title}</span>

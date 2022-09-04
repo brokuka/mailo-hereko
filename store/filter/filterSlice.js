@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   type: "all",
   value: "",
+  labels: [],
 };
 
 const filterSlice = createSlice({
@@ -15,9 +16,13 @@ const filterSlice = createSlice({
     setFilterValue(state, action) {
       state.value = action.payload;
     },
+    setFilterTypeLabels(state, action) {
+      state.labels = [...state.labels, ...action.payload];
+    },
   },
 });
 
-export const { setFilterType, setFilterValue } = filterSlice.actions;
+export const { setFilterType, setFilterValue, setFilterTypeLabels } =
+  filterSlice.actions;
 
 export default filterSlice;

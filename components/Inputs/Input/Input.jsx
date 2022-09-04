@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDebounce } from "react-use";
 import { setFilterValue } from "@store/filter/filterSlice";
 import { filterValue } from "@store/filter/filter.selector";
+import useRouterChanged from "@hooks/useRouterChanged";
 
 /* Style */
 import styles from "./Input.module.scss";
@@ -28,11 +29,13 @@ const Input = (
   const leftIcon = iconBoth || iconPos === "left";
   const rightIcon = iconBoth || iconPos === "right";
 
+  useRouterChanged({ removeValue: true });
+
   const inputRef = React.useRef(null);
   const labelRef = React.useRef(null);
 
   const value = useSelector(filterValue);
-  const [val, setVal] = React.useState(value);
+  const [val, setVal] = React.useState("");
 
   const [, cancel] = useDebounce(
     () => {
@@ -54,15 +57,14 @@ const Input = (
 
     labelRef.current.style.width = `calc(100% - ${sum}px)`;
     labelRef.current.style.left = `${paddingLeft}px`;
-  }, []);
+
+    setVal(value);
+  }, [value]);
 
   return (
     <div className={styles.wrapper} style={{ maxWidth }}>
-      {/* {leftIcon && chooseIcon(icon, undefined, [styles.icon, styles.icon_left])} */}
       {leftIcon &&
         chooseIcon({ icon, className: [styles.icon, styles.icon_left] })}
-      {/* {rightIcon &&
-        chooseIcon(icon, undefined, [styles.icon, styles.icon_right])} */}
       {rightIcon &&
         chooseIcon({ icon, className: [styles.icon, styles.icon_right] })}
 

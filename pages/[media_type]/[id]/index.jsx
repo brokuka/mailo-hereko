@@ -24,31 +24,21 @@ const Index = ({ data }) => {
   );
 };
 
-/* export const getServerSideProps = async ({ params }) => {
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API}/${params.media_type}/${params.id}`
-  );
-
-  console.log(data);
-
-  return {
-    props: {
-      data: data,
-    },
-  };
-}; */
-
 export const getStaticProps = async ({ params }) => {
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API}/${params.media_type}/${params.id}`
-  );
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API}/${params.media_type}/${params.id}`
+    );
 
-  return {
-    props: {
-      data: data,
-    },
-    revalidate: 60,
-  };
+    return {
+      props: {
+        data: data,
+      },
+      revalidate: 60,
+    };
+  } catch (error) {
+    return { notFound: true };
+  }
 };
 
 export const getStaticPaths = async () => {
