@@ -30,6 +30,10 @@ const Radio = ({ value, label, filter }, ref) => {
     }
 
     if (e.key === " " || e.key === "Enter" || e.type === "click") {
+      return;
+    }
+
+    if (e.key === " " || e.key === "Enter" || e.type === "click") {
       e.preventDefault();
 
       filter &&
@@ -59,4 +63,4 @@ const Radio = ({ value, label, filter }, ref) => {
   );
 };
 
-export default React.forwardRef(Radio);
+export default React.forwardRef(React.forwardRef(Radio));
