@@ -21,7 +21,7 @@ const Index = ({ data, media_type }) => {
 
   return (
     <>
-      <Title name={checkMediaType} input sub />
+      <Title name={checkMediaType} input sub withState={false} />
       <Catalog isWatched />
     </>
   );

@@ -25,7 +25,12 @@ export default function Home({ data }) {
 
   return (
     <>
-      <Title name={process.env.NEXT_PUBLIC_APPLICATION_NAME} input main>
+      <Title
+        name={process.env.NEXT_PUBLIC_APPLICATION_NAME}
+        input
+        main
+        withState={false}
+      >
         List of movies and TV shows 😉
       </Title>
       <Catalog isWatched filter />

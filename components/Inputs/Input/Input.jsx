@@ -9,6 +9,7 @@ import useRouterChanged from "@hooks/useRouterChanged";
 
 /* Style */
 import styles from "./Input.module.scss";
+import Button from "@component/Button/Button";
 
 const Input = (
   {
@@ -16,9 +17,10 @@ const Input = (
     iconPos = "left",
     type = "text",
     label,
-    placeholder,
+    placeholder = " ",
     className,
     maxWidth,
+    withState = true,
     ...props
   },
   ref
@@ -36,10 +38,11 @@ const Input = (
 
   const value = useSelector(filterValue);
   const [val, setVal] = React.useState("");
+  const [showPass, setShowPass] = React.useState(false);
 
   const [, cancel] = useDebounce(
     () => {
-      dispatch(setFilterValue(val));
+      !withState && dispatch(setFilterValue(val));
     },
     500,
     [val]
@@ -61,6 +64,24 @@ const Input = (
     setVal(value);
   }, [value]);
 
+  const typePassword = () => {
+    return (
+      type === "password" && (
+        <Button type={type} onClick={() => setShowPass((state) => !state)}>
+          {!showPass
+            ? chooseIcon({
+                icon: "showPass",
+                className: [styles.icon],
+              })
+            : chooseIcon({
+                icon: "hidePass",
+                className: [styles.icon],
+              })}
+        </Button>
+      )
+    );
+  };
+
   return (
     <div className={styles.wrapper} style={{ maxWidth }}>
       {leftIcon &&
@@ -72,12 +93,12 @@ const Input = (
         <input
           className={cn(styles.root, className)}
           placeholder={placeholder}
-          value={val}
+          value={val.length ? val : ""}
           onChange={(e) => setVal(e.target.value)}
-          type={type}
+          type={showPass ? "text" : type}
           ref={(e) => {
             inputRef.current = e;
-            ref = e;
+            e = ref;
           }}
           {...props}
         />
@@ -86,6 +107,8 @@ const Input = (
           {label}
         </span>
       </label>
+
+      {typePassword()}
     </div>
   );
 };

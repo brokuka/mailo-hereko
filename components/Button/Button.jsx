@@ -46,6 +46,7 @@ const Button = (
         <button
           className={cn(styles.root, className, {
             [styles.default]: type === "default",
+            [styles.password]: type === "password",
           })}
           ref={ref}
           {...props}
