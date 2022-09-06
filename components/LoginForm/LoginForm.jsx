@@ -12,7 +12,7 @@ const LoginForm = () => {
   return (
     <div className={styles.root}>
       <div className={styles.image}>
-        <Image src={img} alt="Login" quality={100} />
+        <Image src={img} alt="Login" quality={100} placeholder="blur" />
       </div>
 
       <div className={styles.form}>

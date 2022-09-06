@@ -19,7 +19,6 @@ import Password from "./icons/password.svg";
 import ShowPass from "./icons/showpass.svg";
 import HidePass from "./icons/hidepass.svg";
 import Email from "./icons/email.svg";
-import Login from "./icons/login.svg";
 
 const Icon = ({ icon, size, width, height, className }) => {
   return <>{chooseIcon({ icon, size, width, height, className })}</>;
@@ -176,14 +175,6 @@ export const chooseIcon = ({
     case "email":
       return (
         <Email
-          width={size || width}
-          height={size || height}
-          className={customClassname && customClassname}
-        />
-      );
-    case "login":
-      return (
-        <Login
           width={size || width}
           height={size || height}
           className={customClassname && customClassname}
