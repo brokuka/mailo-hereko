@@ -89,7 +89,7 @@ const Card = (
           asyncData={loading}
           spinner={spinner}
           spinnerVariant={spinnerColor}
-          type={type}
+          style={type}
         >
           {error.status
             ? error.message

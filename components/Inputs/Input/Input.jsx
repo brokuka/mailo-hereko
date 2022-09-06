@@ -67,7 +67,7 @@ const Input = (
   const typePassword = () => {
     return (
       type === "password" && (
-        <Button type={type} onClick={() => setShowPass((state) => !state)}>
+        <Button style={type} onClick={() => setShowPass((state) => !state)}>
           {!showPass
             ? chooseIcon({
                 icon: "showPass",

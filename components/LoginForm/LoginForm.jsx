@@ -21,7 +21,9 @@ const LoginForm = () => {
           <Input icon="email" type="email" label="Email" />
           <Input icon="password" type="password" label="Password" />
         </div>
-        <Button className={styles.btn}>Login</Button>
+        <Button className={styles.btn} type="submit">
+          Login
+        </Button>
       </div>
     </div>
   );

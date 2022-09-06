@@ -13,7 +13,8 @@ const Button = (
     iconClass,
     children,
     className,
-    type = "default",
+    style = "default",
+    type = "button",
     asyncData,
     spinner,
     spinnerVariant,
@@ -45,10 +46,11 @@ const Button = (
       ) : (
         <button
           className={cn(styles.root, className, {
-            [styles.default]: type === "default",
-            [styles.password]: type === "password",
+            [styles.default]: style === "default",
+            [styles.password]: style === "password",
           })}
           ref={ref}
+          type={type}
           {...props}
         >
           <>
