@@ -49,11 +49,23 @@ const authSlice = createSlice({
     setAuthStatus(state, action) {
       state.authorized = action.payload;
     },
+    removeStateData(state, action) {
+      state.email = null;
+      state.password = null;
+      state.token = null;
+      localStorage.removeItem("loginToken");
+    },
   },
 });
 
-export const { setEmail, setPassword, setToken, setUser, setAuthStatus } =
-  authSlice.actions;
+export const {
+  setEmail,
+  setPassword,
+  setToken,
+  setUser,
+  setAuthStatus,
+  removeStateData,
+} = authSlice.actions;
 
 export default authSlice;
 

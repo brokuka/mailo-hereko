@@ -24,9 +24,9 @@ const Index = () => {
 
   React.useEffect(() => {
     if (authStatus) {
-      router.replace("/");
+      location.replace("/");
     }
-  }, [router, authStatus]);
+  }, [authStatus]);
 
   const [login, { data }] = useLoginMutation();
 

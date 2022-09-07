@@ -1,13 +1,17 @@
 import React from "react";
 import Link from "next/link";
 import cn from "classnames";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { useMedia } from "react-use";
+import { useLogOutMutation } from "@store/auth/auth.api";
+import {
+  selectCurrentAuthStatus,
+  removeStateData,
+} from "@store/auth/authSlice";
 import Button from "@component/Button/Button";
 import Icon, { chooseIcon } from "@component/Icon/Icon";
 import Drawer from "@component/Drawer/Drawer";
-import { selectCurrentAuthStatus } from "@store/auth/authSlice";
 
 /* Style */
 import styles from "./Header.module.scss";
@@ -25,17 +29,15 @@ const authLinks = [
   { title: "Logout", href: "/", icon: "logout", iconPos: "left" },
 ];
 
-const Header = ({ variant = "nonAuth" }) => {
+const Header = () => {
   const [menu, setMenu] = React.useState(false);
+  const [loggedOut, setLoggetOut] = React.useState(false);
   const isTablet = useMedia("(max-width: 767.99px)", null);
-  const checkVariant = variant === "auth" || variant === "nonAuth";
   const router = useRouter();
   const status = useSelector(selectCurrentAuthStatus);
-
-  /*   if (!checkVariant)
-    return console.error(
-      "Invalid parameter of variant for component <Header/>"
-    ); */
+  const dispatch = useDispatch();
+  const [logout] = useLogOutMutation();
+  // const [login, { data }] = useLoginMutation();
 
   const renderList = (arr) => {
     return arr.map(({ title, href, icon, iconPos = "left" }, id) => {
@@ -58,7 +60,7 @@ const Header = ({ variant = "nonAuth" }) => {
               className={cn(styles.link, {
                 [styles.active]: href === router.asPath,
               })}
-              onClick={onClick}
+              onClick={(e) => onClick(e)}
             >
               {chooseIcon({
                 icon,
@@ -73,9 +75,26 @@ const Header = ({ variant = "nonAuth" }) => {
     });
   };
 
-  const onClick = () => {
-    setMenu(!menu);
+  const onClick = (e) => {
+    const logOutLink =
+      e.currentTarget && e.currentTarget.textContent.includes("Logout");
+
+    if (logOutLink) {
+      router.replace("/");
+      router.prefetch("/");
+      setLoggetOut(true);
+    }
+
+    isTablet && setMenu(!menu);
   };
+
+  React.useEffect(() => {
+    if (loggedOut) {
+      logout();
+      dispatch(removeStateData());
+      router.reload(location.pathname);
+    }
+  }, [loggedOut, dispatch, logout, router]);
 
   return (
     <>

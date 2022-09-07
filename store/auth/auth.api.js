@@ -22,6 +22,15 @@ export const authApi = createApi({
         body: { ...credentials },
       }),
     }),
+    logOut: build.mutation({
+      query: () => ({
+        url: "/auth/logout",
+        method: "delete",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+        },
+      }),
+    }),
     dashboard: build.query({
       query: () => ({
         url: "/auth/me",
@@ -33,4 +42,9 @@ export const authApi = createApi({
   }),
 });
 
-export const { useLoginMutation, useDashboardQuery } = authApi;
+export const {
+  useLoginMutation,
+  useDashboardQuery,
+  useLazyDashboardQuery,
+  useLogOutMutation,
+} = authApi;
