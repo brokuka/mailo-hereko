@@ -6,6 +6,8 @@ import { useDebounce } from "react-use";
 import { setFilterValue } from "@store/filter/filterSlice";
 import { filterValue } from "@store/filter/filter.selector";
 import useRouterChanged from "@hooks/useRouterChanged";
+import { setEmail, setPassword } from "@store/auth/authSlice";
+import { mergeRefs } from "react-merge-refs";
 
 /* Style */
 import styles from "./Input.module.scss";
@@ -43,6 +45,12 @@ const Input = (
   const [, cancel] = useDebounce(
     () => {
       !withState && dispatch(setFilterValue(val));
+      switch (type) {
+        case "password":
+          return dispatch(setPassword(val));
+        case "email":
+          return dispatch(setEmail(val));
+      }
     },
     500,
     [val]
@@ -96,10 +104,7 @@ const Input = (
           value={val.length ? val : ""}
           onChange={(e) => setVal(e.target.value)}
           type={showPass ? "text" : type}
-          ref={(e) => {
-            inputRef.current = e;
-            e = ref;
-          }}
+          ref={mergeRefs([inputRef, ref])}
           {...props}
         />
 

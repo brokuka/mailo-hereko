@@ -9,6 +9,13 @@ import img from "./images/Saly.png";
 import styles from "./LoginForm.module.scss";
 
 const LoginForm = () => {
+  const emailInput = React.useRef();
+  const kek = React.useRef();
+
+  React.useEffect(() => {
+    emailInput.current.focus();
+  }, []);
+
   return (
     <div className={styles.root}>
       <div className={styles.image}>
@@ -18,8 +25,20 @@ const LoginForm = () => {
       <div className={styles.form}>
         <h1 className={styles.title}>Login</h1>
         <div className={styles.group}>
-          <Input icon="email" type="email" label="Email" />
-          <Input icon="password" type="password" label="Password" />
+          <Input
+            icon="email"
+            type="email"
+            label="Email"
+            ref={emailInput}
+            autoComplete="true"
+          />
+          <Input
+            icon="password"
+            type="password"
+            label="Password"
+            ref={kek}
+            autoComplete="true"
+          />
         </div>
         <Button className={styles.btn} type="submit">
           Login

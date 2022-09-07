@@ -1,11 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import cn from "classnames";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useMedia } from "react-use";
 import Button from "@component/Button/Button";
 import Icon, { chooseIcon } from "@component/Icon/Icon";
 import Drawer from "@component/Drawer/Drawer";
+import { selectCurrentAuthStatus } from "@store/auth/authSlice";
 
 /* Style */
 import styles from "./Header.module.scss";
@@ -28,11 +30,12 @@ const Header = ({ variant = "nonAuth" }) => {
   const isTablet = useMedia("(max-width: 767.99px)", null);
   const checkVariant = variant === "auth" || variant === "nonAuth";
   const router = useRouter();
+  const status = useSelector(selectCurrentAuthStatus);
 
-  if (!checkVariant)
+  /*   if (!checkVariant)
     return console.error(
       "Invalid parameter of variant for component <Header/>"
-    );
+    ); */
 
   const renderList = (arr) => {
     return arr.map(({ title, href, icon, iconPos = "left" }, id) => {
@@ -57,7 +60,11 @@ const Header = ({ variant = "nonAuth" }) => {
               })}
               onClick={onClick}
             >
-              {chooseIcon({ icon, size: 16, classTerms: iconClassnames })}
+              {chooseIcon({
+                icon,
+                size: icon === "arrow" ? 16 : 24,
+                classTerms: iconClassnames,
+              })}
               <span>{title}</span>
             </a>
           </Link>
@@ -82,9 +89,7 @@ const Header = ({ variant = "nonAuth" }) => {
         {!isTablet && (
           <nav className={styles.nav}>
             <ul className={styles.root}>
-              {variant === "nonAuth"
-                ? renderList(nonAuthLinks)
-                : renderList(authLinks)}
+              {!status ? renderList(nonAuthLinks) : renderList(authLinks)}
             </ul>
           </nav>
         )}
@@ -96,9 +101,7 @@ const Header = ({ variant = "nonAuth" }) => {
         <Drawer state={menu} onClose={onClick}>
           <nav>
             <ul className={cn(styles.root)}>
-              {variant === "nonAuth"
-                ? renderList(nonAuthLinks)
-                : renderList(authLinks)}
+              {!status ? renderList(nonAuthLinks) : renderList(authLinks)}
             </ul>
           </nav>
         </Drawer>
