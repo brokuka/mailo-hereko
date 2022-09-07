@@ -26,7 +26,7 @@ const authLinks = [
   { title: "Dashboard", href: "/" },
   { title: "Suggestions", href: "/" },
   { title: "Add", href: "/" },
-  { title: "Logout", href: "/", icon: "logout", iconPos: "left" },
+  { title: "Logout", href: "", icon: "logout", iconPos: "left" },
 ];
 
 const Header = () => {
@@ -81,7 +81,6 @@ const Header = () => {
 
     if (logOutLink) {
       router.replace("/");
-      router.prefetch("/");
       setLoggetOut(true);
     }
 
