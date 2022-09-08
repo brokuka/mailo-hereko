@@ -1,0 +1,44 @@
+@use '../../styles/mixins.scss' as *;
+@use '../../styles/vars.scss' as *;
+
+
+.root {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(320px, 486px));
+	justify-content: space-between;
+	align-items: center;
+	gap: 5rem;
+	height: 100%;
+
+	@include media(tablet) {
+		grid-template-columns: 100%;
+		justify-content: center;
+	}
+}
+
+.image {
+	@include media(tablet) {
+		display: none;
+	}
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 4rem;
+}
+
+.title {
+	@include text-h1;
+	color: $grey-100;
+}
+
+.group {
+	display: flex;
+	flex-direction: column;
+	gap: 1.6rem;
+}
+
+.btn {
+	justify-content: center;
+}

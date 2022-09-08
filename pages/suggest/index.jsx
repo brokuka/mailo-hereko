@@ -16,7 +16,7 @@ const Index = () => {
 
   return (
     <>
-      <Title name="Suggest me" input>
+      <Title name="Suggest me" input withState={false}>
         I will really appericiate it if you take time to suggest me something
         good to watch.
       </Title>

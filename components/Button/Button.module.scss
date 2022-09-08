@@ -36,6 +36,19 @@
 	}
 }
 
+.password {
+	width: 24px;
+	height: 24px;
+
+	position: absolute;
+	right: 16px;
+	top: 50%;
+
+	transform: translateY(-50%);
+
+	background: none;
+}
+
 .root span {
 	order: 2;
 }

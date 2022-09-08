@@ -7,7 +7,15 @@ import useRouterChanged from "@hooks/useRouterChanged";
 /* Style */
 import styles from "./Title.module.scss";
 
-const Title = ({ type = "h1", name, children, input, sub, main = false }) => {
+const Title = ({
+  type = "h1",
+  name,
+  children,
+  input,
+  sub,
+  main = false,
+  withState,
+}) => {
   const isTablet = useMedia("(max-width: 768px)", null);
 
   useRouterChanged({ removeValue: true });
@@ -71,6 +79,7 @@ const Title = ({ type = "h1", name, children, input, sub, main = false }) => {
           placeholder="eg. Capitan Marvel"
           label="Search Movies or TV Shows"
           maxWidth={!isTablet && 344}
+          withState={withState}
         />
       )}
     </div>

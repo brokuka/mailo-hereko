@@ -15,6 +15,10 @@ import SearchIcon from "./icons/search.svg";
 import StarIcon from "./icons/star.svg";
 import WatchedIcon from "./icons/watched.svg";
 import NotFoundIcon from "./icons/404.svg";
+import Password from "./icons/password.svg";
+import ShowPass from "./icons/showpass.svg";
+import HidePass from "./icons/hidepass.svg";
+import Email from "./icons/email.svg";
 
 const Icon = ({ icon, size, width, height, className }) => {
   return <>{chooseIcon({ icon, size, width, height, className })}</>;
@@ -142,7 +146,38 @@ export const chooseIcon = ({
           width={size || width}
           height={size || height}
           className={customClassname && customClassname}
-          //   viewBox="0 0 400 320"
+        />
+      );
+    case "password":
+      return (
+        <Password
+          width={size || width}
+          height={size || height}
+          className={customClassname && customClassname}
+        />
+      );
+    case "showPass":
+      return (
+        <ShowPass
+          width={size || width}
+          height={size || height}
+          className={customClassname && customClassname}
+        />
+      );
+    case "hidePass":
+      return (
+        <HidePass
+          width={size || width}
+          height={size || height}
+          className={customClassname && customClassname}
+        />
+      );
+    case "email":
+      return (
+        <Email
+          width={size || width}
+          height={size || height}
+          className={customClassname && customClassname}
         />
       );
   }

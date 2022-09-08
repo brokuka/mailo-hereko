@@ -6,9 +6,12 @@ import { useDebounce } from "react-use";
 import { setFilterValue } from "@store/filter/filterSlice";
 import { filterValue } from "@store/filter/filter.selector";
 import useRouterChanged from "@hooks/useRouterChanged";
+import { setEmail, setPassword } from "@store/auth/authSlice";
+import { mergeRefs } from "react-merge-refs";
 
 /* Style */
 import styles from "./Input.module.scss";
+import Button from "@component/Button/Button";
 
 const Input = (
   {
@@ -16,9 +19,10 @@ const Input = (
     iconPos = "left",
     type = "text",
     label,
-    placeholder,
+    placeholder = " ",
     className,
     maxWidth,
+    withState = true,
     ...props
   },
   ref
@@ -36,10 +40,17 @@ const Input = (
 
   const value = useSelector(filterValue);
   const [val, setVal] = React.useState("");
+  const [showPass, setShowPass] = React.useState(false);
 
   const [, cancel] = useDebounce(
     () => {
-      dispatch(setFilterValue(val));
+      !withState && dispatch(setFilterValue(val));
+      switch (type) {
+        case "password":
+          return dispatch(setPassword(val));
+        case "email":
+          return dispatch(setEmail(val));
+      }
     },
     500,
     [val]
@@ -61,6 +72,24 @@ const Input = (
     setVal(value);
   }, [value]);
 
+  const typePassword = () => {
+    return (
+      type === "password" && (
+        <Button style={type} onClick={() => setShowPass((state) => !state)}>
+          {!showPass
+            ? chooseIcon({
+                icon: "showPass",
+                className: [styles.icon],
+              })
+            : chooseIcon({
+                icon: "hidePass",
+                className: [styles.icon],
+              })}
+        </Button>
+      )
+    );
+  };
+
   return (
     <div className={styles.wrapper} style={{ maxWidth }}>
       {leftIcon &&
@@ -72,13 +101,10 @@ const Input = (
         <input
           className={cn(styles.root, className)}
           placeholder={placeholder}
-          value={val}
+          value={val.length ? val : ""}
           onChange={(e) => setVal(e.target.value)}
-          type={type}
-          ref={(e) => {
-            inputRef.current = e;
-            ref = e;
-          }}
+          type={showPass ? "text" : type}
+          ref={mergeRefs([inputRef, ref])}
           {...props}
         />
 
@@ -86,6 +112,8 @@ const Input = (
           {label}
         </span>
       </label>
+
+      {typePassword()}
     </div>
   );
 };

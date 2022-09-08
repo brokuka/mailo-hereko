@@ -1,11 +1,11 @@
 import Head from "next/head";
 import "resize-observer-polyfill";
+import { Provider } from "react-redux";
 import { store } from "@store/index";
 import Layout from "@layout/Layout/Layout";
 
 /* Style */
 import "../styles/index.scss";
-import { Provider } from "react-redux";
 
 function App({ Component, pageProps }) {
   return (
