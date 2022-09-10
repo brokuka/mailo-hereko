@@ -1,17 +1,21 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import useRouterChanged from "@hooks/useRouterChanged";
+import { useRedirect } from "@hooks/useRedirect";
+import { useGetWatchedQuery } from "@store/watched/watched.api";
+import { filterValue } from "@store/filter/filter.selector";
 import Catalog from "@component/Catalog/Catalog";
 import Title from "@component/Title/Title";
 import Pagination from "@component/Pagination/Pagination";
-import { useGetWatchedQuery } from "@store/watched/watched.api";
-import { useRedirect } from "@hooks/useRedirect";
 
 const Index = ({ media_type }) => {
+  const value = useSelector(filterValue);
   const [page, setPage] = React.useState(process.env.NEXT_PUBLIC_START_PAGE);
   const checkMediaType = media_type === "movies" ? media_type : "TV Shows";
   const { data, isLoading, isFetching } = useGetWatchedQuery({
     page,
     media_type: media_type.slice(0, -1),
+    s: value,
   });
 
   useRedirect({ type: "nonAuth" });
