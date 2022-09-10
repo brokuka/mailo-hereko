@@ -11,7 +11,18 @@ import Placeholder from "@component/Placeholder/Placeholder";
 import styles from "./Card.module.scss";
 
 const Card = (
-  { isSuggesting, isWatched, id, rating, poster, title, media_type, className },
+  {
+    isSuggesting = true,
+    isWatched,
+    id,
+    rating,
+    poster,
+    title,
+    media_type,
+    className,
+    isLoading,
+    isFetching,
+  },
   ref
 ) => {
   const [suggest, setSuggested] = React.useState(false);
@@ -36,12 +47,41 @@ const Card = (
     switch (status) {
       case "auth":
         setLoading(true);
-        asyncDataModeling(5000, [setLoading, setWatched]);
+        setWatched(true);
+        axios
+          .post(
+            `${process.env.NEXT_PUBLIC_API}/watched`,
+            {
+              id,
+              media_type,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+              },
+            }
+          )
+          .catch(({ response }) => {
+            if (response.status >= 500) {
+              return setError({
+                status: 500,
+                message: "Server is not available yet",
+              });
+            }
+
+            setError({
+              status: response.status,
+              message: "Already on watched list",
+            });
+          })
+          .finally(() => setLoading(false));
+
         break;
       case "nonauth":
         if (suggest) return;
         setLoading(true);
-        asyncDataModeling(5000, [setLoading, setSuggested, setWatched]);
+        setSuggested(true);
+        setWatched(true);
         axios
           .post(`${process.env.NEXT_PUBLIC_API}/suggest`, {
             id,
@@ -59,15 +99,11 @@ const Card = (
               status: response.status,
               message: "Already suggested",
             });
-          });
+          })
+          .finally(() => setLoading(false));
+
         break;
     }
-  };
-
-  const asyncDataModeling = (ms, [...callBack]) => {
-    setTimeout(() => {
-      callBack.forEach((cb) => cb((currentState) => !currentState));
-    }, ms);
   };
 
   const renderButtons = (
@@ -94,8 +130,8 @@ const Card = (
           {error.status
             ? error.message
             : state
-            ? placeholders[0]
-            : placeholders[1]}
+            ? placeholders[1]
+            : placeholders[0]}
         </Button>
       )
     );
@@ -113,7 +149,7 @@ const Card = (
   };
 
   const checkFetching = () => {
-    return isFetched && loadedData ? (
+    return isFetched && loadedData && (!isFetching || !isLoading) ? (
       <Link href={checkMediaType()}>
         <a className={styles.link}>
           <div className={styles.head} ref={imgSpanRef}>
@@ -134,7 +170,13 @@ const Card = (
               )}
             </div>
             {isFetched && (
-              <span className={styles.name}>{title ? title : "Untitled"}</span>
+              <span className={styles.name}>
+                {title
+                  ? title.length > 50
+                    ? `${title.substring(0, 50)}...`
+                    : title
+                  : "Untitled"}
+              </span>
             )}
           </div>
         </a>
@@ -163,20 +205,21 @@ const Card = (
                   [styles.suggested]: !error.status && suggest,
                   [styles.error]: suggest && error.status,
                 },
-                ["Suggested", "Suggest this"]
+                ["Suggest this", "Suggested"]
               )
             : renderButtons(
                 watched,
                 undefined,
                 undefined,
                 undefined,
-                ["watched", "plus"],
+                ["plus", "checked", "", "close"],
                 "auth",
                 {
-                  [styles.suggest]: suggest,
-                  [styles.watched]: !suggest,
+                  [styles.suggest]: !suggest,
+                  [styles.watched]: !error.status && watched,
+                  [styles.error]: error.status,
                 },
-                ["Already watched", "Add to my list"]
+                ["Add to my list", "Added to list"]
               )}
         </div>
       )}

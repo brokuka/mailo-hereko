@@ -29,6 +29,7 @@ const Index = () => {
               data={data && data}
               isLoading={isLoading}
               isFetching={isFetching}
+              isSuggesting={false}
             />
             {data && (
               <>
@@ -51,10 +52,7 @@ const Index = () => {
 
   return (
     <>
-      <Title name="Suggest me" input withState={false}>
-        I will really appericiate it if you take time to suggest me something
-        good to watch.
-      </Title>
+      <Title name="Add new item" input withState={false} />
 
       {render()}
     </>

@@ -36,7 +36,7 @@
 
 	background-color: rgba($grey-800, .8);
 	backdrop-filter: blur(24px);
-	border-radius: 24px;
+	border-radius: $border-radius-lg;
 
 	position: absolute;
 	left: 80px;
@@ -81,7 +81,7 @@
 }
 
 .image {
-	border-radius: 24px;
+	border-radius: $border-radius-lg;
 	width: 100%;
 	@include adaptiveValue(height, 72, 15);
 	position: relative;

@@ -15,7 +15,7 @@
 }
 
 .poster {
-	border-radius: 24px;
+	border-radius: $border-radius-lg;
 	height: 100%;
 
 	@include media(tablet) {
@@ -54,7 +54,7 @@
 	height: 32px;
 
 	background-color: $black-20;
-	border-radius: 8px;
+	border-radius: $border-radius-sm;
 
 	position: absolute;
 	top: 8px;
@@ -68,7 +68,7 @@
 	padding: 8px;
 
 	background-color: $grey-700;
-	border-radius: 8px;
+	border-radius: $border-radius-sm;
 }
 
 .button {
@@ -93,5 +93,5 @@
 	height: inherit;
 
 	background-color: $grey-700;
-	border-radius: 8px;
+	border-radius: $border-radius-sm;
 }

@@ -1,16 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const searchApi = createApi({
-  reducerPath: "searchApi",
+export const suggestionsApi = createApi({
+  reducerPath: "suggestionsApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.NEXT_PUBLIC_API}/`,
   }),
   endpoints: (build) => ({
-    getResultsByFilter: build.query({
-      query: ({ s, limit, page } = "") => ({
-        url: "search",
+    getPageResults: build.query({
+      query: ({ limit, page } = "") => ({
+        url: "suggest",
         params: {
-          s: s && s,
           limit: limit ? limit : process.env.NEXT_PUBLIC_ITEMS_LIMIT,
           page: page ? page : process.env.NEXT_PUBLIC_START_PAGE,
         },
@@ -19,4 +18,4 @@ export const searchApi = createApi({
   }),
 });
 
-export const { useGetResultsByFilterQuery } = searchApi;
+export const { useGetPageResultsQuery } = suggestionsApi;

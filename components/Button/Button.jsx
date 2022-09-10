@@ -48,6 +48,7 @@ const Button = (
           className={cn(styles.root, className, {
             [styles.default]: style === "default",
             [styles.password]: style === "password",
+            [styles.pagination]: style === "pagination",
           })}
           ref={ref}
           type={type}

@@ -9,6 +9,7 @@ import styles from "./Title.module.scss";
 
 const Title = ({
   type = "h1",
+  as,
   name,
   children,
   input,
@@ -32,12 +33,12 @@ const Title = ({
 
   const renderTitle = () => {
     let customClass = cn({
-      [styles.h1]: type === "h1",
-      [styles.h2]: type === "h2",
-      [styles.h3]: type === "h3",
-      [styles.h4]: type === "h4",
-      [styles.h5]: type === "h5",
-      [styles.h6]: type === "h6",
+      [styles.h1]: as ? as === "h1" : type === "h1",
+      [styles.h2]: as ? as === "h2" : type === "h2",
+      [styles.h3]: as ? as === "h3" : type === "h3",
+      [styles.h4]: as ? as === "h4" : type === "h4",
+      [styles.h5]: as ? as === "h5" : type === "h5",
+      [styles.h6]: as ? as === "h6" : type === "h6",
     });
 
     switch (type) {

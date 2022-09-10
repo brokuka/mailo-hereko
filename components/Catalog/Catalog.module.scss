@@ -2,11 +2,17 @@
 @use '../../styles/vars.scss' as *;
 
 .root {
+	display: flex;
+	flex-direction: column;
+	gap: 2.4rem;
+}
+
+.grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
+	// 537
 	grid-auto-rows: auto;
 	gap: 2.4rem;
-	padding-bottom: 2rem;
 
 	@include media(smDesktop) {
 		grid-template-columns: repeat(3, minmax(auto, 282px));
@@ -37,7 +43,7 @@
 	position: relative;
 
 	background-color: $black-20;
-	border-radius: 12px;
+	border-radius: $border-radius;
 
 	overflow: hidden;
 
@@ -64,7 +70,7 @@
 	display: inline-block;
 	height: 100%;
 	background-color: $primary-400;
-	border-radius: 8px;
+	border-radius: $border-radius-sm;
 
 	position: absolute;
 	left: 8px;
@@ -72,4 +78,14 @@
 	z-index: 1;
 
 	transition: all $transform-label;
+}
+
+.type {
+	@include text-h3;
+	color: $grey-400
+}
+
+.count {
+	@include text-p2;
+	color: $grey-400;
 }
