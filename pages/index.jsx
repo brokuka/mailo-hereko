@@ -2,34 +2,42 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useRouterChanged from "@hooks/useRouterChanged";
 import { addData } from "@store/watched/watchedSlice";
-import { setFilterType } from "@store/filter/filterSlice";
-import {
-  filterType,
-  selectFilteredTypeLabels,
-} from "@store/filter/filter.selector";
+import { filterType, filterValue } from "@store/filter/filter.selector";
 import { useGetWatchedQuery } from "@store/watched/watched.api";
-import { selectFilterdData } from "@store/filter/filter.selector";
 import Title from "@component/Title/Title";
 import Catalog from "@component/Catalog/Catalog";
 import Pagination from "@component/Pagination/Pagination";
 import Filter from "@component/Filter/Filter";
 
 const Home = () => {
-  const dispatch = useDispatch();
   const type = useSelector(filterType);
-  const labels = useSelector(selectFilteredTypeLabels);
-  const filteredData = useSelector(selectFilterdData);
-  const { data, isLoading, isFetching } = useGetWatchedQuery({
-    limit: process.env.NEXT_PUBLIC_ITEMS_LIMIT,
-  });
+  const value = useSelector(filterValue);
+
+  const [page, setPage] = React.useState(process.env.NEXT_PUBLIC_START_PAGE);
+  const { data, isLoading, isFetching } = useGetWatchedQuery(
+    {
+      s: value,
+      limit: process.env.NEXT_PUBLIC_ITEMS_LIMIT,
+      media_type: type === "all" ? undefined : type,
+      page,
+    },
+    { refetchOnMountOrArgChange: true }
+  );
+
+  console.log(type);
+
   useRouterChanged({ removeValue: true });
+
+  React.useEffect(() => {
+    setPage(process.env.NEXT_PUBLIC_START_PAGE);
+  }, [type]);
 
   const render = () => {
     return (
       <>
         <Filter />
         <Catalog
-          filtered={data && filteredData}
+          data={data && data}
           isSuggesting={false}
           isWatched
           isLoading={isLoading}
@@ -48,15 +56,6 @@ const Home = () => {
   };
 
   const onClick = (index) => setPage(index);
-
-  React.useEffect(() => {
-    if (type !== "all") {
-      dispatch(setFilterType("all"));
-    }
-
-    dispatch(addData(data && data.results));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, dispatch]);
 
   return (
     <>

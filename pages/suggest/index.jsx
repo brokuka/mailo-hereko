@@ -6,6 +6,7 @@ import Title from "@component/Title/Title";
 import Catalog from "@component/Catalog/Catalog";
 import { filterValue } from "@store/filter/filter.selector";
 import Pagination from "@component/Pagination/Pagination";
+import { useRedirect } from "@hooks/useRedirect";
 
 const Index = () => {
   const [page, setPage] = React.useState(process.env.NEXT_PUBLIC_START_PAGE);
@@ -18,6 +19,7 @@ const Index = () => {
     }
   );
 
+  useRedirect({ type: "nonAuth" });
   useRouterChanged({ removeValue: true });
 
   const render = () => {

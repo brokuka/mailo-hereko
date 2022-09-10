@@ -4,6 +4,7 @@ import { useGetPageResultsQuery } from "@store/suggestions/suggestions.api";
 import Title from "@component/Title/Title";
 import Catalog from "@component/Catalog/Catalog";
 import Pagination from "@component/Pagination/Pagination";
+import { useRedirect } from "@hooks/useRedirect";
 
 const Index = () => {
   const [page, setPage] = React.useState(process.env.NEXT_PUBLIC_START_PAGE);
@@ -13,6 +14,7 @@ const Index = () => {
       refetchOnMountOrArgChange: true,
     }
   );
+  useRedirect({ type: "auth" });
 
   const render = () => {
     return (

@@ -1,33 +1,31 @@
 import React from "react";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
 import useRouterChanged from "@hooks/useRouterChanged";
-import { addData } from "@store/watched/watchedSlice";
-import { setFilterType } from "@store/filter/filterSlice";
-import { selectFilterdData } from "@store/filter/filter.selector";
 import Catalog from "@component/Catalog/Catalog";
 import Title from "@component/Title/Title";
 import Pagination from "@component/Pagination/Pagination";
+import { useGetWatchedQuery } from "@store/watched/watched.api";
+import { useRedirect } from "@hooks/useRedirect";
 
-const Index = ({ data, media_type }) => {
-  const dispatch = useDispatch();
-  const filteredData = useSelector(selectFilterdData);
+const Index = ({ media_type }) => {
+  const [page, setPage] = React.useState(process.env.NEXT_PUBLIC_START_PAGE);
   const checkMediaType = media_type === "movies" ? media_type : "TV Shows";
+  const { data, isLoading, isFetching } = useGetWatchedQuery({
+    page,
+    media_type: media_type.slice(0, -1),
+  });
 
+  useRedirect({ type: "nonAuth" });
   useRouterChanged({ removeValue: true });
-
-  React.useEffect(() => {
-    dispatch(addData(data.results));
-    dispatch(setFilterType(media_type.slice(0, -1)));
-  }, [data, dispatch, media_type]);
 
   const render = () => {
     return (
       <>
         <Catalog
-          filtered={data && filteredData}
+          data={data && data}
           isSuggesting={false}
           isWatched
+          isLoading={isLoading}
+          isFetching={isFetching}
         />
         {data && data.totalItems > data.limit && (
           <Pagination
@@ -53,43 +51,13 @@ const Index = ({ data, media_type }) => {
 export default Index;
 
 export const getServerSideProps = async ({ params }) => {
-  try {
-    const { data } = await axios.get(
-      `${
-        process.env.NEXT_PUBLIC_API
-      }/watched/?media_type=${params.media_type.slice(0, -1)}`
-    );
-
+  if (params.media_type === "movies" || params.media_type === "tvs") {
     return {
       props: {
-        data,
         media_type: params.media_type,
       },
-    };
-  } catch (error) {
-    return {
-      notFound: true,
     };
   }
 
-  /*   try {
-    const lastLetter = params.media_type.slice(-1);
-
-    const { data } =
-      lastLetter === "s" &&
-      (await axios.get(
-        `${
-          process.env.NEXT_PUBLIC_API
-        }/watched/?media_type=${params.media_type.slice(0, -1)}`
-      ));
-
-    return {
-      props: {
-        data: data,
-        media_type: params.media_type,
-      },
-    };
-  } catch (error) {
-    return { notFound: true };
-  } */
+  return { notFound: true };
 };

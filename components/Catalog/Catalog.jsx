@@ -56,27 +56,31 @@ const Catalog = ({
     );
   };
 
-  console.log(filtered);
-
   return (
     <>
       {(filtered && filtered.length) || (data && data.results.length) ? (
         <div className={styles.root}>
           {showCount && (
-            <h3 className={styles.type}>
-              {showCount
-                ? labels.map(
-                    (label, index) =>
-                      label.toLowerCase().includes(filter) && label
-                  )
-                : `${data && data.totalItems} items`}
-            </h3>
+            <div className={styles.filter}>
+              <h3 className={styles.type} data-count={data.totalItems}>
+                {labels.map(
+                  (label, index) =>
+                    label.toLowerCase().includes(filter) && label
+                )}
+              </h3>
+            </div>
           )}
 
           <div className={styles.grid}>{renderCards()}</div>
         </div>
       ) : (
-        <>{<Error type="search" />}</>
+        <>
+          {isFetching || isLoading ? (
+            <div className={styles.grid}>{renderCards()}</div>
+          ) : (
+            <Error type="search" />
+          )}
+        </>
       )}
     </>
   );

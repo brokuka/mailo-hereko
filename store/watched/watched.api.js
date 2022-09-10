@@ -7,10 +7,13 @@ export const watchedApi = createApi({
   }),
   endpoints: (build) => ({
     getWatched: build.query({
-      query: ({ limit } = "") => ({
+      query: ({ s, limit, media_type, page } = "") => ({
         url: "watched",
         params: {
+          s: s,
           limit: limit ? limit : process.env.NEXT_PUBLIC_ITEMS_LIMIT,
+          page: page,
+          media_type: media_type,
         },
       }),
     }),

@@ -1,12 +1,15 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
 import { useMedia } from "react-use";
+import { useSelector } from "react-redux";
+import { filterType } from "@store/filter/filter.selector";
 
 /* Style */
 import styles from "./Pagination.module.scss";
 
 const Pagination = ({ totalPages, currentPage, onChange }) => {
   const isMobile = useMedia("(max-width: 576px)", null);
+  const type = useSelector(filterType);
 
   React.useEffect(() => {
     window.scrollTo(0, 150);
@@ -33,6 +36,7 @@ const Pagination = ({ totalPages, currentPage, onChange }) => {
         breakLinkClassName={styles.break}
         disabledLinkClassName={styles.disabled}
         onPageChange={({ selected }) => onChange(selected + 1)}
+        forcePage={currentPage - 1}
       />
     </nav>
   );
