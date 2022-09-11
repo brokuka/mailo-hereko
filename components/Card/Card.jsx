@@ -1,8 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import axios from "axios";
 import React from "react";
 import cn from "classnames";
+import {
+  usePostSuggestMutation,
+  usePostWatchedMutation,
+} from "@store/search/search.api";
 import Button from "@component/Button/Button";
 import Rating from "@component/Rating/Rating";
 import Placeholder from "@component/Placeholder/Placeholder";
@@ -33,9 +36,36 @@ const Card = (
     status: null,
     message: null,
   });
+  const [suggestTriggerNonAuth] = usePostSuggestMutation();
+  //   const [suggestTriggerAuth] = usePostWatchedMutation();
   const imgSpanRef = React.useRef(null);
 
   const isFetched = media_type ? true : false;
+
+  const req = async ({ type }) => {
+    try {
+      switch (type) {
+        case "auth":
+        //   await suggestTriggerAuth({ id, media_type }).unwrap();
+        case "nonAuth":
+          await suggestTriggerNonAuth({ id, media_type }).unwrap();
+      }
+    } catch (error) {
+      if (error.status >= 500) {
+        return setError({
+          status: 500,
+          message: "Server is not available yet",
+        });
+      }
+
+      setError({
+        status: error.status,
+        message: "Already on watched list",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   React.useEffect(() => {
     if (isFetched) {
@@ -48,59 +78,16 @@ const Card = (
       case "auth":
         setLoading(true);
         setWatched(true);
-        axios
-          .post(
-            `${process.env.NEXT_PUBLIC_API}/watched`,
-            {
-              id,
-              media_type,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
-              },
-            }
-          )
-          .catch(({ response }) => {
-            if (response.status >= 500) {
-              return setError({
-                status: 500,
-                message: "Server is not available yet",
-              });
-            }
-
-            setError({
-              status: response.status,
-              message: "Already on watched list",
-            });
-          })
-          .finally(() => setLoading(false));
+        req({ type: status });
 
         break;
-      case "nonauth":
+      case "nonAuth":
         if (suggest) return;
+
         setLoading(true);
         setSuggested(true);
         setWatched(true);
-        axios
-          .post(`${process.env.NEXT_PUBLIC_API}/suggest`, {
-            id,
-            media_type,
-          })
-          .catch(({ response }) => {
-            if (response.status >= 500) {
-              return setError({
-                status: 500,
-                message: "Server is not available yet",
-              });
-            }
-
-            setError({
-              status: response.status,
-              message: "Already suggested",
-            });
-          })
-          .finally(() => setLoading(false));
+        req({ type: "nonAuth" });
 
         break;
     }
@@ -172,8 +159,8 @@ const Card = (
             {isFetched && (
               <span className={styles.name}>
                 {title
-                  ? title.length > 50
-                    ? `${title.substring(0, 50)}...`
+                  ? title.length >= 45
+                    ? `${title.substring(0, 45)}...`
                     : title
                   : "Untitled"}
               </span>
@@ -199,7 +186,7 @@ const Card = (
                 "white",
                 undefined,
                 ["like", "checked", "watched", "close"],
-                "nonauth",
+                "nonAuth",
                 {
                   [styles.suggest]: !suggest,
                   [styles.suggested]: !error.status && suggest,

@@ -1,10 +1,9 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQuery } from "@store/auth/auth.api";
 
 export const watchedApi = createApi({
   reducerPath: "watchedApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: `${process.env.NEXT_PUBLIC_API}/`,
-  }),
+  baseQuery,
   endpoints: (build) => ({
     getWatched: build.query({
       query: ({ s, limit, media_type, page } = "") => ({

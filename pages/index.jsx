@@ -1,9 +1,9 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import useRouterChanged from "@hooks/useRouterChanged";
-import { addData } from "@store/watched/watchedSlice";
 import { filterType, filterValue } from "@store/filter/filter.selector";
 import { useGetWatchedQuery } from "@store/watched/watched.api";
+
 import Title from "@component/Title/Title";
 import Catalog from "@component/Catalog/Catalog";
 import Pagination from "@component/Pagination/Pagination";
@@ -23,8 +23,6 @@ const Home = () => {
     },
     { refetchOnMountOrArgChange: true }
   );
-
-  console.log(type);
 
   useRouterChanged({ removeValue: true });
 

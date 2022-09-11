@@ -1,10 +1,9 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQuery } from "@store/auth/auth.api";
 
 export const suggestionsApi = createApi({
   reducerPath: "suggestionsApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: `${process.env.NEXT_PUBLIC_API}/`,
-  }),
+  baseQuery,
   endpoints: (build) => ({
     getPageResults: build.query({
       query: ({ limit, page } = "") => ({
