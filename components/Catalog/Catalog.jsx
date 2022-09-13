@@ -6,10 +6,10 @@ import {
 } from "@store/filter/filter.selector";
 import Card from "@component/Card/Card";
 import Error from "@component/Error/Error";
+import Placeholder from "@component/Placeholder/Placeholder";
 
 /* Style */
 import styles from "./Catalog.module.scss";
-import Placeholder from "@component/Placeholder/Placeholder";
 
 const Catalog = ({
   data,
@@ -42,7 +42,7 @@ const Catalog = ({
     <>
       {data && data.results.length ? (
         <div className={styles.root}>
-          {showCount && (!isFetching || !isLoading) ? (
+          {showCount && (
             <div className={styles.filter}>
               <h3 className={styles.type} data-count={data.totalItems}>
                 {labels.map(
@@ -51,8 +51,6 @@ const Catalog = ({
                 )}
               </h3>
             </div>
-          ) : (
-            <Placeholder type="filterType" />
           )}
 
           <div className={styles.grid}>{renderCards()}</div>
