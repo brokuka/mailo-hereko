@@ -44,7 +44,7 @@ const Index = ({ media_type }) => {
 
   return (
     <>
-      <Title name={checkMediaType} input sub withState={false} />
+      <Title name={checkMediaType} input sub />
       {render()}
     </>
   );

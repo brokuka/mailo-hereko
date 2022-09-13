@@ -55,7 +55,7 @@ const Index = () => {
 
   return (
     <>
-      <Title name="Add new item" input withState={false} />
+      <Title name="Add new item" input />
 
       {render()}
     </>

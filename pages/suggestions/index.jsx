@@ -49,7 +49,7 @@ const Index = () => {
       <Head>
         <title>{`Suggestions - ${process.env.NEXT_PUBLIC_APPLICATION_NAME}`}</title>
       </Head>
-      <Title name="Suggestions" withState={false} />
+      <Title name="Suggestions" />
       {render()}
     </>
   );

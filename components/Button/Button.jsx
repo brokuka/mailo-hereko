@@ -1,5 +1,6 @@
 import React, { forwardRef } from "react";
 import cn from "classnames";
+import { CSSTransition } from "react-transition-group";
 import Spinner from "@component/Spinner/Spinner";
 import { chooseIcon } from "@component/Icon/Icon";
 
@@ -18,6 +19,7 @@ const Button = (
     asyncData,
     spinner,
     spinnerVariant,
+    spinnerJustifyContent,
     placeholder,
     ...props
   },
@@ -41,7 +43,11 @@ const Button = (
     <>
       {loading && spinner ? (
         <>
-          <Spinner variant={spinnerVariant} placeholder={placeholder} />
+          <Spinner
+            justifyContent={spinnerJustifyContent}
+            variant={spinnerVariant}
+            placeholder={placeholder}
+          />
         </>
       ) : (
         <button
@@ -52,6 +58,7 @@ const Button = (
               [styles.password]: style === "password",
               [styles.pagination]: style === "pagination",
               [styles.card]: style === "card",
+              [styles.modal]: style === "modal",
             },
             className
           )}

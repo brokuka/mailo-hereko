@@ -8,7 +8,7 @@
 	max-width: 588px;
 	width: 100%;
 	// padding-top: 8rem;
-	@include adaptiveValue(padding-top, 8, 2);
+	// @include adaptiveValue(padding-top, 8, 2);
 	word-break: break-all;
 
 	&:not(&.main) {

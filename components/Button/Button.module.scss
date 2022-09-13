@@ -83,3 +83,15 @@
 .card {
 	background: none;
 }
+
+.modal {
+	border-radius: $border-radius-sm;
+	background-color: $black-30;
+	width: 40px;
+	height: 40px;
+	justify-content: center;
+}
+
+.modal svg {
+	fill: $grey-400;
+}

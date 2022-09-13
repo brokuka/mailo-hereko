@@ -53,7 +53,7 @@ const Index = () => {
 
   return (
     <>
-      <Title name="Suggest me" input withState={false}>
+      <Title name="Suggest me" input>
         I will really appericiate it if you take time to suggest me something
         good to watch.
       </Title>

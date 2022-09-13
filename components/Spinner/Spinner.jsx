@@ -8,6 +8,7 @@ const Spinner = ({
   variant = "primary",
   size = "25px",
   placeholder = "Loading...",
+  justifyContent,
 }) => {
   const customStyles = {
     width: size,
@@ -27,6 +28,7 @@ const Spinner = ({
         [styles.white]: variant === "white",
         [styles.black]: variant === "black",
       })}
+      style={{ justifyContent }}
       tabIndex="-1"
     >
       <div className={cn(styles.root)} style={customStyles}>

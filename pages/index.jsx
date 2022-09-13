@@ -55,12 +55,7 @@ const Home = () => {
 
   return (
     <>
-      <Title
-        name={process.env.NEXT_PUBLIC_APPLICATION_NAME}
-        input
-        main
-        withState={false}
-      >
+      <Title name={process.env.NEXT_PUBLIC_APPLICATION_NAME} input main>
         List of movies and TV shows 😉
       </Title>
       {render()}

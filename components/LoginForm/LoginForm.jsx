@@ -8,7 +8,7 @@ import img from "./images/Saly.png";
 /* Style */
 import styles from "./LoginForm.module.scss";
 
-const LoginForm = () => {
+const LoginForm = ({ error }) => {
   const emailInput = React.useRef();
   const kek = React.useRef();
 
@@ -24,6 +24,7 @@ const LoginForm = () => {
 
       <div className={styles.form}>
         <h1 className={styles.title}>Login</h1>
+        {error && <span className={styles.error}>{error}</span>}
         <div className={styles.group}>
           <Input
             icon="email"
@@ -40,7 +41,7 @@ const LoginForm = () => {
             autoComplete="true"
           />
         </div>
-        <Button className={styles.btn} type="submit">
+        <Button className={styles.button} type="submit">
           Login
         </Button>
       </div>
