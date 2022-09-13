@@ -7,6 +7,7 @@ import Catalog from "@component/Catalog/Catalog";
 import { filterValue } from "@store/filter/filter.selector";
 import Pagination from "@component/Pagination/Pagination";
 import { useRedirect } from "@hooks/useRedirect";
+import Head from "next/head";
 
 const Index = () => {
   const [page, setPage] = React.useState(process.env.NEXT_PUBLIC_START_PAGE);
@@ -55,6 +56,9 @@ const Index = () => {
 
   return (
     <>
+      <Head>
+        <title>{`Add to list - ${process.env.NEXT_PUBLIC_APPLICATION_NAME}`}</title>
+      </Head>
       <Title name="Add new item" input />
 
       {render()}

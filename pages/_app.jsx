@@ -11,7 +11,9 @@ function App({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>MaileHereko - best of best!</title>
+        <title>
+          {process.env.NEXT_PUBLIC_APPLICATION_NAME} - best of best!
+        </title>
         <meta
           name="description"
           content="MaileHereko is web-application where you can find list of movies and tv shows"

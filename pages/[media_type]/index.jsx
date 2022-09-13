@@ -7,11 +7,12 @@ import { filterValue } from "@store/filter/filter.selector";
 import Catalog from "@component/Catalog/Catalog";
 import Title from "@component/Title/Title";
 import Pagination from "@component/Pagination/Pagination";
+import Head from "next/head";
 
 const Index = ({ media_type }) => {
   const value = useSelector(filterValue);
   const [page, setPage] = React.useState(process.env.NEXT_PUBLIC_START_PAGE);
-  const checkMediaType = media_type === "movies" ? media_type : "TV Shows";
+  const checkMediaType = media_type === "movies" ? "Movies" : "TV Shows";
   const { data, isLoading, isFetching } = useGetWatchedQuery({
     page,
     media_type: media_type.slice(0, -1),
@@ -44,6 +45,9 @@ const Index = ({ media_type }) => {
 
   return (
     <>
+      <Head>
+        <title>{`${checkMediaType} - ${process.env.NEXT_PUBLIC_APPLICATION_NAME}`}</title>
+      </Head>
       <Title name={checkMediaType} input sub />
       {render()}
     </>
