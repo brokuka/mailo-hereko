@@ -21,7 +21,6 @@ const Error = ({ type = "notFound" }) => {
   const { pathname } = useRouter();
   const [modal, setModal] = React.useState(false);
   const nodeRef = React.useState(null);
-  console.log(pathname);
 
   const checkType = () => {
     switch (type) {

@@ -42,7 +42,7 @@ const Catalog = ({
     <>
       {data && data.results.length ? (
         <div className={styles.root}>
-          {showCount && (
+          {showCount && (!isFetching || !isLoading) ? (
             <div className={styles.filter}>
               <h3 className={styles.type} data-count={data.totalItems}>
                 {labels.map(
@@ -51,6 +51,8 @@ const Catalog = ({
                 )}
               </h3>
             </div>
+          ) : (
+            <Placeholder type="filterType" />
           )}
 
           <div className={styles.grid}>{renderCards()}</div>
