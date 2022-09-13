@@ -14,7 +14,6 @@ const Index = () => {
   const { data, isLoading, isFetching } = useGetSuggestsQuery(
     { s: value, page },
     {
-      //   skip: !value.length,
       refetchOnMountOrArgChange: true,
     }
   );

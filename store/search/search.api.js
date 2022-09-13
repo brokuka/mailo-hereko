@@ -15,7 +15,7 @@ export const searchApi = api.injectEndpoints({
     }),
     postSuggest: build.mutation({
       query: ({ id, media_type, url } = "") => ({
-        url,
+        url: url ? url : "suggest",
         method: "POST",
         body: { id, media_type },
       }),
