@@ -20,6 +20,7 @@ const Index = () => {
   const email = useSelector(selectCurrentEmail);
   const password = useSelector(selectCurrentPassword);
   const authStatus = useSelector(selectCurrentAuthStatus);
+  const [error, setError] = React.useState(null);
   const router = useRouter();
 
   React.useEffect(() => {
@@ -41,7 +42,8 @@ const Index = () => {
       setToken("");
     } catch (error) {
       if (error.status === 400) {
-        return console.log("Invalid email or password");
+        // return console.log("Invalid email or password");
+        return setError("Invalid email or password");
       }
       return error;
     }
@@ -59,7 +61,7 @@ const Index = () => {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <LoginForm />
+        <LoginForm error={error} />
       </form>
     </>
   );

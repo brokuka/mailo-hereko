@@ -22,7 +22,9 @@ const Input = (
     placeholder = " ",
     className,
     maxWidth,
-    withState = true,
+    store = true,
+    onChange,
+    value,
     ...props
   },
   ref
@@ -38,18 +40,20 @@ const Input = (
   const inputRef = React.useRef(null);
   const labelRef = React.useRef(null);
 
-  const value = useSelector(filterValue);
+  const storeValue = useSelector(filterValue);
   const [val, setVal] = React.useState("");
   const [showPass, setShowPass] = React.useState(false);
 
   const [, cancel] = useDebounce(
     () => {
-      !withState && dispatch(setFilterValue(val));
-      switch (type) {
-        case "password":
-          return dispatch(setPassword(val));
-        case "email":
-          return dispatch(setEmail(val));
+      if (store) {
+        switch (type) {
+          case "password":
+            return dispatch(setPassword(val));
+          case "email":
+            return dispatch(setEmail(val));
+        }
+        return dispatch(setFilterValue(val));
       }
     },
     500,
@@ -69,8 +73,8 @@ const Input = (
     labelRef.current.style.width = `calc(100% - ${sum}px)`;
     labelRef.current.style.left = `${paddingLeft}px`;
 
-    setVal(value);
-  }, [value]);
+    store && setVal(storeValue);
+  }, [storeValue, store]);
 
   const typePassword = () => {
     return (
@@ -101,8 +105,10 @@ const Input = (
         <input
           className={cn(styles.root, className)}
           placeholder={placeholder}
-          value={val.length ? val : ""}
-          onChange={(e) => setVal(e.target.value)}
+          value={value ? value : val.length ? val : ""}
+          onChange={(e) =>
+            onChange ? onChange(e.target.value) : setVal(e.target.value)
+          }
           type={showPass ? "text" : type}
           ref={mergeRefs([inputRef, ref])}
           {...props}

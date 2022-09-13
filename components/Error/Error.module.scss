@@ -8,7 +8,6 @@
 	align-items: center;
 }
 
-
 .highlighted {
 	@include text-overline1;
 	padding: .3em;
@@ -17,4 +16,22 @@
 
 	background-color: $grey-200;
 	border-radius: $border-radius-sm;
+}
+
+.enter {
+	opacity: 0;
+}
+
+.enter_active {
+	opacity: 1;
+	transition: all cubic-bezier(.165, .84, .44, 1) 300ms;
+}
+
+.exit {
+	opacity: 1;
+}
+
+.exit_active {
+	opacity: 0;
+	transition: all cubic-bezier(.165, .84, .44, 1) 300ms;
 }

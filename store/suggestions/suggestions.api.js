@@ -12,7 +12,14 @@ export const suggestionsApi = api.injectEndpoints({
       }),
       providesTags: ["Suggestions"],
     }),
+    postManual: build.mutation({
+      query: ({ title, link }) => ({
+        url: "suggest/manual",
+        method: "POST",
+        body: { title, link },
+      }),
+    }),
   }),
 });
 
-export const { useGetPageResultsQuery } = suggestionsApi;
+export const { useGetPageResultsQuery, usePostManualMutation } = suggestionsApi;

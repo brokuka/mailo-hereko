@@ -1,0 +1,64 @@
+@use '../../../styles/mixins.scss' as *;
+@use '../../../styles/vars.scss' as *;
+
+.root {
+	display: grid;
+	place-items: center;
+	height: 100vh;
+	width: 100%;
+	padding: 1rem;
+
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	z-index: 1000;
+
+	background-color: $black-50;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	max-width: 560px;
+	position: relative;
+	padding: 8rem;
+
+	border: 1px solid $grey-800;
+	border-radius: $border-radius-lg;
+	background-color: rgba($grey-900, 0.8);
+}
+
+.icon {
+	margin-bottom: 2.4rem;
+}
+
+.title {
+	@include text-h4;
+	color: $grey-100;
+	text-align: center;
+}
+
+.title+div,
+.title+form {
+	margin-top: 4rem;
+}
+
+.title+.text {
+	@include text-p2;
+	margin-top: 2.4rem;
+	color: $grey-400;
+	text-align: center;
+}
+
+.button {
+	position: absolute;
+	top: 2.4rem;
+	right: 2.4rem;
+}
+
+.icon {
+	width: 120px;
+	height: 120px;
+	margin-bottom: 2.4rem;
+}

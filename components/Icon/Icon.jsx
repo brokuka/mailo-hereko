@@ -16,9 +16,12 @@ import StarIcon from "./icons/star.svg";
 import WatchedIcon from "./icons/watched.svg";
 import NotFoundIcon from "./icons/404.svg";
 import Password from "./icons/password.svg";
-import ShowPass from "./icons/showpass.svg";
-import HidePass from "./icons/hidepass.svg";
-import Email from "./icons/email.svg";
+import ShowPassIcon from "./icons/showpass.svg";
+import HidePassIcon from "./icons/hidepass.svg";
+import EmailIcon from "./icons/email.svg";
+import VideoPlayIcon from "./icons/video-play.svg";
+import LinkIcon from "./icons/link.svg";
+import ThankYouIcon from "./icons/thankyou.svg";
 
 const Icon = ({ icon, size, width, height, className }) => {
   return <>{chooseIcon({ icon, size, width, height, className })}</>;
@@ -158,7 +161,7 @@ export const chooseIcon = ({
       );
     case "showPass":
       return (
-        <ShowPass
+        <ShowPassIcon
           width={size || width}
           height={size || height}
           className={customClassname && customClassname}
@@ -166,7 +169,7 @@ export const chooseIcon = ({
       );
     case "hidePass":
       return (
-        <HidePass
+        <HidePassIcon
           width={size || width}
           height={size || height}
           className={customClassname && customClassname}
@@ -174,7 +177,31 @@ export const chooseIcon = ({
       );
     case "email":
       return (
-        <Email
+        <EmailIcon
+          width={size || width}
+          height={size || height}
+          className={customClassname && customClassname}
+        />
+      );
+    case "videoPlay":
+      return (
+        <VideoPlayIcon
+          width={size || width}
+          height={size || height}
+          className={customClassname && customClassname}
+        />
+      );
+    case "link":
+      return (
+        <LinkIcon
+          width={size || width}
+          height={size || height}
+          className={customClassname && customClassname}
+        />
+      );
+    case "thankYou":
+      return (
+        <ThankYouIcon
           width={size || width}
           height={size || height}
           className={customClassname && customClassname}

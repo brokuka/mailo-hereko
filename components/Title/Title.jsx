@@ -15,7 +15,7 @@ const Title = ({
   input,
   sub,
   main = false,
-  withState,
+  store,
 }) => {
   const isTablet = useMedia("(max-width: 768px)", null);
 
@@ -80,7 +80,7 @@ const Title = ({
           placeholder="eg. Capitan Marvel"
           label="Search Movies or TV Shows"
           maxWidth={!isTablet && 344}
-          withState={withState}
+          store={store}
         />
       )}
     </div>

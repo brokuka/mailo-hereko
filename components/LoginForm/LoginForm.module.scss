@@ -22,23 +22,34 @@
 	}
 }
 
-.form {
-	display: flex;
-	flex-direction: column;
-	gap: 4rem;
-}
-
 .title {
 	@include text-h1;
 	color: $grey-100;
+}
+
+.title+.error {
+	display: inline-block;
+	margin-top: 1.4rem;
+	margin-bottom: 2.5rem;
+}
+
+.title+.group {
+	margin-top: 4rem;
 }
 
 .group {
 	display: flex;
 	flex-direction: column;
 	gap: 1.6rem;
+	margin-bottom: 4rem;
 }
 
-.btn {
+.button {
+	width: 100%;
 	justify-content: center;
+}
+
+.error {
+	@include text-p2;
+	color: $error-500;
 }
