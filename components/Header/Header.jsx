@@ -23,9 +23,9 @@ const nonAuthLinks = [
 ];
 
 const authLinks = [
-  { title: "Dashboard", href: "/" },
-  { title: "Suggestions", href: "/" },
-  { title: "Add", href: "/" },
+  { title: "Dashboard", href: "/dashboard" },
+  { title: "Suggestions", href: "/suggestions" },
+  { title: "Add", href: "/add" },
   { title: "Logout", href: "", icon: "logout", iconPos: "left" },
 ];
 

@@ -1,19 +1,6 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { api } from "@store/api/api";
 
-export const authApi = createApi({
-  reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API,
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.token || localStorage.getItem("loginToken");
-
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
-
-      return headers;
-    },
-  }),
+export const authApi = api.injectEndpoints({
   endpoints: (build) => ({
     login: build.mutation({
       query: (credentials) => ({
@@ -26,17 +13,11 @@ export const authApi = createApi({
       query: () => ({
         url: "/auth/logout",
         method: "delete",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
-        },
       }),
     }),
     dashboard: build.query({
       query: () => ({
         url: "/auth/me",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
-        },
       }),
     }),
   }),

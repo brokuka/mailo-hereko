@@ -7,7 +7,8 @@
 	gap: 2.4rem;
 	max-width: 588px;
 	width: 100%;
-	padding-top: 8rem;
+	// padding-top: 8rem;
+	@include adaptiveValue(padding-top, 8, 2);
 	word-break: break-all;
 
 	&:not(&.main) {
@@ -67,6 +68,14 @@
 
 .h2 {
 	@include text-h2;
+
+	@include media(tablet) {
+		@include text-h3;
+	}
+
+	@include media(mobile) {
+		@include text-h4;
+	}
 }
 
 .h3 {

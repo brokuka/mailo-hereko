@@ -1,29 +1,23 @@
 import React from "react";
-import Container from "../Container/Container";
-import Header from "../../components/Header/Header";
-import { useDashboardQuery, useLazyDashboardQuery } from "@store/auth/auth.api";
-import { useDispatch, useSelector } from "react-redux";
+import { useLocalStorage } from "react-use";
+import { useDispatch } from "react-redux";
+import { useDashboardQuery } from "@store/auth/auth.api";
 import { addDashboardData } from "@store/dashboard/dashboardSlice";
-import { selectCurrentAuthStatus, setAuthStatus } from "@store/auth/authSlice";
+import { setAuthStatus } from "@store/auth/authSlice";
+import Container from "@layout/Container/Container";
+import Header from "@component/Header/Header";
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
-  //   const { data } = useDashboardQuery();
-  const [trigger, { data }] = useLazyDashboardQuery();
-
-  const checkToken = React.useCallback(() => {
-    if (!localStorage.getItem("loginToken")) return;
-
-    return trigger();
-  }, [trigger]);
+  const [token] = useLocalStorage("loginToken");
+  const { data } = useDashboardQuery(undefined, { skip: Boolean(token) });
 
   React.useEffect(() => {
-    checkToken();
     if (data) {
       dispatch(addDashboardData(data.results));
       dispatch(setAuthStatus(true));
     }
-  }, [dispatch, data, checkToken]);
+  }, [dispatch, data]);
 
   return (
     <div className="page">

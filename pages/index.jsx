@@ -1,27 +1,57 @@
 import React from "react";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { addData } from "@store/watched/watchedSlice";
+import { useSelector } from "react-redux";
+import useRouterChanged from "@hooks/useRouterChanged";
+import { filterType, filterValue } from "@store/filter/filter.selector";
+import { useGetWatchedQuery } from "@store/watched/watched.api";
+
 import Title from "@component/Title/Title";
 import Catalog from "@component/Catalog/Catalog";
-import useRouterChanged from "@hooks/useRouterChanged";
-import { filterType } from "@store/filter/filter.selector";
-import { setFilterType } from "@store/filter/filterSlice";
+import Pagination from "@component/Pagination/Pagination";
+import Filter from "@component/Filter/Filter";
 
-export default function Home({ data }) {
-  const dispatch = useDispatch();
+const Home = () => {
   const type = useSelector(filterType);
+  const value = useSelector(filterValue);
+
+  const [page, setPage] = React.useState(process.env.NEXT_PUBLIC_START_PAGE);
+  const { data, isLoading, isFetching } = useGetWatchedQuery(
+    {
+      s: value,
+      limit: process.env.NEXT_PUBLIC_ITEMS_LIMIT,
+      media_type: type === "all" ? undefined : type,
+      page,
+    },
+    { refetchOnMountOrArgChange: true }
+  );
 
   useRouterChanged({ removeValue: true });
 
   React.useEffect(() => {
-    if (type !== "all") {
-      dispatch(setFilterType("all"));
-    }
+    setPage(process.env.NEXT_PUBLIC_START_PAGE);
+  }, [type]);
 
-    dispatch(addData(data));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, dispatch]);
+  const render = () => {
+    return (
+      <>
+        <Filter />
+        <Catalog
+          data={data && data}
+          isLoading={isLoading}
+          isFetching={isFetching}
+          showCount
+        />
+        {data && data.totalItems > data.limit && (
+          <Pagination
+            totalPages={data.totalPages}
+            onChange={onClick}
+            currentPage={data.page}
+          />
+        )}
+      </>
+    );
+  };
+
+  const onClick = (index) => setPage(index);
 
   return (
     <>
@@ -33,19 +63,9 @@ export default function Home({ data }) {
       >
         List of movies and TV shows 😉
       </Title>
-      <Catalog isWatched filter />
+      {render()}
     </>
   );
-}
-
-export const getServerSideProps = async () => {
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API}/watched?limit=10`
-  );
-
-  return {
-    props: {
-      data: data.results,
-    },
-  };
 };
+
+export default Home;

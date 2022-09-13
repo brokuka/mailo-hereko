@@ -1,0 +1,77 @@
+@use '../../styles/mixins.scss' as *;
+@use '../../styles/vars.scss' as *;
+
+.root+div {
+	margin-top: 2rem;
+}
+
+div+.root {
+	margin-top: 2rem;
+}
+
+.grid {
+	display: flex;
+	gap: .6rem;
+	justify-content: center;
+}
+
+.button {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 0;
+
+	border-radius: $border-radius;
+	background: none;
+	border: none;
+
+	cursor: pointer;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+}
+
+.link,
+.break {
+	@include text-caption;
+	display: flex;
+	justify-content: center;
+	min-width: 32px;
+	height: 32px;
+	padding: .2em;
+	align-items: center;
+	user-select: none;
+	color: $white-100;
+}
+
+.link {
+	border-radius: 50%;
+	border: 1px solid $primary-400;
+	transition: all .2s linear
+}
+
+.active {
+	background-color: $primary-400;
+	color: $white-100;
+}
+
+.prev,
+.next {
+	@include text-p1;
+	width: 32px;
+	height: 32px;
+	text-align: center;
+	color: $grey-50;
+	cursor: pointer;
+	user-select: none;
+
+	&:hover:not(.disabled),
+	&:focus-visible:not(.disabled) {
+		color: $primary-400;
+	}
+}
+
+.disabled {
+	color: $grey-400;
+	cursor: auto;
+}

@@ -1,56 +1,74 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectFilterdData } from "@store/filter/filter.selector";
-import { watchedData } from "@store/watched/watchedSlice";
+import {
+  filterType,
+  selectFilteredTypeLabels,
+} from "@store/filter/filter.selector";
 import Card from "@component/Card/Card";
-import Filter from "@component/Filter/Filter";
 import Error from "@component/Error/Error";
 
 /* Style */
 import styles from "./Catalog.module.scss";
+import Placeholder from "@component/Placeholder/Placeholder";
 
-const Catalog = ({ data: dynamicData, isWatched, filter, search }) => {
-  const filtered = useSelector(selectFilterdData);
-  const data = useSelector(watchedData);
+const Catalog = ({
+  data,
+  isSuggesting,
+  isWatched,
+  showCount,
+  isLoading,
+  isFetching,
+}) => {
+  const filter = useSelector(filterType);
+  const labels = useSelector(selectFilteredTypeLabels);
 
   const renderCards = () => {
-    if (!search && !dynamicData) {
-      return (
-        data &&
-        filtered.map(({ id, ...props }) => (
-          <Card isWatched={isWatched} key={id} id={id} {...props} />
-        ))
-      );
+    if (data) {
+      return data.results.map(({ id, ...props }) => (
+        <Card
+          isSuggesting={isSuggesting}
+          isWatched={isWatched}
+          key={id}
+          id={id}
+          {...props}
+        />
+      ));
     }
 
-    if (search) {
-      return (
-        dynamicData &&
-        dynamicData.map(({ id, ...props }) => (
-          <Card
-            isSuggesting
-            isWatched={isWatched}
-            key={id}
-            id={id}
-            {...props}
-          />
-        ))
-      );
-    }
-
-    return Array.from(Array(12), (_, i) => <Card key={i} />);
+    return Array.from(Array(8), (_, i) => <Card key={i} />);
   };
 
   return (
     <>
-      {filter && <Filter />}
-      {(dynamicData && dynamicData.length) || (data && filtered.length) ? (
-        <div className={styles.root}>{renderCards()}</div>
+      {data && data.results.length ? (
+        <div className={styles.root}>
+          {showCount && (
+            <div className={styles.filter}>
+              <h3 className={styles.type} data-count={data.totalItems}>
+                {labels.map(
+                  (label, index) =>
+                    label.toLowerCase().includes(filter) && label
+                )}
+              </h3>
+            </div>
+          )}
+
+          <div className={styles.grid}>{renderCards()}</div>
+        </div>
       ) : (
-        <Error type="search" />
+        <>
+          {isFetching || isLoading ? (
+            <>
+              {showCount && <Placeholder type="filterType" />}
+              <div className={styles.grid}>{renderCards()}</div>
+            </>
+          ) : (
+            <Error type="search" />
+          )}
+        </>
       )}
     </>
   );
 };
 
-export default React.memo(Catalog);
+export default Catalog;

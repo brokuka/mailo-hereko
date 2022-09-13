@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import axios from "axios";
 import React from "react";
 import cn from "classnames";
+import { usePostSuggestMutation } from "@store/search/search.api";
 import Button from "@component/Button/Button";
 import Rating from "@component/Rating/Rating";
 import Placeholder from "@component/Placeholder/Placeholder";
@@ -10,95 +10,57 @@ import Placeholder from "@component/Placeholder/Placeholder";
 /* Style */
 import styles from "./Card.module.scss";
 
-const Card = (
-  { isSuggesting, isWatched, id, rating, poster, title, media_type, className },
-  ref
-) => {
-  const [suggest, setSuggested] = React.useState(false);
-  const [watched, setWatched] = React.useState(false);
+const Card = ({
+  isSuggesting = false,
+  isWatched = false,
+  id,
+  rating,
+  poster,
+  title,
+  is_watched,
+  media_type,
+  isLoading,
+  isFetching,
+}) => {
   const [loading, setLoading] = React.useState(false);
-  const [loadedData, setLoadedData] = React.useState(false);
   const [error, setError] = React.useState({
     status: null,
     message: null,
   });
-  const imgSpanRef = React.useRef(null);
-
+  const [state, setState] = React.useState(false);
+  const [suggestTrigger] = usePostSuggestMutation();
   const isFetched = media_type ? true : false;
 
-  React.useEffect(() => {
-    if (isFetched) {
-      setLoadedData(true);
+  const handleError = (error) => {
+    if (error.status >= 500) {
+      return setError({
+        status: 500,
+        message: "Server is not available yet",
+      });
     }
-  }, [isFetched]);
 
-  const onClick = (status) => {
-    switch (status) {
+    return setError({
+      status: error.status,
+      message: "Already on watched list",
+    });
+  };
+
+  const req = async (type) => {
+    switch (type) {
       case "auth":
-        setLoading(true);
-        asyncDataModeling(5000, [setLoading, setWatched]);
+        await suggestTrigger({ id, media_type, url: "watched" })
+          .unwrap()
+          .catch((error) => handleError(error))
+          .finally(() => setLoading(false));
         break;
-      case "nonauth":
-        if (suggest) return;
-        setLoading(true);
-        asyncDataModeling(5000, [setLoading, setSuggested, setWatched]);
-        axios
-          .post(`${process.env.NEXT_PUBLIC_API}/suggest`, {
-            id,
-            media_type,
-          })
-          .catch(({ response }) => {
-            if (response.status >= 500) {
-              return setError({
-                status: 500,
-                message: "Server is not available yet",
-              });
-            }
 
-            setError({
-              status: response.status,
-              message: "Already suggested",
-            });
-          });
+      case "nonAuth":
+        await suggestTrigger({ id, media_type })
+          .unwrap()
+          .catch((error) => handleError(error))
+          .finally(() => setLoading(false));
         break;
     }
-  };
-
-  const asyncDataModeling = (ms, [...callBack]) => {
-    setTimeout(() => {
-      callBack.forEach((cb) => cb((currentState) => !currentState));
-    }, ms);
-  };
-
-  const renderButtons = (
-    state,
-    spinner = true,
-    spinnerColor,
-    type = "card",
-    icon,
-    status,
-    classTerms,
-    placeholders
-  ) => {
-    return (
-      isFetched && (
-        <Button
-          className={cn(classTerms)}
-          onClick={() => onClick(status)}
-          icon={error.status ? icon[3] : state ? icon[1] : icon[0]}
-          asyncData={loading}
-          spinner={spinner}
-          spinnerVariant={spinnerColor}
-          style={type}
-        >
-          {error.status
-            ? error.message
-            : state
-            ? placeholders[0]
-            : placeholders[1]}
-        </Button>
-      )
-    );
   };
 
   const checkMediaType = () => {
@@ -113,10 +75,14 @@ const Card = (
   };
 
   const checkFetching = () => {
-    return isFetched && loadedData ? (
+    return isFetched && (!isFetching || isLoading) ? (
       <Link href={checkMediaType()}>
-        <a className={styles.link}>
-          <div className={styles.head} ref={imgSpanRef}>
+        <a
+          className={cn(styles.link, {
+            [styles.full]: !isWatched && !isSuggesting,
+          })}
+        >
+          <div className={styles.head}>
             <Rating position x={8} y={10} index={100} value={rating} />
 
             <div className={styles.image}>
@@ -133,9 +99,13 @@ const Card = (
                 <Placeholder type="posterCard" />
               )}
             </div>
-            {isFetched && (
-              <span className={styles.name}>{title ? title : "Untitled"}</span>
-            )}
+            <span className={styles.name}>
+              {title
+                ? title.length >= 45
+                  ? `${title.substring(0, 45)}...`
+                  : title
+                : "Untitled"}
+            </span>
           </div>
         </a>
       </Link>
@@ -144,44 +114,99 @@ const Card = (
     );
   };
 
+  const renderButtons = ({
+    spinner = true,
+    spinnerColor = "white",
+    icon,
+    status,
+    classTerms,
+    placeholders,
+  }) => {
+    if (!isWatched && !isSuggesting) return;
+    const getIcon = () => {
+      if (error.status) return icon[3];
+      if (state) return icon[1];
+      if (is_watched) return icon[2];
+
+      return icon[0];
+    };
+
+    const getPlaceholder = () => {
+      if (error.message) return error.message;
+      if (state) return placeholders[1];
+      if (is_watched) return placeholders[2];
+
+      return placeholders[0];
+    };
+
+    return (
+      <div className={styles.body}>
+        <Button
+          className={cn(classTerms)}
+          onClick={() => onClick(status)}
+          icon={getIcon()}
+          asyncData={loading}
+          spinner={spinner}
+          spinnerVariant={spinnerColor}
+          style="card"
+        >
+          {getPlaceholder()}
+        </Button>
+      </div>
+    );
+  };
+
+  const onClick = (status) => {
+    switch (status) {
+      case "auth": {
+        setLoading(true);
+        setState(true);
+        return req("auth");
+      }
+
+      case "nonAuth": {
+        setLoading(true);
+        setState(true);
+        return req("nonAuth");
+      }
+    }
+  };
+
   return (
-    <div className={cn(styles.root, className)} ref={ref}>
+    <div
+      className={cn(styles.root, {
+        [styles.max]: isWatched || isSuggesting,
+      })}
+    >
       {checkFetching()}
 
-      {isFetched && !isWatched && (
-        <div className={styles.body}>
-          {isSuggesting
-            ? renderButtons(
-                suggest,
-                undefined,
-                "white",
-                undefined,
-                ["like", "checked", "watched", "close"],
-                "nonauth",
-                {
-                  [styles.suggest]: !suggest,
-                  [styles.suggested]: !error.status && suggest,
-                  [styles.error]: suggest && error.status,
-                },
-                ["Suggested", "Suggest this"]
-              )
-            : renderButtons(
-                watched,
-                undefined,
-                undefined,
-                undefined,
-                ["watched", "plus"],
-                "auth",
-                {
-                  [styles.suggest]: suggest,
-                  [styles.watched]: !suggest,
-                },
-                ["Already watched", "Add to my list"]
-              )}
-        </div>
-      )}
+      {isSuggesting && !is_watched
+        ? renderButtons({
+            icon: ["like", "checked", "watched", "close"],
+            classTerms: {
+              [styles.suggest]: isSuggesting && !state,
+              [styles.suggested]: !error.status && state,
+              [styles.error]: state && error.status,
+            },
+            placeholders: ["Suggest this", "Suggested"],
+            status: "nonAuth",
+          })
+        : renderButtons({
+            icon: ["plus", "checked", "watched", "close"],
+            classTerms: {
+              [styles.suggest]: !state && !is_watched && isWatched,
+              [styles.watched]: !error.status && (state || is_watched),
+              [styles.error]: state && error.status,
+            },
+            placeholders: [
+              "Add to my list",
+              "Added to list",
+              "Already watched",
+            ],
+            status: "auth",
+          })}
     </div>
   );
 };
 
-export default React.forwardRef(Card);
+export default Card;

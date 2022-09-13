@@ -46,8 +46,8 @@
 	line-height: 32px;
 }
 
-@mixin text-p2 {
-	font-weight: 400;
+@mixin text-p2($weight: 400) {
+	font-weight: $weight;
 	font-size: 16px;
 	line-height: 24px;
 }

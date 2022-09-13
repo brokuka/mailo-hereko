@@ -67,3 +67,19 @@
 .icon_right {
 	order: 3;
 }
+
+.pagination {
+	@include text-caption;
+	justify-content: center;
+	min-width: 32px;
+	height: 32px;
+	padding: .2em;
+
+	border-radius: 50%;
+	border: 1px solid $primary-400;
+	color: $white-100;
+}
+
+.card {
+	background: none;
+}

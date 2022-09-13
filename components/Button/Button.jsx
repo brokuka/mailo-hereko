@@ -45,10 +45,16 @@ const Button = (
         </>
       ) : (
         <button
-          className={cn(styles.root, className, {
-            [styles.default]: style === "default",
-            [styles.password]: style === "password",
-          })}
+          className={cn(
+            styles.root,
+            {
+              [styles.default]: style === "default",
+              [styles.password]: style === "password",
+              [styles.pagination]: style === "pagination",
+              [styles.card]: style === "card",
+            },
+            className
+          )}
           ref={ref}
           type={type}
           {...props}

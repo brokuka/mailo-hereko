@@ -1,28 +1,51 @@
 import React from "react";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { addData } from "@store/watched/watchedSlice";
+import { useSelector } from "react-redux";
+import useRouterChanged from "@hooks/useRouterChanged";
+import { useRedirect } from "@hooks/useRedirect";
+import { useGetWatchedQuery } from "@store/watched/watched.api";
+import { filterValue } from "@store/filter/filter.selector";
 import Catalog from "@component/Catalog/Catalog";
 import Title from "@component/Title/Title";
-import useRouterChanged from "@hooks/useRouterChanged";
-import { setFilterType, setFilterValue } from "@store/filter/filterSlice";
+import Pagination from "@component/Pagination/Pagination";
 
-const Index = ({ data, media_type }) => {
-  const dispatch = useDispatch();
+const Index = ({ media_type }) => {
+  const value = useSelector(filterValue);
+  const [page, setPage] = React.useState(process.env.NEXT_PUBLIC_START_PAGE);
   const checkMediaType = media_type === "movies" ? media_type : "TV Shows";
+  const { data, isLoading, isFetching } = useGetWatchedQuery({
+    page,
+    media_type: media_type.slice(0, -1),
+    s: value,
+  });
 
+  useRedirect({ type: "nonAuth" });
   useRouterChanged({ removeValue: true });
 
-  React.useEffect(() => {
-    dispatch(addData(data));
-    dispatch(setFilterType(media_type.slice(0, -1)));
-    // dispatch(setFilterValue(""));
-  }, [data, dispatch, media_type]);
+  const render = () => {
+    return (
+      <>
+        <Catalog
+          data={data && data}
+          isLoading={isLoading}
+          isFetching={isFetching}
+        />
+        {data && data.totalItems > data.limit && (
+          <Pagination
+            totalPages={data.totalPages}
+            onChange={onClick}
+            currentPage={data.page}
+          />
+        )}
+      </>
+    );
+  };
+
+  const onClick = (index) => setPage(index);
 
   return (
     <>
       <Title name={checkMediaType} input sub withState={false} />
-      <Catalog isWatched />
+      {render()}
     </>
   );
 };
@@ -30,26 +53,13 @@ const Index = ({ data, media_type }) => {
 export default Index;
 
 export const getServerSideProps = async ({ params }) => {
-  try {
-    const lastLetter = params.media_type.slice(-1);
-
-    const { data } =
-      lastLetter === "s" &&
-      (await axios.get(
-        `${
-          process.env.NEXT_PUBLIC_API
-        }/watched/?media_type=${params.media_type.slice(0, -1)}`
-      ));
-
-    console.log(params);
-
+  if (params.media_type === "movies" || params.media_type === "tvs") {
     return {
       props: {
-        data: data.results,
         media_type: params.media_type,
       },
     };
-  } catch (error) {
-    return { notFound: true };
   }
+
+  return { notFound: true };
 };

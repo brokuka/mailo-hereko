@@ -2,12 +2,12 @@ import { useSelector } from "react-redux";
 import { useMedia } from "react-use";
 import Link from "next/link";
 import React from "react";
+import { useRouter } from "next/router";
 import { filterType } from "@store/filter/filter.selector";
 import { selectFilteredTypeLabels } from "@store/filter/filter.selector";
 import Button from "@component/Button/Button";
 import Title from "@component/Title/Title";
 import Icon from "@component/Icon/Icon";
-import { useRouter } from "next/router";
 
 /* Style */
 import styles from "./Error.module.scss";
