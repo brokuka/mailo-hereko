@@ -17,9 +17,8 @@ const Card = ({
   rating,
   poster,
   title,
+  is_watched,
   media_type,
-  onChange,
-  className,
   isLoading,
   isFetching,
 }) => {
@@ -30,6 +29,7 @@ const Card = ({
   });
   const [state, setState] = React.useState(false);
   const [suggestTrigger] = usePostSuggestMutation();
+  const isFetched = media_type ? true : false;
 
   const handleError = (error) => {
     if (error.status >= 500) {
@@ -61,19 +61,6 @@ const Card = ({
           .finally(() => setLoading(false));
         break;
     }
-
-    /*     try {
-      switch (type) {
-        case "auth":
-          return onChange({ id, media_type, url: "watched" });
-        case "nonAuth":
-          return onChange({ id, media_type, url: "watched" });
-      }
-    } catch (error) {
-      handleError(error);
-    } finally {
-      setLoading(false);
-    } */
   };
 
   const checkMediaType = () => {
@@ -88,7 +75,7 @@ const Card = ({
   };
 
   const checkFetching = () => {
-    return !isFetching || !isLoading ? (
+    return isFetched && (!isFetching || isLoading) ? (
       <Link href={checkMediaType()}>
         <a
           className={cn(styles.link, {
@@ -136,23 +123,34 @@ const Card = ({
     placeholders,
   }) => {
     if (!isWatched && !isSuggesting) return;
+    const getIcon = () => {
+      if (error.status) return icon[3];
+      if (state) return icon[1];
+      if (is_watched) return icon[2];
+
+      return icon[0];
+    };
+
+    const getPlaceholder = () => {
+      if (error.message) return error.message;
+      if (state) return placeholders[1];
+      if (is_watched) return placeholders[2];
+
+      return placeholders[0];
+    };
 
     return (
       <div className={styles.body}>
         <Button
           className={cn(classTerms)}
           onClick={() => onClick(status)}
-          icon={error.status ? icon[3] : state ? icon[1] : icon[0]}
+          icon={getIcon()}
           asyncData={loading}
           spinner={spinner}
           spinnerVariant={spinnerColor}
           style="card"
         >
-          {error.status
-            ? error.message
-            : state
-            ? placeholders[1]
-            : placeholders[0]}
+          {getPlaceholder()}
         </Button>
       </div>
     );
@@ -182,7 +180,7 @@ const Card = ({
     >
       {checkFetching()}
 
-      {isSuggesting
+      {isSuggesting && !is_watched
         ? renderButtons({
             icon: ["like", "checked", "watched", "close"],
             classTerms: {
@@ -194,13 +192,17 @@ const Card = ({
             status: "nonAuth",
           })
         : renderButtons({
-            icon: ["plus", "checked", "", "close"],
+            icon: ["plus", "checked", "watched", "close"],
             classTerms: {
-              [styles.suggest]: isWatched && !state,
-              [styles.watched]: !error.status && state,
+              [styles.suggest]: !state && !is_watched && isWatched,
+              [styles.watched]: !error.status && (state || is_watched),
               [styles.error]: state && error.status,
             },
-            placeholders: ["Add to my list", "Added to list"],
+            placeholders: [
+              "Add to my list",
+              "Added to list",
+              "Already watched",
+            ],
             status: "auth",
           })}
     </div>

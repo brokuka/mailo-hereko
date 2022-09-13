@@ -6,10 +6,10 @@ import {
 } from "@store/filter/filter.selector";
 import Card from "@component/Card/Card";
 import Error from "@component/Error/Error";
-// import { usePostSuggestMutation } from "@store/search/search.api";
 
 /* Style */
 import styles from "./Catalog.module.scss";
+import Placeholder from "@component/Placeholder/Placeholder";
 
 const Catalog = ({
   data,
@@ -21,12 +21,6 @@ const Catalog = ({
 }) => {
   const filter = useSelector(filterType);
   const labels = useSelector(selectFilteredTypeLabels);
-  /*   const [suggestTriggerNonAuth] = usePostSuggestMutation();
-
-  const onClick = async (type) => {
-    console.log(type);
-    await suggestTriggerNonAuth(type);
-  }; */
 
   const renderCards = () => {
     if (data) {
@@ -36,7 +30,6 @@ const Catalog = ({
           isWatched={isWatched}
           key={id}
           id={id}
-          //   onChange={onClick}
           {...props}
         />
       ));
@@ -65,7 +58,10 @@ const Catalog = ({
       ) : (
         <>
           {isFetching || isLoading ? (
-            <div className={styles.grid}>{renderCards()}</div>
+            <>
+              {showCount && <Placeholder type="filterType" />}
+              <div className={styles.grid}>{renderCards()}</div>
+            </>
           ) : (
             <Error type="search" />
           )}

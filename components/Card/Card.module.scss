@@ -79,6 +79,7 @@
 
 .watched {
 	color: $success-400;
+	pointer-events: none;
 }
 
 .watched svg {
