@@ -16,12 +16,14 @@ const Index = () => {
   );
   useRedirect({ type: "auth" });
 
+  console.log(data);
+
   const render = () => {
     return (
       <>
         <Catalog
           data={data && data}
-          isSuggesting={false}
+          isWatched={true}
           isLoading={isLoading}
           isFetching={isFetching}
         />

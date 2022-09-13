@@ -36,8 +36,6 @@ const Home = () => {
         <Filter />
         <Catalog
           data={data && data}
-          isSuggesting={false}
-          isWatched
           isLoading={isLoading}
           isFetching={isFetching}
           showCount

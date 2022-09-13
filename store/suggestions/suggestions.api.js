@@ -1,9 +1,6 @@
-import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQuery } from "@store/auth/auth.api";
+import { api } from "@store/api/api";
 
-export const suggestionsApi = createApi({
-  reducerPath: "suggestionsApi",
-  baseQuery,
+export const suggestionsApi = api.injectEndpoints({
   endpoints: (build) => ({
     getPageResults: build.query({
       query: ({ limit, page } = "") => ({
@@ -13,6 +10,7 @@ export const suggestionsApi = createApi({
           page: page ? page : process.env.NEXT_PUBLIC_START_PAGE,
         },
       }),
+      providesTags: ["Suggestions"],
     }),
   }),
 });

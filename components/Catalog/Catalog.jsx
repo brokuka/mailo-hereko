@@ -6,6 +6,7 @@ import {
 } from "@store/filter/filter.selector";
 import Card from "@component/Card/Card";
 import Error from "@component/Error/Error";
+// import { usePostSuggestMutation } from "@store/search/search.api";
 
 /* Style */
 import styles from "./Catalog.module.scss";
@@ -15,28 +16,19 @@ const Catalog = ({
   isSuggesting,
   isWatched,
   showCount,
-  filtered,
   isLoading,
   isFetching,
 }) => {
   const filter = useSelector(filterType);
   const labels = useSelector(selectFilteredTypeLabels);
+  /*   const [suggestTriggerNonAuth] = usePostSuggestMutation();
+
+  const onClick = async (type) => {
+    console.log(type);
+    await suggestTriggerNonAuth(type);
+  }; */
 
   const renderCards = () => {
-    if (filtered) {
-      return filtered.map(({ id, ...props }) => (
-        <Card
-          isSuggesting={isSuggesting}
-          isWatched={isWatched}
-          key={id}
-          isLoading={isLoading}
-          isFetching={isFetching}
-          id={id}
-          {...props}
-        />
-      ));
-    }
-
     if (data) {
       return data.results.map(({ id, ...props }) => (
         <Card
@@ -44,21 +36,18 @@ const Catalog = ({
           isWatched={isWatched}
           key={id}
           id={id}
+          //   onChange={onClick}
           {...props}
         />
       ));
     }
 
-    return (
-      isLoading &&
-      isFetching &&
-      Array.from(Array(8), (_, i) => <Card key={i} />)
-    );
+    return Array.from(Array(8), (_, i) => <Card key={i} />);
   };
 
   return (
     <>
-      {(filtered && filtered.length) || (data && data.results.length) ? (
+      {data && data.results.length ? (
         <div className={styles.root}>
           {showCount && (
             <div className={styles.filter}>

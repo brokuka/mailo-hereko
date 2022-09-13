@@ -1,21 +1,6 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { api } from "@store/api/api";
 
-export const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.NEXT_PUBLIC_API,
-  prepareHeaders: (headers) => {
-    const token = localStorage.getItem("loginToken");
-
-    if (token) {
-      headers.set("Authorization", `Bearer ${token}`);
-    }
-
-    return headers;
-  },
-});
-
-export const authApi = createApi({
-  reducerPath: "authApi",
-  baseQuery,
+export const authApi = api.injectEndpoints({
   endpoints: (build) => ({
     login: build.mutation({
       query: (credentials) => ({

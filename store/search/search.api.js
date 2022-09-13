@@ -1,12 +1,8 @@
-import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQuery } from "@store/auth/auth.api";
+import { api } from "@store/api/api";
 
-export const searchApi = createApi({
-  reducerPath: "searchApi",
-  baseQuery,
-  tagTypes: ["Filter"],
+export const searchApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getResultsByFilter: build.query({
+    getSuggests: build.query({
       query: ({ s, limit, page } = "") => ({
         url: "search",
         params: {
@@ -15,29 +11,17 @@ export const searchApi = createApi({
           page: page ? page : process.env.NEXT_PUBLIC_START_PAGE,
         },
       }),
-      providesTags: ["Filter"],
+      providesTags: ["Search"],
     }),
     postSuggest: build.mutation({
-      query: ({ id, media_type } = "") => ({
-        url: "suggest",
-        method: "post",
+      query: ({ id, media_type, url } = "") => ({
+        url,
+        method: "POST",
         body: { id, media_type },
       }),
-      invalidatesTags: ["Filter"],
-    }),
-    postWatched: build.mutation({
-      query: ({ id, media_type } = "") => ({
-        url: "watched",
-        method: "post",
-        body: { id, media_type },
-      }),
-      invalidatesTags: ["Filter"],
+      invalidatesTags: ["Search"],
     }),
   }),
 });
 
-export const {
-  useGetResultsByFilterQuery,
-  usePostSuggestMutation,
-  //   usePostWatchedMutation,
-} = searchApi;
+export const { useGetSuggestsQuery, usePostSuggestMutation } = searchApi;

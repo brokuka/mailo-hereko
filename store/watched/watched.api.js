@@ -1,9 +1,6 @@
-import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQuery } from "@store/auth/auth.api";
+import { api } from "@store/api/api";
 
-export const watchedApi = createApi({
-  reducerPath: "watchedApi",
-  baseQuery,
+export const watchedApi = api.injectEndpoints({
   endpoints: (build) => ({
     getWatched: build.query({
       query: ({ s, limit, media_type, page } = "") => ({
@@ -16,7 +13,15 @@ export const watchedApi = createApi({
         },
       }),
     }),
+    postWatched: build.mutation({
+      query: ({ id, media_type } = "") => ({
+        url: "watched",
+        method: "POST",
+        body: { id, media_type },
+      }),
+      invalidatesTags: ["Search", "Suggestions"],
+    }),
   }),
 });
 
-export const { useGetWatchedQuery } = watchedApi;
+export const { useGetWatchedQuery, usePostWatchedMutation } = watchedApi;
