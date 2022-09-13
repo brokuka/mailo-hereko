@@ -42,7 +42,6 @@ const Index = () => {
       setToken("");
     } catch (error) {
       if (error.status === 400) {
-        // return console.log("Invalid email or password");
         return setError("Invalid email or password");
       }
       return error;

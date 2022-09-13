@@ -4,8 +4,6 @@ import Head from "next/head";
 import Overview from "@component/Overview/Overview";
 
 const Index = ({ data }) => {
-  console.log(data);
-
   return (
     <>
       <Head>

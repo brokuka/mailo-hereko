@@ -16,8 +16,6 @@ const Index = () => {
   );
   useRedirect({ type: "auth" });
 
-  console.log(data);
-
   const render = () => {
     return (
       <>

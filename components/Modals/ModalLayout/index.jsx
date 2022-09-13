@@ -24,7 +24,6 @@ const Index = (
 
   const onEscape = (e) => {
     if (e.key !== "Escape") return;
-    console.log(e.key);
 
     onClose();
   };

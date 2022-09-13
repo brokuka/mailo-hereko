@@ -22,8 +22,6 @@ const Index = () => {
   useRedirect({ type: "auth" });
   useRouterChanged({ removeValue: true });
 
-  console.log(data);
-
   const render = () => {
     return (
       <>

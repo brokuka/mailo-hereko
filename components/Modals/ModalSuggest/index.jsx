@@ -17,8 +17,9 @@ const Index = ({ state, setState, nodeRef }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(title, link);
+
     setLoading(true);
+
     await trigger({ title, link })
       .unwrap()
       .then(() => setModal(true))
