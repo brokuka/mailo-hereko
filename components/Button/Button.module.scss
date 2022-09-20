@@ -84,6 +84,17 @@
 	background: none;
 	flex-wrap: wrap;
 
+
+
+	@include media(lMobile) {
+		justify-content: center;
+	}
+
+	@include media(mMobile) {
+		justify-content: flex-start;
+	}
+
+
 	/* 	@include media(mobile) {
 		justify-content: center;
 	} */
