@@ -173,11 +173,7 @@ const Card = ({
   };
 
   return (
-    <div
-      className={cn(styles.root, {
-        [styles.max]: isWatched || isSuggesting,
-      })}
-    >
+    <div className={styles.root}>
       {checkFetching()}
 
       {isSuggesting && !is_watched

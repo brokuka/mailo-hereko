@@ -2,19 +2,26 @@
 
 $breakpoints: (
 	'xsMobile': 320,
+	'mMobile': 375,
 	'mobile': 576,
 	'tablet': 768,
 	'smDesktop': 991.98,
 	'desktop': $container - 0.02
 );
 
-@mixin media($breakpoint, $type: 0) {
+@mixin media($breakpoint, $type: 0, $min: null) {
 
 	@if map-has-key($breakpoints, $breakpoint) {
 		$breakpoint-value: map-get($breakpoints, $breakpoint);
 
 		@if $type ==0 {
 			@media (max-width: #{$breakpoint-value}px) {
+				@content;
+			}
+		}
+
+		@else if $type ==3 {
+			@media (min-width: #{$min}px) and (max-width: #{$breakpoint-value}px) {
 				@content;
 			}
 		}

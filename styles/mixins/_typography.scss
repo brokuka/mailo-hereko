@@ -82,10 +82,17 @@
 	line-height: 16px;
 }
 
-@mixin text-link1 {
+@mixin text-link1($adaptive: 0) {
 	font-weight: 600;
-	font-size: 16px;
 	line-height: 24px;
+
+	@if $adaptive==1 {
+		@include adaptiveValue(font-size, 1.6, 1.2)
+	}
+
+	@else {
+		font-size: 16px;
+	}
 }
 
 @mixin text-link2 {

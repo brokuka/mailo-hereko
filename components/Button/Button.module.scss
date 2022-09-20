@@ -82,6 +82,11 @@
 
 .card {
 	background: none;
+	flex-wrap: wrap;
+
+	/* 	@include media(mobile) {
+		justify-content: center;
+	} */
 }
 
 .modal {
