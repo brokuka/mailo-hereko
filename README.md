@@ -6,7 +6,7 @@
 
 #### Desing: [@destro014](https://github.com/destro014)
 
-#### Данные для панели:
+# Данные для панели:
 
 ### Email: your.email+fakedata64664@gmail.com
 
